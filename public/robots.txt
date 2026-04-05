@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kamilikhith.vercel.app/sitemap.xml
+Sitemap: https://devlikhith.vercel.app/sitemap.xml
