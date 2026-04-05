@@ -401,7 +401,7 @@ const Projects = () => (
           className="neo-card shadow-neo-lg border-4 bg-neo-yellow p-6 md:p-10">
           <h3 className="text-2xl md:text-4xl font-black mb-6 uppercase drop-shadow-[3px_3px_0_#A855F7]">Technical Output</h3>
           <div className="flex flex-wrap gap-3">
-            {['C / C++', 'Python Data Scripts', 'Java Architecture', 'Frontend Stack (HTML, CSS, JS)', 'Metasploit Arsenal', 'AES Encryption', 'Ethical Hacking', 'AI Prompt Engineering'].map(skill => (
+            {['C / C++', 'Python Data Scripts', 'Java Architecture', 'Frontend Stack (HTML, CSS, JS)', 'Metasploit Arsenal', 'AES Encryption', 'Ethical Hacking', 'AI Prompt Engineering', 'SEO & Web Analytics'].map(skill => (
               <motion.span 
                 key={skill} 
                 whileHover={{ scale: 1.1, y: -2, backgroundColor: "#A855F7" }}
