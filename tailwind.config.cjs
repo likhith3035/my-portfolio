@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   darkMode: 'class',
   content: [
     "./index.html",
@@ -48,13 +48,13 @@ export default {
         },
       },
       animation: {
-        'spin-slow':      'spin-slow 12s linear infinite',
-        'fade-up':        'fade-up 0.7s cubic-bezier(0.16,1,0.3,1) both',
-        'glow':           'glow-pulse 2.2s ease-in-out infinite',
-        float:            'float 6s ease-in-out infinite',
-        marquee:          'marquee 40s linear infinite',
-        'marquee-slow':   'marquee 60s linear infinite',
-        shimmer:          'shimmer 2.4s infinite',
+        'spin-slow':    'spin-slow 12s linear infinite',
+        'fade-up':      'fade-up 0.7s cubic-bezier(0.16,1,0.3,1) both',
+        'glow':         'glow-pulse 2.2s ease-in-out infinite',
+        float:          'float 6s ease-in-out infinite',
+        marquee:        'marquee 40s linear infinite',
+        'marquee-slow': 'marquee 60s linear infinite',
+        shimmer:        'shimmer 2.4s infinite',
       },
       screens: {
         'xs': '400px',
