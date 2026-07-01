@@ -24,7 +24,12 @@ function useTypewriter(items) {
       t = setTimeout(() => setPhase('erasing'), 200);
     } else {
       if (txt.length > 0) t = setTimeout(() => setTxt(d => d.slice(0, -1)), 26);
-      else { setIdx(i => (i + 1) % items.length); setPhase('typing'); }
+      else {
+        t = setTimeout(() => {
+          setIdx(i => (i + 1) % items.length);
+          setPhase('typing');
+        }, 0);
+      }
     }
     return () => clearTimeout(t);
   }, [txt, phase, idx, items]);

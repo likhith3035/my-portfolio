@@ -31,7 +31,7 @@ export default function App() {
   useEffect(() => {
     const root = window.document.documentElement;
     theme === 'dark' ? root.classList.add('dark') : root.classList.remove('dark');
-    try { localStorage.setItem('theme', theme); } catch {}
+    try { localStorage.setItem('theme', theme); } catch (e) { console.warn(e); }
   }, [theme]);
 
   useEffect(() => {

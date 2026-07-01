@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt } from 'react-icons/fa';
 
@@ -44,30 +44,43 @@ const ACHIEVEMENTS = [
   },
 ];
 
-/* Confetti burst */
 function Confetti() {
-  const pieces = Array.from({ length: 10 }, (_, i) => i);
   const colors = ['#E67E22', '#FBD249', '#14B8A6', '#A855F7', '#ffffff'];
+  const [pieces, setPieces] = useState([]);
+
+  useEffect(() => {
+    setPieces(
+      Array.from({ length: 10 }, (_, i) => ({
+        id: i,
+        x: 30 + Math.random() * 40,
+        y: Math.random() * 80,
+        rotate: Math.random() * 360,
+        borderRadius: Math.random() > 0.5 ? '50%' : 2,
+        color: colors[i % colors.length],
+      }))
+    );
+  }, []);
+
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {pieces.map(i => (
+      {pieces.map(p => (
         <motion.div
-          key={i}
+          key={p.id}
           initial={{ opacity: 1, x: '50%', y: '50%', scale: 0 }}
           animate={{
             opacity: 0,
-            x: `${30 + Math.random() * 40}%`,
-            y: `${Math.random() * 80}%`,
+            x: `${p.x}%`,
+            y: `${p.y}%`,
             scale: [0, 1, 0.5],
-            rotate: Math.random() * 360,
+            rotate: p.rotate,
           }}
-          transition={{ duration: 0.8, delay: i * 0.04, ease: 'easeOut' }}
+          transition={{ duration: 0.8, delay: p.id * 0.04, ease: 'easeOut' }}
           style={{
             position: 'absolute',
             width: 6,
             height: 6,
-            borderRadius: Math.random() > 0.5 ? '50%' : 2,
-            background: colors[i % colors.length],
+            borderRadius: p.borderRadius,
+            background: p.color,
           }}
         />
       ))}

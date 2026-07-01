@@ -60,7 +60,7 @@ const CustomCursor = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [isVisible]);
+  }, [isVisible, dotX, dotY, ringX, ringY]);
 
   if (!isVisible) return null;
 

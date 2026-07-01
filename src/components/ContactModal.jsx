@@ -21,7 +21,9 @@ export default function ContactModal({ isOpen, onClose }) {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
       });
-    } catch {}
+    } catch (err) {
+      console.error(err);
+    }
     setLoading(false);
     setSubmitted(true);
     setTimeout(() => { setSubmitted(false); onClose(); }, 2800);

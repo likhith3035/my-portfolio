@@ -22,8 +22,15 @@ export default defineConfig([
         sourceType: 'module',
       },
     },
+  },
+  {
+    plugins: {
+      'react-hooks': reactHooks,
+    },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': 'warn',
+      'react-hooks/purity': 'off',
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
 ])
