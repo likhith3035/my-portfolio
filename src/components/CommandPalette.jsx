@@ -177,7 +177,7 @@ export default function CommandPalette({
         }
       } else if (e.ctrlKey || e.metaKey) {
         // Let system handle system shortcuts
-      } else {
+      } else if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
         // Direct character shortcut triggers
         const key = e.key.toUpperCase();
         const matched = actions.find((act) => act.shortcut === key);
