@@ -1,28 +1,192 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaTimes, FaPaperPlane, FaRobot, FaComment } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, AnimatePresence } from 'framer-motion';
+import { FaSun, FaMoon, FaTimes } from 'react-icons/fa';
+import { HiMenuAlt3 } from 'react-icons/hi';
 
-const Navbar = () => (
-  <motion.nav
-    initial={{ y: -100, opacity: 0, x: "-50%" }}
-    animate={{ y: 0, opacity: 1, x: "-50%" }}
-    transition={{ type: "spring", stiffness: 100, damping: 20 }}
-    className="fixed top-4 left-1/2 w-[90%] max-w-4xl bg-black/90 backdrop-blur-md text-white rounded-full py-4 px-6 md:px-8 flex justify-between items-center shadow-neo z-50">
-    <div className="flex items-center space-x-3">
-      <motion.div
-        whileHover={{ rotate: 180, scale: 1.1, backgroundColor: "#A855F7", color: "#fff" }}
-        transition={{ type: "spring", stiffness: 300, damping: 10 }}
-        className="bg-neo-yellow text-black font-black w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-colors">
-        K
-      </motion.div>
-      <span className="font-bold text-xl tracking-tight block glitch-hover" data-text="Kami Likhith">Kami Likhith</span>
-    </div>
-    <ul className="hidden md:flex space-x-6 font-semibold text-sm">
-      <motion.li whileHover={{ y: -2 }}><a href="#home" className="hover:text-neo-yellow transition-colors">Home</a></motion.li>
-      <motion.li whileHover={{ y: -2 }}><a href="#about" className="hover:text-neo-yellow transition-colors">About</a></motion.li>
-      <motion.li whileHover={{ y: -2 }}><a href="#experience" className="hover:text-neo-yellow transition-colors">Experience</a></motion.li>
-      <motion.li whileHover={{ y: -2 }}><a href="#projects" className="hover:text-neo-yellow transition-colors">Projects</a></motion.li>
-    </ul>
-  </motion.nav>
-);
-export default Navbar;
+const NAV_LINKS = [
+  { href: '#home',       label: 'Home',       emoji: '🏠' },
+  { href: '#about',      label: 'About',      emoji: '👤' },
+  { href: '#experience', label: 'Experience', emoji: '💼' },
+  { href: '#projects',   label: 'Projects',   emoji: '🚀' },
+];
+
+export default function Navbar({ theme, onToggleTheme }) {
+  const { scrollYProgress } = useScroll();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('#home');
+
+  /* Shadow on scroll */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* Active section tracker */
+  useEffect(() => {
+    const ids = NAV_LINKS.map(l => l.href.slice(1));
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => { if (e.isIntersecting) setActiveSection('#' + e.target.id); });
+      },
+      { rootMargin: '-30% 0px -60% 0px' }
+    );
+    ids.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollTo = (e, href) => {
+    e.preventDefault();
+    setMobileOpen(false);
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  return (
+    <>
+      {/* ── Navbar pill ── */}
+      <motion.nav
+        initial={{ y: -60, opacity: 0, x: '-50%' }}
+        animate={{ y: 0, opacity: 1, x: '-50%' }}
+        transition={{ type: 'spring', stiffness: 120, damping: 22, delay: 0.1 }}
+        className={`fixed top-3 sm:top-5 left-1/2 z-50 w-[94%] max-w-3xl rounded-full transition-all duration-300 overflow-hidden
+          ${scrolled
+            ? 'bg-white/90 dark:bg-[#121214]/90 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.4)] border border-zinc-200/70 dark:border-zinc-800/70'
+            : 'bg-white/75 dark:bg-[#121214]/75 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50'
+          }`}
+      >
+        {/* Scroll progress */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#E67E22] origin-left"
+          style={{ scaleX: scrollYProgress }}
+        />
+
+        <div className="flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3">
+          {/* Logo */}
+          <a href="#home" onClick={e => scrollTo(e, '#home')} className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 bg-zinc-900 dark:bg-white rounded-full flex items-center justify-center text-white dark:text-zinc-900 font-black text-sm group-hover:bg-[#E67E22] dark:group-hover:bg-[#E67E22] dark:group-hover:text-white transition-colors duration-200">
+              K
+            </div>
+            <span className="font-extrabold text-sm tracking-tight text-zinc-900 dark:text-white">
+              Kami Likhith
+            </span>
+          </a>
+
+          {/* Desktop links */}
+          <ul className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map(link => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={e => scrollTo(e, link.href)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
+                    activeSection === link.href
+                      ? 'bg-[#E67E22]/10 text-[#E67E22]'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* Right controls */}
+          <div className="flex items-center gap-1.5">
+            {/* Theme toggle */}
+            <button
+              onClick={onToggleTheme}
+              aria-label="Toggle theme"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={theme}
+                  initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {theme === 'dark' ? <FaSun size={14} /> : <FaMoon size={14} />}
+                </motion.span>
+              </AnimatePresence>
+            </button>
+
+            {/* CTA – desktop */}
+            <button
+              onClick={() => window.__openContactModal?.()}
+              className="hidden md:inline-flex items-center gap-1.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-xs px-4 py-2 rounded-full hover:bg-[#E67E22] dark:hover:bg-[#E67E22] dark:hover:text-white transition-all duration-200"
+            >
+              Hire me
+            </button>
+
+            {/* Hamburger */}
+            <button
+              onClick={() => setMobileOpen(v => !v)}
+              aria-label="Menu"
+              className="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            >
+              {mobileOpen ? <FaTimes size={14} /> : <HiMenuAlt3 size={18} />}
+            </button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* ── Mobile full-screen menu ── */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+            />
+            {/* Panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed top-[4.2rem] left-4 right-4 z-40 md:hidden bg-white dark:bg-[#121214] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] overflow-hidden"
+            >
+              <nav className="p-3 space-y-1">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={e => scrollTo(e, link.href)}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04 }}
+                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl font-bold text-sm transition-colors ${
+                      activeSection === link.href
+                        ? 'bg-[#E67E22]/10 text-[#E67E22]'
+                        : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
+                    }`}
+                  >
+                    <span className="text-base">{link.emoji}</span>
+                    {link.label}
+                    {activeSection === link.href && (
+                      <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#E67E22]" />
+                    )}
+                  </motion.a>
+                ))}
+              </nav>
+              <div className="p-3 border-t border-zinc-100 dark:border-zinc-800">
+                <button
+                  onClick={() => { setMobileOpen(false); window.__openContactModal?.(); }}
+                  className="w-full btn-primary text-sm py-3.5"
+                >
+                  ✉️ Get in touch
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
