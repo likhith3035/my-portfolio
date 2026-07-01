@@ -1,42 +1,207 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaTimes, FaPaperPlane, FaRobot, FaComment } from 'react-icons/fa';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt } from 'react-icons/fa';
 
-const Experience = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleCard = useTransform(scrollYProgress, [0.3, 0.6], [0.8, 1]);
+const BULLETS = [
+  { icon: <FaShieldAlt />, text: 'Performed vulnerability analysis and ethical hacking using Metasploit Framework, identifying and documenting security weaknesses in controlled lab environments.' },
+  { icon: <FaNetworkWired />, text: 'Gained practical exposure to network security, threat mitigation strategies, and secure system architecture under professional mentorship.' },
+  { icon: <FaTerminal />, text: 'Completed project-based assessments covering penetration testing workflows and security hardening techniques.' },
+  { icon: <FaUsers />, text: 'Collaborated in a team environment to solve real-world security challenges, strengthening communication and problem-solving skills.' },
+];
+
+const ACHIEVEMENTS = [
+  {
+    emoji: '🏆',
+    gradient: 'from-amber-500/15 via-orange-500/8 to-transparent',
+    border: 'border-amber-400/30 hover:border-amber-400/60',
+    badge: 'bg-amber-400/15 text-amber-600 dark:text-amber-400 border-amber-400/30',
+    title: '2nd Prize — Chatbot Buildathon',
+    org: 'IEEE-CIS · NBKRIST · TECHTATVA 2K25',
+    year: '2025',
+    desc: 'Won 2nd place among competitive teams by building a fully functional AI chatbot under contest conditions.',
+    pop: true,
+  },
+  {
+    emoji: '🚀',
+    gradient: 'from-blue-500/15 via-indigo-500/8 to-transparent',
+    border: 'border-blue-400/30 hover:border-blue-400/60',
+    badge: 'bg-blue-400/15 text-blue-600 dark:text-blue-400 border-blue-400/30',
+    title: 'HackPrix Season 3 — Finalist',
+    org: 'Lords Institute of Engineering & Technology, Hyderabad',
+    year: '2026',
+    desc: 'Developed StudentHub — a PWA campus super-app with Firebase, Supabase, and Sarvam AI in 36 hours.',
+    link: 'https://gensync-78.vercel.app/',
+  },
+  {
+    emoji: '⚡',
+    gradient: 'from-purple-500/15 via-violet-500/8 to-transparent',
+    border: 'border-purple-400/30 hover:border-purple-400/60',
+    badge: 'bg-purple-400/15 text-purple-600 dark:text-purple-400 border-purple-400/30',
+    title: 'National Hackathon — SRM AP',
+    org: "Mission Schrödinger's Cat · SRM AP University",
+    year: '2025',
+    desc: '36-hour national hackathon with 1200+ participants. Built Kiosk Vision — offline-first smart kiosk with local UPI QR & AI gesture interaction.',
+  },
+];
+
+/* Confetti burst */
+function Confetti() {
+  const pieces = Array.from({ length: 10 }, (_, i) => i);
+  const colors = ['#E67E22', '#FBD249', '#14B8A6', '#A855F7', '#ffffff'];
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {pieces.map(i => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 1, x: '50%', y: '50%', scale: 0 }}
+          animate={{
+            opacity: 0,
+            x: `${30 + Math.random() * 40}%`,
+            y: `${Math.random() * 80}%`,
+            scale: [0, 1, 0.5],
+            rotate: Math.random() * 360,
+          }}
+          transition={{ duration: 0.8, delay: i * 0.04, ease: 'easeOut' }}
+          style={{
+            position: 'absolute',
+            width: 6,
+            height: 6,
+            borderRadius: Math.random() > 0.5 ? '50%' : 2,
+            background: colors[i % colors.length],
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function AchievementCard({ a, i }) {
+  const [hovered, setHovered] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   return (
-    <section id="experience" className="py-16 md:py-24 bg-neo-orange bg-grainy border-b-4 border-black relative z-10 px-4 overflow-hidden">
-      <div className="neo-container">
-        <motion.h2
-          initial={{ opacity: 0, y: -50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-black mb-10 md:mb-16 text-center drop-shadow-[5px_5px_0_rgba(0,0,0,1)] text-white uppercase glitch-hover" data-text="Work Experience">
-          Work Experience
-        </motion.h2>
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+      whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
+      onHoverStart={() => { setHovered(true); if (a.pop) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 900); } }}
+      onHoverEnd={() => setHovered(false)}
+      className={`relative overflow-hidden card border ${a.border} bg-gradient-to-br ${a.gradient} flex flex-col gap-4 p-5 md:p-6 cursor-default transition-all duration-300`}
+    >
+      {showConfetti && <Confetti />}
 
-        <motion.div
-          style={{ scale: scaleCard }}
-          whileHover={{ y: -10, boxShadow: "16px 16px 0px 0px rgba(0,0,0,1)", rotate: -1 }}
-          className="max-w-4xl mx-auto neo-card bg-neo-purple/95 backdrop-blur-md text-white shadow-neo-lg border-4 mb-8 transition-transform p-6 md:p-10">
-          <motion.div
-            whileHover={{ scale: 1.1, rotate: -4 }}
-            className="bg-white text-black py-2 px-4 inline-block font-black border-4 border-black rounded-full mb-6 shadow-neo cursor-default text-sm md:text-lg">
-            JUNE 2025 - JULY 2025
-          </motion.div>
-          <h3 className="text-4xl md:text-5xl font-black mb-2 md:mb-4 drop-shadow-[3px_3px_0_#000]">Cybersecurity Intern</h3>
-          <h4 className="text-2xl md:text-3xl font-bold mb-8 text-neo-yellow drop-shadow-[3px_3px_0_rgba(0,0,0,1)]">Supraja Technologies</h4>
-          <ul className="list-disc list-inside space-y-3 md:space-y-4 font-bold text-base md:text-xl text-black bg-white p-6 md:p-8 rounded-3xl border-4 border-black shadow-[inset_4px_4px_0_#000]">
-            <li>2-month internship focused on <span className="bg-neo-yellow px-1 border-2 border-black">cybersecurity concepts & tools</span>.</li>
-            <li>Worked with <span className="text-neo-blue inline-block">Metasploit</span> and related tools for <span className="underline decoration-4">vulnerability analysis</span>.</li>
-            <li>Gained practical exposure to network security and ethical hacking.</li>
-            <li>Leveled up real-world <span className="bg-black text-white px-2">vibe coding</span> teamwork skills.</li>
-          </ul>
+      <div className="flex items-start justify-between gap-3">
+        <motion.span
+          animate={hovered ? { rotate: [0, -12, 12, -8, 0], scale: [1, 1.2, 1] } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-3xl leading-none select-none"
+        >
+          {a.emoji}
+        </motion.span>
+        <span className={`inline-flex items-center border text-[11px] font-black px-2.5 py-1 rounded-lg ${a.badge}`}>
+          {a.year}
+        </span>
+      </div>
+
+      <div className="space-y-1 flex-1">
+        <h4 className="font-extrabold text-sm md:text-base text-zinc-900 dark:text-white leading-tight">{a.title}</h4>
+        <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 leading-snug">{a.org}</p>
+      </div>
+
+      <p className="text-sm text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">{a.desc}</p>
+
+      {a.link && (
+        <a href={a.link} target="_blank" rel="noreferrer"
+          className="inline-flex items-center gap-1.5 text-[#E67E22] text-xs font-black hover:underline"
+          onClick={e => e.stopPropagation()}>
+          <FaExternalLinkAlt size={9} /> View Project
+        </a>
+      )}
+    </motion.div>
+  );
+}
+
+const v = (delay = 0) => ({
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.72, ease: [0.16, 1, 0.3, 1], delay } },
+});
+
+export default function Experience() {
+  return (
+    <section id="experience" className="py-20 md:py-28 bg-[#FAF9F6] dark:bg-[#0B0B0C] border-t border-zinc-100 dark:border-zinc-900 transition-colors duration-300">
+      <div className="container-md space-y-16">
+
+        {/* Heading */}
+        <motion.div variants={v()} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
+          className="text-center space-y-2">
+          <p className="section-label">Work & Recognition</p>
+          <h2 className="section-heading">Experience</h2>
+          <div className="w-10 h-1 bg-[#E67E22] rounded-full mx-auto mt-3" />
         </motion.div>
+
+        {/* Internship Card */}
+        <motion.div variants={v(0.05)} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
+          className="relative overflow-hidden card card-hover border border-zinc-200/60 dark:border-zinc-800 max-w-4xl mx-auto group">
+          {/* Animated gradient bar */}
+          <div className="h-1 w-full bg-gradient-to-r from-[#E67E22] via-[#f5a623] to-[#E67E22]/40 bg-[length:200%] animate-shimmer" />
+
+          <div className="p-6 md:p-10">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8 pb-6 border-b border-zinc-100 dark:border-zinc-800">
+              <div className="space-y-2.5">
+                <div className="flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1.5 tag"><FaCalendarAlt className="text-[#E67E22]" size={10} />Jun – Jul 2025</span>
+                  <span className="inline-flex items-center gap-1.5 tag"><FaMapMarkerAlt className="text-[#E67E22]" size={10} />Vijayawada · On-site</span>
+                  <span className="inline-flex items-center gap-1.5 tag bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-300/40">✓ Completed</span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white">Cybersecurity Intern</h3>
+                <p className="text-base md:text-lg font-bold text-[#E67E22]">Supraja Technologies</p>
+              </div>
+              <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br from-[#E67E22]/20 to-[#E67E22]/5 border border-[#E67E22]/20 flex flex-col items-center justify-center">
+                <span className="text-3xl font-black text-[#E67E22] leading-none">2</span>
+                <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mt-0.5">Months</span>
+              </div>
+            </div>
+
+            <ul className="space-y-4 mb-8">
+              {BULLETS.map((b, i) => (
+                <motion.li key={i}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  className="flex gap-3.5 text-sm md:text-base text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">
+                  <span className="text-[#E67E22] flex-shrink-0 mt-1">{b.icon}</span>
+                  <span>{b.text}</span>
+                </motion.li>
+              ))}
+            </ul>
+
+            <div className="flex flex-wrap gap-2">
+              {['Metasploit', 'Penetration Testing', 'Network Security', 'Ethical Hacking', 'Vulnerability Analysis'].map(t => (
+                <span key={t} className="tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Achievements */}
+        <div className="space-y-8">
+          <motion.div variants={v()} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-60px' }}
+            className="text-center space-y-2">
+            <p className="section-label">Milestones</p>
+            <h3 className="text-2xl md:text-3xl font-black text-zinc-900 dark:text-white uppercase tracking-tight">Achievements</h3>
+            <div className="w-10 h-1 bg-[#E67E22] rounded-full mx-auto mt-3" />
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 font-medium">Hover the 🏆 card for a surprise</p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {ACHIEVEMENTS.map((a, i) => <AchievementCard key={i} a={a} i={i} />)}
+          </div>
+        </div>
+
       </div>
     </section>
   );
-};
-export default Experience;
+}
