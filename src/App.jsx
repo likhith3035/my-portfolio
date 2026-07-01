@@ -13,10 +13,16 @@ import CustomCursor from './components/CustomCursor';
 import ScrollToTop from './components/ScrollToTop';
 import PageLoader from './components/PageLoader';
 import SpotlightCursor from './components/SpotlightCursor';
+import CommandPalette from './components/CommandPalette';
+import MatrixRain from './components/MatrixRain';
+import ConfettiOverlay from './components/ConfettiOverlay';
 import './App.css';
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [matrixActive, setMatrixActive] = useState(false);
+  const [confettiTriggerCount, setConfettiTriggerCount] = useState(0);
   const [theme, setTheme] = useState(() => {
     try { return localStorage.getItem('theme') || 'light'; }
     catch { return 'light'; }
@@ -36,7 +42,15 @@ export default function App() {
 
   useEffect(() => {
     window.__openContactModal = () => setContactOpen(true);
-    return () => { delete window.__openContactModal; };
+    window.__openCommandPalette = () => setCommandPaletteOpen(true);
+    window.__triggerMatrix = () => setMatrixActive(true);
+    window.__triggerConfetti = () => setConfettiTriggerCount(c => c + 1);
+    return () => {
+      delete window.__openContactModal;
+      delete window.__openCommandPalette;
+      delete window.__triggerMatrix;
+      delete window.__triggerConfetti;
+    };
   }, []);
 
   /* Console Easter egg */
@@ -66,6 +80,17 @@ export default function App() {
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <ChatBot />
       <ScrollToTop />
+
+      {/* Interactive Command Center & Animations */}
+      <CommandPalette
+        isOpen={commandPaletteOpen}
+        onClose={() => setCommandPaletteOpen(false)}
+        onToggleTheme={toggleTheme}
+        onTriggerMatrix={() => setMatrixActive(true)}
+        onTriggerConfetti={() => setConfettiTriggerCount(c => c + 1)}
+      />
+      <MatrixRain active={matrixActive} onClose={() => setMatrixActive(false)} />
+      <ConfettiOverlay triggerCount={confettiTriggerCount} />
     </div>
   );
 }

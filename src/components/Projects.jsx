@@ -249,6 +249,8 @@ function Terminal() {
         h.push({ text: '│ projects – List all projects      │', type: 'info' });
         h.push({ text: '│ scan     – Security scan demo     │', type: 'info' });
         h.push({ text: '│ decrypt  – AES-256 demo           │', type: 'info' });
+        h.push({ text: '│ matrix   – Trigger Matrix Rain    │', type: 'info' });
+        h.push({ text: '│ confetti – Blast confetti particles│', type: 'info' });
         h.push({ text: '│ socials  – Social links           │', type: 'info' });
         h.push({ text: '│ clear    – Clear terminal         │', type: 'info' });
         h.push({ text: '└───────────────────────────────────┘', type: 'system' });
@@ -298,6 +300,18 @@ function Terminal() {
           }, delay);
         });
         return;
+      case 'matrix': case 'hack':
+        h.push({ text: '> Connecting to Matrix mainframe...', type: 'system' });
+        h.push({ text: '✓ Bypass success! Triggering Matrix Rain...', type: 'success' });
+        setTimeout(() => {
+          window.__triggerMatrix?.();
+        }, 600);
+        break;
+      case 'confetti': case 'celebrate':
+        h.push({ text: '> Launching particle cannons...', type: 'system' });
+        h.push({ text: '✓ Blast off!', type: 'success' });
+        window.__triggerConfetti?.();
+        break;
       default:
         h.push({ text: `[!] Unknown command: "${c}". Try 'help'.`, type: 'error' });
     }

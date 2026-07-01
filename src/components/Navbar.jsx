@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
-import { FaSun, FaMoon, FaTimes } from 'react-icons/fa';
+import { FaSun, FaMoon, FaTimes, FaSearch } from 'react-icons/fa';
 import { HiMenuAlt3 } from 'react-icons/hi';
 
 const NAV_LINKS = [
@@ -92,6 +92,15 @@ export default function Navbar({ theme, onToggleTheme }) {
 
           {/* Right controls */}
           <div className="flex items-center gap-1.5">
+            {/* Command Palette trigger */}
+            <button
+              onClick={() => window.__openCommandPalette?.()}
+              aria-label="Search or run command"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            >
+              <FaSearch size={13} />
+            </button>
+
             {/* Theme toggle */}
             <button
               onClick={onToggleTheme}

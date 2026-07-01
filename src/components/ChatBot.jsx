@@ -160,6 +160,11 @@ export default function ChatBot() {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    window.__openChatBot = () => setOpen(true);
+    return () => { delete window.__openChatBot; };
+  }, []);
+
+  useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, typing]);
 
