@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaTimes, FaPaperPlane, FaRobot, FaComment } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaTimes, FaPaperPlane } from 'react-icons/fa';
 
-// --- Contact Form Modal ---
-const ContactModal = ({ isOpen, onClose }) => {
+export default function ContactModal({ isOpen, onClose }) {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  /* Prevent body scroll when modal open */
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-
+    setLoading(true);
     try {
       await fetch('https://formsubmit.co/ajax/kamilikhith@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
       });
-      setSubmitted(true);
-      setTimeout(() => { setSubmitted(false); onClose(); }, 2500);
-    } catch {
-      setSubmitted(true);
-      setTimeout(() => { setSubmitted(false); onClose(); }, 2500);
-    }
+    } catch {}
+    setLoading(false);
+    setSubmitted(true);
+    setTimeout(() => { setSubmitted(false); onClose(); }, 2800);
   };
+
+  const inputCls = `w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3.5 font-medium text-sm text-white
+    focus:outline-none focus:border-[#E67E22] transition-colors placeholder:text-zinc-600`;
 
   return (
     <AnimatePresence>
@@ -31,74 +37,93 @@ const ContactModal = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          className="fixed inset-0 bg-black/75 backdrop-blur-sm z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
+        >
           <motion.div
-            initial={{ scale: 0.7, rotate: -5, opacity: 0 }}
-            animate={{ scale: 1, rotate: 0, opacity: 1 }}
-            exit={{ scale: 0.7, rotate: 5, opacity: 0 }}
-            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white border-4 border-black shadow-[12px_12px_0_#000] rounded-3xl w-full max-w-lg p-6 md:p-10 relative">
+            initial={{ y: 80, opacity: 0, scale: 0.97 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 60, opacity: 0, scale: 0.97 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+            onClick={e => e.stopPropagation()}
+            className="w-full sm:max-w-lg bg-[#111113] border border-zinc-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 relative"
+          >
+            {/* Drag handle – mobile */}
+            <div className="sm:hidden w-10 h-1 bg-zinc-700 rounded-full mx-auto mb-5" />
 
-            {/* Close Button */}
-            <button onClick={onClose} className="absolute top-4 right-4 w-10 h-10 bg-black text-white rounded-full flex items-center justify-center border-2 border-black hover:bg-neo-purple transition-colors text-lg">
-              <FaTimes />
+            {/* Close */}
+            <button
+              onClick={onClose}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
+            >
+              <FaTimes size={12} />
             </button>
 
             {submitted ? (
               <motion.div
-                initial={{ scale: 0 }} animate={{ scale: 1 }}
-                className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="text-6xl mb-6">🎉</div>
-                <h3 className="text-3xl font-black mb-2">Message Sent!</h3>
-                <p className="text-lg font-bold text-gray-600">I'll get back to you soon.</p>
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="py-10 text-center space-y-4"
+              >
+                <motion.div
+                  initial={{ scale: 0 }} animate={{ scale: 1 }}
+                  transition={{ type: 'spring', delay: 0.1 }}
+                  className="text-5xl"
+                >
+                  🎉
+                </motion.div>
+                <h3 className="text-2xl font-black text-white">Message Sent!</h3>
+                <p className="text-zinc-400 font-medium">I'll get back to you soon.</p>
               </motion.div>
             ) : (
-              <>
-                <h3 className="text-3xl md:text-4xl font-black mb-2 uppercase">Let's Talk</h3>
-                <p className="text-base font-bold text-gray-500 mb-8">Fill in your details and I'll reach out.</p>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">Let's Talk 👋</h3>
+                  <p className="text-zinc-500 font-medium text-sm mt-1">Fill in the details and I'll reach out shortly.</p>
+                </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <input type="hidden" name="_captcha" value="false" />
                   <input type="hidden" name="_subject" value="New Portfolio Contact!" />
 
-                  <div>
-                    <label className="block text-sm font-black uppercase tracking-wider mb-2">Your Name</label>
-                    <input
-                      type="text" name="name" required placeholder="John Doe"
-                      className="w-full border-4 border-black rounded-xl px-4 py-3 font-bold text-lg shadow-neo focus:shadow-neo-lg focus:outline-none focus:-translate-y-0.5 transition-all placeholder:text-gray-300"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-black uppercase tracking-wider text-zinc-400">Name</label>
+                      <input type="text" name="name" required placeholder="John Doe" className={inputCls} />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-black uppercase tracking-wider text-zinc-400">Email</label>
+                      <input type="email" name="email" required placeholder="john@email.com" className={inputCls} />
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-black uppercase tracking-wider mb-2">Email</label>
-                    <input
-                      type="email" name="email" required placeholder="john@example.com"
-                      className="w-full border-4 border-black rounded-xl px-4 py-3 font-bold text-lg shadow-neo focus:shadow-neo-lg focus:outline-none focus:-translate-y-0.5 transition-all placeholder:text-gray-300"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-black uppercase tracking-wider mb-2">Message</label>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-black uppercase tracking-wider text-zinc-400">Message</label>
                     <textarea
-                      name="message" required rows="4" placeholder="Tell me about your project..."
-                      className="w-full border-4 border-black rounded-xl px-4 py-3 font-bold text-lg shadow-neo focus:shadow-neo-lg focus:outline-none focus:-translate-y-0.5 transition-all resize-none placeholder:text-gray-300"
+                      name="message" required rows={4}
+                      placeholder="Tell me about your project or idea..."
+                      className={`${inputCls} resize-none`}
                     />
                   </div>
 
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.03, y: -3, boxShadow: '10px 10px 0px 0px rgba(0,0,0,1)' }}
-                    whileTap={{ scale: 0.97, y: 0, boxShadow: '0px 0px 0px 0px rgba(0,0,0,1)' }}
-                    className="w-full bg-black text-neo-yellow font-black text-xl uppercase py-4 border-4 border-black shadow-[6px_6px_0_#000] rounded-xl flex items-center justify-center gap-3 transition-all">
-                    <FaPaperPlane /> Send Message
+                    disabled={loading}
+                    whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}
+                    className="btn-primary w-full py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {loading
+                      ? <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Sending…</span>
+                      : <><FaPaperPlane size={13} /> Send Message</>
+                    }
                   </motion.button>
                 </form>
-              </>
+              </div>
             )}
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   );
-};
-export default ContactModal;
+}

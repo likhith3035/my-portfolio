@@ -1,334 +1,337 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaTimes, FaPaperPlane, FaRobot, FaComment } from 'react-icons/fa';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaTimes, FaPaperPlane, FaRobot, FaCommentDots } from 'react-icons/fa';
 
-// --- Portfolio Chatbot ---
-const knowledgeBase = [
+/* ─── Knowledge base ───────────────────────────────────── */
+const KB = [
   {
-    keywords: ['who', 'name', 'about', 'yourself', 'introduce'], weight: 2, answers: [
-      "I'm Kami Likhith — a B.Tech AI & Data Science student at NBKRIST. I build websites, work with AI tools, run local LLMs, and love cybersecurity. People call me a Vibe Coder! 😎",
-      "Hey! I'm Likhith — a full-stack developer, cybersecurity enthusiast, and AI explorer. I use tools like Firebase, Supabase, Antigravity, and local LLMs to build real products. Currently studying AI & Data Science at NBKRIST. 🚀",
-      "Kami Likhith here! I'm a Vibe Coder who blends AI tools with modern web development. From AES encryption utilities to real-time chat apps — I build stuff that actually works. 💻"
-    ]
+    keywords: ['who', 'name', 'about', 'yourself', 'introduce'], weight: 2,
+    answers: [
+      "I'm Kami Likhith — B.Tech AI & Data Science student at NBKRIST. I build web apps, work with AI tools, and love cybersecurity. People call me a Vibe Coder! 😎",
+      "Hey! I'm Likhith — full-stack dev, cybersecurity enthusiast, and AI explorer. Firebase, Supabase, Antigravity, local LLMs — I build real products. 🚀",
+    ],
   },
   {
-    keywords: ['skill', 'tech', 'stack', 'language', 'know'], weight: 2, answers: [
-      "🛠️ Here's my full stack:\n\n💻 Languages: C, C++, Python, Java, JavaScript\n🌐 Frontend: React, Vite, Tailwind CSS, Framer Motion\n🔧 Backend: Firebase, Supabase, Node.js\n🤖 AI: Local LLMs (Ollama), AI IDEs (Cursor, Antigravity)\n🔐 Security: Metasploit, AES, Ethical Hacking\n🚀 Deploy: Netlify, Vercel, GitHub Pages",
-      "I work across the full stack! Frontend with React & Tailwind, backend with Firebase & Supabase, deploy on Netlify & Vercel, security tools like Metasploit, and AI tools including local LLMs and Antigravity IDE. Plus C, C++, Python, Java for core coding. 💪",
-      "My toolkit is pretty diverse — Python for AI/data work, JavaScript/React for web apps, Firebase & Supabase for backend, Netlify & Vercel for deployment, Metasploit for security testing, and AI-powered IDEs like Antigravity and Cursor for 10x productivity! 🔥"
-    ]
+    keywords: ['skill', 'tech', 'stack', 'language', 'know'], weight: 2,
+    answers: [
+      "🛠️ My full stack:\n💻 Languages: C, C++, Python, Java, JavaScript\n🌐 Frontend: React, Vite, Tailwind, Framer Motion\n🔧 Backend: Firebase, Supabase, Node.js\n🤖 AI: Ollama, Cursor, Antigravity IDE\n🔐 Security: Metasploit, AES-256, Ethical Hacking\n🚀 Deploy: Netlify, Vercel",
+    ],
   },
   {
-    keywords: ['project', 'built', 'portfolio', 'made'], weight: 2, answers: [
-      "I've shipped 3 real projects:\n\n🔒 Secure Vault — AES-256 encryption tool for protecting files\n💬 Livetalk — Anonymous WebRTC chat platform\n🏢 Hostel Portal — Firebase-powered hostel management system\n\nPlus I build custom websites using React, Vite & Tailwind!",
-      "My key projects include Secure Vault (AES-256 encryption), Livetalk (WebRTC anonymous chat), and a Hostel Portal (Firebase real-time management). I also build modern web apps and portfolio sites — like this one! 🌐",
-      "Three main projects! A file encryption tool (Secure Vault), a real-time anonymous chat app (Livetalk using WebRTC), and a hostel management portal (Firebase). Each one taught me something different about full-stack development. 📦"
-    ]
+    keywords: ['project', 'built', 'portfolio', 'made', 'app'], weight: 2,
+    answers: [
+      "My 5 key projects:\n🎓 StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n🔒 Secure Vault — AES-256 folder encryption (Python)\n💬 LiveTalk — real-time WebSocket chat\n🤖 Dept. AI Bot — RAG chatbot (LangChain/Flask)\n🏢 Hostel Portal — Firebase room management (React)",
+    ],
   },
   {
-    keywords: ['secure', 'vault', 'encrypt', 'aes'], weight: 3, answers: [
-      "Secure Vault encrypts your folders using AES-256 with file obfuscation and secure key management. It's built for people who take their data privacy seriously! 🔐 Code over here: https://github.com/likhith3035/secure-vault-folder-encryption",
-      "It's a desktop encryption utility I built — you point it at a folder and it locks everything down with AES-256 encryption. Nobody gets in without the key. Military-grade protection! 🛡️ Repo: https://github.com/likhith3035/secure-vault-folder-encryption"
-    ]
+    keywords: ['studenthub', 'campus', 'hackprix', 'gensync'], weight: 3,
+    answers: [
+      "StudentHub is a super-app for college students — notes, internships, project collabs, and an AI assistant powered by Sarvam AI. Built in 36 hours at HackPrix! 🎓\nDemo: https://gensync-78.vercel.app/",
+    ],
   },
   {
-    keywords: ['livetalk', 'webrtc', 'anonymous'], weight: 3, answers: [
-      "Livetalk is a WebRTC-powered anonymous chat platform — no sign-ups, no tracking, just real conversations. I built it because I wanted genuine human connections without the noise of social media. 💬 Live Demo: https://livetalkbylikki.netlify.app/",
-      "It's a real-time chat app using WebRTC for peer-to-peer connections. Completely anonymous — no accounts, no data collection. Just open it and start talking! Built for genuine vibes. ✨ Check it here: https://livetalkbylikki.netlify.app/"
-    ]
+    keywords: ['secure', 'vault', 'encrypt', 'aes'], weight: 3,
+    answers: [
+      "Secure Vault encrypts entire folders with AES-256 + file-name obfuscation. Gmail API delivers keys securely. Military-grade protection! 🛡️\nRepo: https://github.com/likhith3035/secure-vault-folder-encryption",
+    ],
   },
   {
-    keywords: ['hostel', 'portal'], weight: 3, answers: [
-      "The Hostel Portal is a Firebase-powered management system for NBKR hostels — handles room allocation, mess menus, rules, and student services. Everything syncs in real-time! 🏢 Demo: https://nbkristhostelportal.netlify.app/",
-      "I built a complete hostel management system using Firebase. Students can check room allocations, mess menus, hostel rules, and services — all updating live. It's deployed on Netlify! 🔥 See it live: https://nbkristhostelportal.netlify.app/"
-    ]
+    keywords: ['livetalk', 'chat', 'websocket', 'realtime'], weight: 3,
+    answers: [
+      "LiveTalk is a WebSocket P2P chat with mobile-first UI. Clean and minimal, built with vanilla HTML/CSS/JS.\nLive: https://livetalkbylikki.netlify.app/",
+    ],
   },
   {
-    keywords: ['education', 'college', 'study', 'degree', 'btech', 'school', 'university', 'nbkrist'], weight: 2, answers: [
-      "📚 My education journey:\n• B.Tech AI & Data Science at NBKRIST (2023 - Present)\n• Intermediate MPC at Vamsi Jr College (2021-2023)\n• SSC at RPBS ZP High School (2020)",
-      "I'm currently in my B.Tech in AI & Data Science at NBKRIST. Before that, I did MPC intermediate at Vamsi Jr College and schooling at RPBS ZP High School. Always been into tech! 🎓"
-    ]
+    keywords: ['hostel', 'portal', 'room', 'nbkr'], weight: 3,
+    answers: [
+      "Hostel Portal handles NBKR room allocation, mess menus, and student services with Firebase real-time sync.\nLive: https://nbkristhostelportal.netlify.app/",
+    ],
   },
   {
-    keywords: ['experience', 'intern', 'job', 'company', 'supraja'], weight: 3, answers: [
-      "I did a 2-month Cybersecurity Internship at Supraja Technologies (June-July 2025). Worked with Metasploit for pen-testing, learned vulnerability analysis, and got hands-on with ethical hacking & network security. 🔒",
-      "My internship at Supraja Technologies gave me real-world cybersecurity experience — penetration testing with Metasploit, finding vulnerabilities, and learning threat mitigation. It was intense and incredibly rewarding! 🛡️"
-    ]
+    keywords: ['education', 'college', 'study', 'degree', 'btech', 'nbkrist'], weight: 2,
+    answers: [
+      "📚 Education:\n• B.Tech AI & Data Science — NBKRIST (2023–Present)\n• Intermediate MPC — Vamsi Jr College (2021–2023)\n• SSC — RPBS ZP High School (2020)",
+    ],
   },
   {
-    keywords: ['contact', 'email', 'phone', 'reach', 'hire', 'connect', 'mail', 'message'], weight: 2, answers: [
-      "You can reach me at:\n📧 kamilikhith@gmail.com\n📱 +91 8885426155\n\nOr click the 'Hire me' button to send a message directly!",
-      "Best way to reach me is email: kamilikhith@gmail.com or phone: +91 8885426155. You can also use the contact form on this site — just click 'Hire me'! 📬"
-    ]
+    keywords: ['experience', 'intern', 'job', 'supraja', 'internship'], weight: 3,
+    answers: [
+      "Did a 2-month Cybersecurity Internship at Supraja Technologies (Jun–Jul 2025). Used Metasploit for pen-testing, vulnerability analysis, and ethical hacking. 🔒",
+    ],
   },
   {
-    keywords: ['github', 'code', 'repo', 'source', 'open'], weight: 2, answers: [
-      "All my code is on GitHub: github.com/likhith3035 — everything is open source! Check out Secure Vault, Livetalk, and Hostel Portal repos. 🚀",
-      "My GitHub is github.com/likhith3035 — I keep all my projects open source. Feel free to fork, star, or contribute! 💻"
-    ]
+    keywords: ['contact', 'email', 'phone', 'reach', 'hire', 'connect'], weight: 2,
+    answers: [
+      "📧 kamilikhith@gmail.com\n📱 +91 8885426155\n\nOr click 'Send a message' in the footer!",
+    ],
   },
   {
-    keywords: ['social', 'instagram', 'linkedin', 'insta', 'follow'], weight: 2, answers: [
-      "Find me on:\n💼 LinkedIn: linkedin.com/in/likhith-kami\n📸 Instagram: @lucky__likhith\n💻 GitHub: github.com/likhith3035",
-      "I'm active on LinkedIn (likhith-kami), Instagram (@lucky__likhith), and GitHub (likhith3035). Let's connect! 🤝"
-    ]
+    keywords: ['github', 'code', 'repo', 'source'], weight: 2,
+    answers: ["All code is open source at github.com/likhith3035 🚀"],
   },
   {
-    keywords: ['cyber', 'security', 'hack', 'metasploit', 'penetration', 'ethical'], weight: 3, answers: [
-      "Cybersecurity is a core passion! I've done pen-testing with Metasploit, built AES-256 encryption tools, and interned at a cybersecurity firm. I understand both offensive and defensive security. 🛡️",
-      "I take security seriously — from my Secure Vault encryption project to my internship at Supraja Technologies where I used Metasploit for vulnerability analysis. I'm trained in ethical hacking and network defense. 🔐",
-      "Security is in my DNA! I use Metasploit for penetration testing, built an AES-256 encryption utility, and understand threat modeling from my internship. Always thinking about how to make systems safer. 🛡️"
-    ]
+    keywords: ['social', 'instagram', 'linkedin', 'insta'], weight: 2,
+    answers: ["Find me:\n💼 linkedin.com/in/likhith-kami\n📸 @lucky__likhith\n💻 github.com/likhith3035"],
   },
   {
-    keywords: ['ai', 'artificial', 'intelligence', 'gpt', 'gemini', 'claude', 'copilot'], weight: 2, answers: [
-      "I'm deep into AI! I use AI-powered IDEs (Antigravity, Cursor), run local LLMs with Ollama for offline coding, and I'm formally studying AI & Data Science at NBKRIST. AI is central to how I work. 🤖",
-      "AI is everywhere in my workflow — from Antigravity IDE for AI-assisted coding, to local LLMs for offline work, to studying machine learning at college. I believe in AI-augmented development! 🧠",
-      "I use ChatGPT, Gemini, Claude and more — but I also run local LLMs with Ollama so I can code offline with AI. Plus I'm getting a full AI & Data Science degree at NBKRIST. The future is AI-first! ⚡"
-    ]
+    keywords: ['cyber', 'security', 'hack', 'metasploit', 'penetration'], weight: 3,
+    answers: ["Cybersecurity is a core passion! Pen-testing with Metasploit, AES-256 encryption tools, interned at Supraja Technologies. Both offensive and defensive security. 🛡️"],
   },
   {
-    keywords: ['llm', 'ollama', 'llama', 'local', 'offline'], weight: 3, answers: [
-      "I run local LLMs using Ollama and Llama models! This lets me code and debug with AI completely offline and privately. No data leaves my machine — perfect for security-focused development. 🧠",
-      "Local LLMs are a game-changer! I use Ollama to run Llama models on my own hardware. It means AI-powered coding even without internet, and zero data privacy concerns. 🔒"
-    ]
+    keywords: ['ai', 'artificial', 'intelligence', 'llm', 'sarvam', 'rag'], weight: 2,
+    answers: ["Deep into AI — local LLMs with Ollama, AI IDEs (Antigravity/Cursor), Sarvam AI integration in StudentHub, and studying AI & Data Science at NBKRIST. 🤖"],
   },
   {
-    keywords: ['supabase', 'postgres', 'database'], weight: 3, answers: [
-      "Yes! Supabase is one of my go-to backend tools. It gives me PostgreSQL databases, real-time subscriptions, built-in auth, and edge functions — all without managing servers. Perfect for shipping apps fast! ⚡",
-      "I love Supabase! It's like Firebase but with a real PostgreSQL database. I use it for authentication, real-time data sync, and building full-stack apps without worrying about infrastructure. 🔥",
-      "Supabase is fantastic for rapid development. I use it for auth, database queries, and real-time features. The fact that it's built on top of PostgreSQL makes it super powerful and flexible! 💪"
-    ]
+    keywords: ['hello', 'hi', 'hey', 'hola', 'sup', 'yo'], weight: 1,
+    answers: [
+      "Hey there! 👋 I'm Likhith's AI assistant. Ask me about skills, projects, experience, or how to reach him!",
+      "Hello! 😊 I can tell you about Likhith's projects, tech stack, experience, or contact info. What's up?",
+    ],
   },
   {
-    keywords: ['firebase', 'firestore', 'realtime'], weight: 3, answers: [
-      "Absolutely! Firebase is one of my main tools. I used it heavily in my Hostel Portal project — real-time database sync, user authentication, and Netlify hosting. It's perfect for apps that need instant updates. 🔥",
-      "Firebase powers my Hostel Portal project — real-time data for room allocations, mess menus, and more. I use Firestore for the database, Firebase Auth for login, and it deploys beautifully. Great for prototyping AND production! ⚡",
-      "Yes, I use Firebase extensively! For the Hostel Portal, I implemented real-time sync so any updates (rooms, menus, rules) appear instantly for all students. Firebase makes real-time apps incredibly easy. 🏢"
-    ]
-  },
-  {
-    keywords: ['antigravity', 'ide', 'cursor', 'editor', 'vscode'], weight: 3, answers: [
-      "I use AI-powered IDEs like Antigravity and Cursor daily! They give me AI auto-completions, intelligent debugging, and code generation. It's like pair-programming with a senior developer 24/7. I code 10x faster with these! 🚀",
-      "Antigravity and Cursor are my secret weapons! AI-assisted coding means I can build entire features by describing what I want. The AI handles boilerplate while I focus on architecture and logic. Massive productivity boost! 💻",
-      "These AI IDEs changed how I code completely. Antigravity understands my codebase context and suggests exactly what I need. Combined with local LLMs via Ollama, I have AI assistance online AND offline! 🧠"
-    ]
-  },
-  {
-    keywords: ['website', 'web', 'react', 'frontend', 'design', 'develop', 'site', 'app'], weight: 2, answers: [
-      "I build websites using React + Vite for speed, Tailwind CSS for styling, and Framer Motion for smooth animations. I handle everything from design to deployment. This entire portfolio was built with these tools! 🌐",
-      "My web dev process: I design the UI, build with React & Tailwind, add animations with Framer Motion, connect to Firebase or Supabase for backend, and deploy to Netlify or Vercel. End-to-end! 🔧",
-      "For web development, I use a modern stack — React for components, Vite for blazing-fast builds, Tailwind for responsive styling, and AI-powered IDEs to speed up the whole process. I can ship a complete site in days! ⚡",
-      "I build everything from portfolio sites to full web applications! My process involves React, Tailwind CSS, Framer Motion for animations, and backend tools like Firebase & Supabase. AI tools like Antigravity help me code faster. 🚀"
-    ]
-  },
-  {
-    keywords: ['how', 'build', 'process', 'workflow', 'approach', 'method'], weight: 1, answers: [
-      "My dev process: I start by planning the UI/UX, then build with React + Tailwind. I use AI IDEs (Antigravity/Cursor) to code fast, Firebase or Supabase for the backend, and deploy on Vercel/Netlify. AI-assisted development from start to finish! 🔧",
-      "Here's how I work: Design first, then rapid development with React & AI-powered tools. For backend I pick Firebase or Supabase depending on the project. I test thoroughly and push to production with CI/CD. Speed + quality! ⚡",
-      "I use an AI-first workflow! AI IDEs help me scaffold code quickly, I build the frontend in React/Tailwind, hook up the backend with Supabase or Firebase, and deploy. The whole cycle from idea to live site can be just a few days. 🚀"
-    ]
-  },
-  {
-    keywords: ['prompt', 'engineering', 'chatgpt', 'generate'], weight: 2, answers: [
-      "Prompt Engineering is a key skill! I craft precise prompts for AI models to generate code, content, and solutions. Whether it's ChatGPT, Gemini, or local LLMs — the quality of the prompt determines the quality of the output. ✍️",
-      "I'm skilled at getting the best out of AI models through prompt engineering. Clear instructions, context setting, and iterative refinement — these techniques make AI tools 10x more powerful. 🎯"
-    ]
-  },
-  {
-    keywords: ['freelance', 'available', 'cost', 'price', 'rate', 'pay', 'money'], weight: 2, answers: [
-      "I'm open to freelance work! Whether you need a website, web app, or security audit — I can help. Hit the 'Hire me' button or email kamilikhith@gmail.com to discuss! 💼",
-      "Yes, I take freelance projects! Custom websites, web applications, and security consulting. Let's discuss your requirements — reach me at kamilikhith@gmail.com 🤝"
-    ]
-  },
-  {
-    keywords: ['data', 'science', 'machine', 'learning', 'ml', 'deep', 'model'], weight: 2, answers: [
-      "I'm studying AI & Data Science at NBKRIST. I work with Python for data analysis and ML models, and I'm exploring deep learning and neural networks. The intersection of AI and security fascinates me! 📊",
-      "Data Science is my academic focus! I use Python for data analysis, build ML models, and study neural networks. I also apply AI practically — running local LLMs and using AI-powered dev tools daily. 🤖"
-    ]
-  },
-  {
-    keywords: ['netlify', 'vercel', 'deploy', 'host', 'live', 'production', 'launch'], weight: 3, answers: [
-      "I deploy my projects on Netlify and Vercel! Both are amazing for hosting React apps — instant deploys from GitHub, automatic HTTPS, and blazing-fast CDN. My Hostel Portal is live on Netlify! 🚀",
-      "For deployment, I use Netlify and Vercel. I push code to GitHub, and it auto-deploys within seconds. Zero config, free HTTPS, and global CDN — perfect for shipping fast. My projects are all hosted this way! ⚡",
-      "Yes! I use Netlify and Vercel for hosting. My workflow is: code locally → push to GitHub → auto-deploy to Netlify/Vercel. The whole pipeline is automated — every git push goes live instantly. 🔥",
-      "Netlify and Vercel are my go-to deployment platforms! I connect them to my GitHub repos and every push triggers an automatic build and deploy. It's CI/CD made simple — and it's free for personal projects! 💻"
-    ]
-  },
-  {
-    keywords: ['git', 'version', 'control', 'branch', 'commit', 'push'], weight: 2, answers: [
-      "Git and GitHub are essential to my workflow! I use Git for version control on every project, and all my repos are public on github.com/likhith3035. I also connect GitHub to Netlify/Vercel for auto-deployment. 💻",
-      "I use GitHub for all my code — version control, collaboration, and deployment pipelines. My repos are open source at github.com/likhith3035. Connected to Netlify and Vercel for instant deploys! 🚀"
-    ]
-  },
-  {
-    keywords: ['hello', 'hi', 'hey', 'hola', 'sup'], weight: 1, answers: [
-      "Hey there! 👋 I'm Likhith's portfolio bot. Ask me anything about his skills, projects, tools, or how to reach him!",
-      "Hello! 😊 Welcome to Likhith's portfolio. I can tell you about his projects, tech stack, AI tools, experience, or contact info. What would you like to know?",
-      "Hi! 👋 Great to have you here. I know everything about Likhith — his projects, skills, what tools he uses, his experience. Just ask!"
-    ]
-  },
-  {
-    keywords: ['vibe', 'coder'], weight: 3, answers: [
-      "Vibe Coder is Likhith's creative identity — it means building tech that doesn't just work, but feels alive. Clean code + aesthetic design + AI tools + creative energy = Vibe Coding! ⚡",
-      "Being a Vibe Coder means caring about both the code AND the experience. Likhith uses modern tools, smooth animations, and AI-powered development to create products that people love using. ✨"
-    ]
-  },
-  {
-    keywords: ['thank', 'thanks', 'bye', 'awesome'], weight: 1, answers: [
-      "Glad I could help! Reach out to Likhith anytime. Have a great day! 🎉",
-      "You're welcome! Feel free to come back anytime. Likhith would love to hear from you! 😊",
-      "Anytime! If you want to work together, just hit 'Hire me'. See you around! 🚀"
-    ]
+    keywords: ['thank', 'thanks', 'bye', 'awesome', 'cool', 'great'], weight: 1,
+    answers: [
+      "Glad I could help! Feel free to reach out to Likhith anytime. 🎉",
+      "You're welcome! Have a great day! 🚀",
+    ],
   },
 ];
 
 function getBotReply(input) {
   const lower = input.toLowerCase().trim();
-  if (!lower) return "Go ahead, ask me anything about Likhith! 😊";
-
-  let bestMatch = null;
-  let bestScore = 0;
-
-  // Score each entry: matched keywords × weight
-  for (const entry of knowledgeBase) {
-    const matchedCount = entry.keywords.filter(kw => lower.includes(kw)).length;
-    const score = matchedCount * (entry.weight || 1);
-    if (score > bestScore) {
-      bestScore = score;
-      bestMatch = entry;
-    }
+  if (!lower) return "Ask me anything about Likhith! 😊";
+  let best = null, bestScore = 0;
+  for (const entry of KB) {
+    const score = entry.keywords.filter(kw => lower.includes(kw)).length * (entry.weight || 1);
+    if (score > bestScore) { bestScore = score; best = entry; }
   }
-
-  // Return a random answer from the best match
-  if (bestMatch && bestScore > 0) {
-    const answers = bestMatch.answers;
-    return answers[Math.floor(Math.random() * answers.length)];
+  if (best && bestScore > 0) {
+    const ans = best.answers;
+    return ans[Math.floor(Math.random() * ans.length)];
   }
-
-  // Smart fallback: partial word matching (skip short generic words)
   const words = lower.split(/\s+/).filter(w => w.length > 3);
-  for (const entry of knowledgeBase) {
-    if (entry.weight < 2) continue; // skip low-priority generic entries
+  for (const entry of KB) {
+    if (entry.weight < 2) continue;
     for (const kw of entry.keywords) {
-      if (kw.length > 3 && words.some(word => kw.includes(word) || word.includes(kw))) {
-        const answers = entry.answers;
-        return answers[Math.floor(Math.random() * answers.length)];
+      if (kw.length > 3 && words.some(w => kw.includes(w) || w.includes(kw))) {
+        const ans = entry.answers;
+        return ans[Math.floor(Math.random() * ans.length)];
       }
     }
   }
-
-  // Ultimate fallback
   const fallbacks = [
-    "Interesting question! Try asking about Likhith's projects, skills, AI tools, or experience — I've got detailed answers for all of those! 😊",
-    "I'd love to help! I know a lot about Likhith's tech stack, projects (Secure Vault, Livetalk, Hostel Portal), his AI tools workflow, and more. What interests you? 🤔",
-    "Hmm, let me point you in the right direction! Ask me:\n• 'What tools do you use?'\n• 'How do you build websites?'\n• 'Tell me about Firebase'\n• 'What AI tools?'\n\nI'll give you a detailed answer! 💡"
+    "Try asking about Likhith's projects, skills, AI tools, or experience! 😊",
+    "I know a lot about Likhith's tech stack, projects (StudentHub, Secure Vault, LiveTalk), and more. What do you want to know? 🤔",
+    "Ask me:\n• 'What projects did you build?'\n• 'What is your tech stack?'\n• 'Tell me about StudentHub'\n• 'How to contact you?'",
   ];
   return fallbacks[Math.floor(Math.random() * fallbacks.length)];
 }
 
-const formatBotText = (text) => {
-  const urlRegex = /(https?:\/\/[^\s]+)|(github\.com\/\S+)|(linkedin\.com\/\S+)/g;
-  const parts = text.split(urlRegex);
-
-  return parts.map((part, i) => {
+function formatText(text) {
+  const urlRe = /(https?:\/\/[^\s]+)|(github\.com\/\S+)|(linkedin\.com\/\S+)/g;
+  return text.split(urlRe).map((part, i) => {
     if (!part) return null;
-    if (part.match(urlRegex)) {
+    if (urlRe.test(part)) {
+      urlRe.lastIndex = 0;
       const href = part.startsWith('http') ? part : `https://${part}`;
-      return <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-neo-blue underline hover:text-black font-black">{part}</a>;
+      return <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="text-[#E67E22] underline font-bold break-all">{part}</a>;
     }
+    urlRe.lastIndex = 0;
     return <span key={i}>{part}</span>;
   });
-};
+}
 
-const ChatBot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const CHIPS = [
+  { label: '🚀 Projects',   q: 'What projects did you build?' },
+  { label: '🛠 Tech Stack',  q: 'What is your tech stack?'     },
+  { label: '💼 Experience',  q: 'Tell me about your experience' },
+  { label: '📞 Contact',     q: 'How can I contact you?'       },
+];
+
+export default function ChatBot() {
+  const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { from: 'bot', text: "Hey! 👋 I'm Likhith's portfolio assistant. Ask me anything — skills, projects, experience, or contact info!" }
+    { from: 'bot', text: "Hey! 👋 I'm Likhith's portfolio assistant. Ask me anything — skills, projects, or how to reach him!" },
   ]);
   const [input, setInput] = useState('');
-  const chatEndRef = React.useRef(null);
+  const [typing, setTyping] = useState(false);
+  const [unread, setUnread] = useState(0);
+  const endRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, typing]);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
-    const userMsg = { from: 'user', text: input.trim() };
-    const botReply = { from: 'bot', text: getBotReply(input) };
-    setMessages(prev => [...prev, userMsg, botReply]);
+  /* Focus input when opened */
+  useEffect(() => {
+    if (open) {
+      setUnread(0);
+      setTimeout(() => inputRef.current?.focus(), 200);
+    }
+  }, [open]);
+
+  const send = (override) => {
+    const text = (override || input).trim();
+    if (!text) return;
+    setMessages(p => [...p, { from: 'user', text }]);
     setInput('');
+    setTyping(true);
+    setTimeout(() => {
+      setMessages(p => [...p, { from: 'bot', text: getBotReply(text) }]);
+      setTyping(false);
+      if (!open) setUnread(n => n + 1);
+    }, 650);
   };
 
   return (
     <>
-      {/* Floating Chat Button */}
+      {/* ── Trigger button ── */}
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.1, rotate: -5 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 right-6 z-[90] w-16 h-16 bg-neo-purple text-white border-4 border-black rounded-2xl shadow-[6px_6px_0_#000] flex items-center justify-center text-2xl hover:bg-neo-blue transition-colors">
-        {isOpen ? <FaTimes /> : <FaComment />}
+        onClick={() => setOpen(v => !v)}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        className="fixed bottom-5 right-5 z-[90] w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex items-center justify-center text-xl transition-colors duration-200"
+        aria-label={open ? 'Close chat' : 'Open chat'}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={open ? 'close' : 'open'}
+            initial={{ rotate: -80, opacity: 0, scale: 0.5 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: 80, opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.18 }}
+          >
+            {open ? <FaTimes size={17} /> : <FaCommentDots size={17} />}
+          </motion.span>
+        </AnimatePresence>
+
+        {/* Unread badge */}
+        <AnimatePresence>
+          {!open && unread > 0 && (
+            <motion.span
+              initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+              className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#E67E22] text-white text-[10px] font-black flex items-center justify-center"
+            >
+              {unread}
+            </motion.span>
+          )}
+        </AnimatePresence>
       </motion.button>
 
-      {/* Chat Window */}
+      {/* ── Chat window ── */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.9 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-24 right-4 md:right-6 z-[90] w-[calc(100%-2rem)] sm:w-96 max-h-[70vh] bg-white border-4 border-black rounded-3xl shadow-[10px_10px_0_#000] flex flex-col overflow-hidden">
-
+            exit={{ opacity: 0, y: 16, scale: 0.97 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+            className="fixed z-[89] bg-white dark:bg-[#111113] border border-zinc-200/60 dark:border-zinc-800 rounded-2xl shadow-[0_24px_64px_rgba(0,0,0,0.18)] dark:shadow-[0_24px_64px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden transition-colors duration-300
+              /* mobile: full width strip above FAB */
+              bottom-24 left-3 right-3
+              /* sm+: fixed right panel */
+              sm:bottom-24 sm:right-5 sm:left-auto sm:w-[380px]
+              /* height */
+              max-h-[70vh] sm:max-h-[520px]"
+          >
             {/* Header */}
-            <div className="bg-neo-purple text-white px-5 py-4 flex items-center gap-3 border-b-4 border-black">
-              <div className="w-10 h-10 bg-neo-yellow text-black rounded-full flex items-center justify-center border-2 border-black font-black text-lg">
-                <FaRobot />
+            <div className="flex items-center gap-3 px-4 py-3.5 bg-zinc-900 dark:bg-[#0d0d0f] border-b border-zinc-800 flex-shrink-0">
+              <div className="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center flex-shrink-0">
+                <FaRobot className="text-[#E67E22]" size={15} />
               </div>
-              <div>
-                <h4 className="font-black text-lg">Likhith's Bot</h4>
-                <p className="text-xs text-white/70 font-bold">Always online • Ask me anything</p>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-extrabold text-white text-sm leading-tight">AI Assistant</h4>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
+                  <p className="text-[10px] text-zinc-400 font-semibold">Online · Powered by Knowledge Base</p>
+                </div>
               </div>
+              <button
+                onClick={() => setOpen(false)}
+                className="w-7 h-7 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-colors flex-shrink-0"
+              >
+                <FaTimes size={11} />
+              </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[250px] max-h-[400px]" style={{ cursor: 'auto' }}>
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-zinc-50/60 dark:bg-[#0a0a0c]">
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] px-4 py-3 rounded-2xl font-bold text-sm whitespace-pre-line ${msg.from === 'user'
-                      ? 'bg-black text-white rounded-br-md'
-                      : 'bg-neo-yellow/40 border-2 border-black text-black rounded-bl-md'
-                    }`}>
-                    {msg.from === 'bot' ? formatBotText(msg.text) : msg.text}
+                  transition={{ duration: 0.22 }}
+                  className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  {msg.from === 'bot' && (
+                    <div className="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0 mr-2 mt-0.5">
+                      <FaRobot size={9} className="text-[#E67E22]" />
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl text-sm font-medium whitespace-pre-line leading-relaxed shadow-sm ${
+                      msg.from === 'user'
+                        ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-br-sm'
+                        : 'bg-white dark:bg-[#1a1a1e] text-zinc-800 dark:text-zinc-200 border border-zinc-100 dark:border-zinc-800 rounded-bl-sm'
+                    }`}
+                  >
+                    {msg.from === 'bot' ? formatText(msg.text) : msg.text}
                   </div>
                 </motion.div>
               ))}
-              <div ref={chatEndRef} />
+
+              {typing && (
+                <div className="flex items-end gap-2">
+                  <div className="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                    <FaRobot size={9} className="text-[#E67E22]" />
+                  </div>
+                  <div className="bg-white dark:bg-[#1a1a1e] border border-zinc-100 dark:border-zinc-800 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1.5 shadow-sm">
+                    {[0, 150, 300].map(delay => (
+                      <span
+                        key={delay}
+                        className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500 animate-bounce"
+                        style={{ animationDelay: `${delay}ms` }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div ref={endRef} />
+            </div>
+
+            {/* Quick chips */}
+            <div className="px-3 py-2 bg-white dark:bg-[#111113] border-t border-zinc-100 dark:border-zinc-800/60 flex gap-2 overflow-x-auto no-scrollbar flex-shrink-0">
+              {CHIPS.map((c, i) => (
+                <button
+                  key={i}
+                  onClick={() => send(c.q)}
+                  className="flex-shrink-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-bold px-3 py-1.5 rounded-full transition-colors whitespace-nowrap"
+                >
+                  {c.label}
+                </button>
+              ))}
             </div>
 
             {/* Input */}
-            <div className="border-t-4 border-black p-3 flex gap-2 bg-gray-50">
+            <div className="flex items-center gap-2 p-3 border-t border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-[#111113] flex-shrink-0">
               <input
+                ref={inputRef}
                 type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ask about skills, projects..."
-                className="flex-1 border-4 border-black rounded-xl px-4 py-2 font-bold text-sm focus:outline-none focus:border-neo-purple transition-colors"
-                style={{ cursor: 'auto' }}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && !e.shiftKey && send()}
+                placeholder="Ask anything..."
+                className="flex-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 rounded-full px-4 py-2.5 text-sm font-medium outline-none focus:ring-2 focus:ring-[#E67E22]/30 transition-all"
               />
               <motion.button
-                onClick={handleSend}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="bg-black text-neo-yellow w-12 h-12 rounded-xl border-4 border-black flex items-center justify-center shadow-neo hover:bg-neo-purple transition-colors text-lg">
-                <FaPaperPlane />
+                onClick={() => send()}
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.93 }}
+                className="w-10 h-10 rounded-full bg-[#E67E22] text-white flex items-center justify-center flex-shrink-0 shadow-sm hover:bg-[#d35400] transition-colors"
+              >
+                <FaPaperPlane size={12} />
               </motion.button>
             </div>
           </motion.div>
@@ -336,5 +339,4 @@ const ChatBot = () => {
       </AnimatePresence>
     </>
   );
-};
-export default ChatBot;
+}

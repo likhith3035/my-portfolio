@@ -1,22 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaTimes, FaPaperPlane, FaRobot, FaComment } from 'react-icons/fa';
+import React, { useRef } from 'react';
 
-const ScrollingBanner = () => (
-  <div className="bg-black text-white py-3 md:py-4 border-b-4 border-black overflow-hidden flex items-center shadow-neo-lg z-20 relative whitespace-nowrap">
-    <div className="font-black text-lg md:text-2xl tracking-widest uppercase flex gap-6 md:gap-12 animate-marquee">
-      <span className="text-neo-yellow drop-shadow-[2px_2px_0_#A855F7] glitch-hover" data-text="⚡ VIBE CODER">⚡ VIBE CODER</span> •
-      <span>🚀 AI & Data Science</span> •
-      <span>🔒 Cybersecurity Expert</span> •
-      <span>💻 Full Stack Developer</span> •
-      <span className="text-neo-teal drop-shadow-[2px_2px_0_#fff]">📱 Interactive UI</span> •
+const ITEMS = [
+  { text: 'Vibe Coder',              emoji: '⚡', accent: true  },
+  { text: 'AI & Data Science',       emoji: '🤖', accent: false },
+  { text: 'Cybersecurity Expert',    emoji: '🔒', accent: true  },
+  { text: 'Full Stack Developer',    emoji: '💻', accent: false },
+  { text: 'Open Source',             emoji: '🌐', accent: true  },
+  { text: 'RAG Systems',             emoji: '🧠', accent: false },
+  { text: 'IEEE 2nd Prize',          emoji: '🏆', accent: true  },
+  { text: 'React · Firebase · Supabase', emoji: '🚀', accent: false },
+];
 
-      <span className="text-neo-yellow drop-shadow-[2px_2px_0_#A855F7] glitch-hover" data-text="⚡ VIBE CODER">⚡ VIBE CODER</span> •
-      <span>🚀 AI & Data Science</span> •
-      <span>🔒 Cybersecurity Expert</span> •
-      <span>💻 Full Stack Developer</span> •
-      <span className="text-neo-teal drop-shadow-[2px_2px_0_#fff]">📱 Interactive UI</span> •
+function Track({ reverse }) {
+  return (
+    <div
+      className={`flex items-center gap-10 font-black text-sm md:text-base tracking-widest uppercase whitespace-nowrap ${
+        reverse ? 'animate-marquee-slow' : 'animate-marquee'
+      }`}
+      style={{ animationDirection: reverse ? 'reverse' : 'normal' }}
+    >
+      {[...ITEMS, ...ITEMS, ...ITEMS].map((item, i) => (
+        <React.Fragment key={i}>
+          <span className={`flex items-center gap-2 ${item.accent ? 'text-[#FBD249]' : 'text-zinc-300'}`}>
+            <span>{item.emoji}</span>
+            {item.text}
+          </span>
+          <span className="text-zinc-600 text-xs select-none">✦</span>
+        </React.Fragment>
+      ))}
     </div>
-  </div>
-);
-export default ScrollingBanner;
+  );
+}
+
+export default function ScrollingBanner() {
+  return (
+    <div className="overflow-hidden bg-zinc-950 border-y border-zinc-800 py-3.5 md:py-4 select-none">
+      <Track reverse={false} />
+    </div>
+  );
+}
