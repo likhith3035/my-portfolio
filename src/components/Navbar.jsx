@@ -66,7 +66,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             <div className="w-8 h-8 bg-zinc-900 dark:bg-white rounded-full flex items-center justify-center text-white dark:text-zinc-900 font-black text-sm group-hover:bg-[#E67E22] dark:group-hover:bg-[#E67E22] dark:group-hover:text-white transition-colors duration-200">
               K
             </div>
-            <span className="font-extrabold text-sm tracking-tight text-zinc-900 dark:text-white">
+            <span className={`font-extrabold text-sm tracking-tight transition-colors duration-200 ${scrolled ? 'text-zinc-900 dark:text-white' : 'text-white'}`}>
               Kami Likhith
             </span>
           </a>
@@ -80,8 +80,12 @@ export default function Navbar({ theme, onToggleTheme }) {
                   onClick={e => scrollTo(e, link.href)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
                     activeSection === link.href
-                      ? 'bg-[#E67E22]/10 text-[#E67E22]'
-                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                      ? scrolled
+                        ? 'bg-[#E67E22]/10 text-[#E67E22]'
+                        : 'bg-white/15 text-white'
+                      : scrolled
+                        ? 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                        : 'text-zinc-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   {link.label}
@@ -96,7 +100,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             <button
               onClick={() => window.__openCommandPalette?.()}
               aria-label="Search or run command"
-              className="w-9 h-9 rounded-full flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
             >
               <FaSearch size={13} />
             </button>
@@ -105,7 +109,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             <button
               onClick={onToggleTheme}
               aria-label="Toggle theme"
-              className="w-9 h-9 rounded-full flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
@@ -123,7 +127,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             {/* CTA – desktop */}
             <button
               onClick={() => window.__openContactModal?.()}
-              className="hidden md:inline-flex items-center gap-1.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-xs px-4 py-2 rounded-full hover:bg-[#E67E22] dark:hover:bg-[#E67E22] dark:hover:text-white transition-all duration-200"
+              className={`hidden md:inline-flex items-center gap-1.5 font-bold text-xs px-4 py-2 rounded-full transition-all duration-200 ${scrolled ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:bg-[#E67E22] dark:hover:bg-[#E67E22] dark:hover:text-white' : 'bg-white text-zinc-900 hover:bg-[#E67E22] hover:text-white'}`}
             >
               Hire me
             </button>
@@ -132,7 +136,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             <button
               onClick={() => setMobileOpen(v => !v)}
               aria-label="Menu"
-              className="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              className={`md:hidden w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
             >
               {mobileOpen ? <FaTimes size={14} /> : <HiMenuAlt3 size={18} />}
             </button>
