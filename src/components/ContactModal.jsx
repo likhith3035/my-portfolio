@@ -30,7 +30,7 @@ export default function ContactModal({ isOpen, onClose }) {
   };
 
   const inputCls = `w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3.5 font-medium text-sm text-white
-    focus:outline-none focus:border-[#E67E22] transition-colors placeholder:text-zinc-600`;
+    focus:outline-none focus:border-[#E67E22] transition-colors placeholder:text-zinc-400`;
 
   return (
     <AnimatePresence>

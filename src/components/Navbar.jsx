@@ -78,16 +78,27 @@ export default function Navbar({ theme, onToggleTheme }) {
                 <a
                   href={link.href}
                   onClick={e => scrollTo(e, link.href)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors duration-300 select-none block ${
                     activeSection === link.href
                       ? scrolled
-                        ? 'bg-[#E67E22]/10 text-[#E67E22]'
-                        : 'bg-white/15 text-white'
+                        ? 'text-[#E67E22]'
+                        : 'text-white'
                       : scrolled
-                        ? 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
-                        : 'text-zinc-300 hover:text-white hover:bg-white/10'
+                        ? 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                        : 'text-zinc-300 hover:text-white'
                   }`}
                 >
+                  {activeSection === link.href && (
+                    <motion.span
+                      layoutId="activeNavPill"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      className={`absolute inset-0 rounded-full z-[-1] ${
+                        scrolled
+                          ? 'bg-[#E67E22]/10 dark:bg-[#E67E22]/15'
+                          : 'bg-white/15'
+                      }`}
+                    />
+                  )}
                   {link.label}
                 </a>
               </li>

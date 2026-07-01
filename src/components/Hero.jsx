@@ -4,10 +4,10 @@ import { FaGithub, FaLinkedin, FaInstagram, FaArrowDown, FaDownload, FaTimes, Fa
 
 /* ─── Typewriter ─── */
 const ROLES = [
-  { text: 'Full Stack Developer',     color: '#E67E22' },
+  { text: 'Full Stack Developer', color: '#E67E22' },
   { text: 'Cybersecurity Enthusiast', color: '#14B8A6' },
-  { text: 'AI & ML Explorer',         color: '#A855F7' },
-  { text: 'Vibe Coder ⚡',            color: '#f5a623' },
+  { text: 'AI & ML Explorer', color: '#A855F7' },
+  { text: 'Vibe Coder ⚡', color: '#f5a623' },
 ];
 
 function useTypewriter(items) {
@@ -73,23 +73,23 @@ function TiltCard({ children }) {
 }
 
 const STATS = [
-  { raw: '5', suffix: '+',   label: 'Projects'   },
-  { raw: '2', suffix: 'nd',  label: 'IEEE Prize'  },
-  { raw: '36', suffix: 'hr', label: 'Hackathons'  },
+  { raw: '5', suffix: '+', label: 'Projects' },
+  { raw: '2', suffix: 'nd', label: 'IEEE Prize' },
+  { raw: '36', suffix: 'hr', label: 'Hackathons' },
 ];
 const SOCIALS = [
-  { href: 'https://github.com/likhith3035',              icon: <FaGithub />,    label: 'GitHub'    },
-  { href: 'https://linkedin.com/in/likhith-kami',        icon: <FaLinkedin />,  label: 'LinkedIn'  },
-  { href: 'https://www.instagram.com/lucky__likhith',    icon: <FaInstagram />, label: 'Instagram' },
+  { href: 'https://github.com/likhith3035', icon: <FaGithub />, label: 'GitHub' },
+  { href: 'https://linkedin.com/in/likhith-kami', icon: <FaLinkedin />, label: 'LinkedIn' },
+  { href: 'https://www.instagram.com/lucky__likhith', icon: <FaInstagram />, label: 'Instagram' },
 ];
 const TECH_PILLS = [
-  { icon: <FaCode />,      label: 'React',         color: '#61DBFB' },
-  { icon: <FaShieldAlt />, label: 'Security',      color: '#E67E22' },
-  { icon: <FaBrain />,     label: 'AI / ML',       color: '#A855F7' },
+  { icon: <FaCode />, label: 'React', color: '#61DBFB' },
+  { icon: <FaShieldAlt />, label: 'Security', color: '#E67E22' },
+  { icon: <FaBrain />, label: 'AI / ML', color: '#A855F7' },
 ];
 
 const stagger = { show: { transition: { staggerChildren: 0.09 } } };
-const fadeUp  = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } } };
+const fadeUp = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } } };
 
 export default function Hero({ theme }) {
   const isDark = theme === 'dark';
@@ -102,19 +102,19 @@ export default function Hero({ theme }) {
   }, [photoOpen]);
 
   /* ── Theme-aware background classes ── */
-  const sectionBg   = isDark ? 'bg-[#0a0a0b]'   : 'bg-[#FAF9F6]';
-  const headingColor = isDark ? 'text-white'      : 'text-zinc-900';
-  const bodyColor    = isDark ? 'text-zinc-400'   : 'text-zinc-500';
-  const cardBg       = isDark ? 'bg-white/5 border-white/10'   : 'bg-white border-zinc-200/80';
-  const socialBg     = isDark ? 'bg-white/6 border-white/12 text-zinc-400'  : 'bg-white border-zinc-200 text-zinc-600';
-  const pillBg       = isDark ? 'bg-[#E67E22]/15 border-[#E67E22]/30'       : 'bg-[#E67E22]/10 border-[#E67E22]/25';
-  const ghostBtn     = isDark ? 'border-zinc-700 text-zinc-300 hover:border-[#E67E22] hover:text-[#E67E22]'
-                               : 'border-zinc-300 text-zinc-600 hover:border-[#E67E22] hover:text-[#E67E22]';
+  const sectionBg = isDark ? 'bg-[#0a0a0b]' : 'bg-[#FAF9F6]';
+  const headingColor = isDark ? 'text-white' : 'text-zinc-900';
+  const bodyColor = isDark ? 'text-zinc-400' : 'text-zinc-500';
+  const cardBg = isDark ? 'bg-white/5 border-white/10' : 'bg-white border-zinc-200/80';
+  const socialBg = isDark ? 'bg-white/6 border-white/12 text-zinc-400' : 'bg-white border-zinc-200 text-zinc-600';
+  const pillBg = isDark ? 'bg-[#E67E22]/15 border-[#E67E22]/30' : 'bg-[#E67E22]/10 border-[#E67E22]/25';
+  const ghostBtn = isDark ? 'border-zinc-700 text-zinc-300 hover:border-[#E67E22] hover:text-[#E67E22]'
+    : 'border-zinc-300 text-zinc-600 hover:border-[#E67E22] hover:text-[#E67E22]';
   const secondaryBtn = isDark ? 'bg-white/8 border-white/15 text-white hover:bg-white/15'
-                               : 'bg-zinc-900 border-zinc-900 text-white hover:bg-zinc-800';
-  const badgeBg      = isDark ? 'bg-zinc-900/90 border-zinc-700' : 'bg-white/95 border-zinc-200';
-  const badgeText    = isDark ? 'text-white' : 'text-zinc-900';
-  const badgeSub     = isDark ? 'text-zinc-500' : 'text-zinc-400';
+    : 'bg-zinc-900 border-zinc-900 text-white hover:bg-zinc-800';
+  const badgeBg = isDark ? 'bg-zinc-900/90 border-zinc-700' : 'bg-white/95 border-zinc-200';
+  const badgeText = isDark ? 'text-white' : 'text-zinc-900';
+  const badgeSub = isDark ? 'text-zinc-500' : 'text-zinc-400';
 
   return (
     <section id="home"
@@ -164,9 +164,12 @@ export default function Hero({ theme }) {
                 </div>
               </button>
               {/* Available dot — bottom right, clearly visible */}
-              <div className={`absolute -bottom-1 -right-1 flex items-center gap-1 px-2 py-1 rounded-full border shadow-lg text-[10px] font-black uppercase tracking-wide ${badgeBg} ${badgeText}`}
+              <div className={`absolute -bottom-1 -right-1 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border shadow-lg text-[10px] font-black uppercase tracking-wide ${badgeBg} ${badgeText}`}
                 style={{ backdropFilter: 'blur(8px)' }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-glow flex-shrink-0" />
+                <span className="relative flex h-2 w-2 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
                 <span className="text-emerald-500">Available</span>
               </div>
             </div>
@@ -180,8 +183,12 @@ export default function Hero({ theme }) {
 
           <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-4 w-full">
             <motion.div variants={fadeUp} className="flex justify-center">
-              <span className={`inline-flex items-center gap-2 text-[#E67E22] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border ${pillBg}`}>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] animate-glow" /> Open to Opportunities
+              <span className={`inline-flex items-center gap-2.5 text-[#E67E22] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border ${pillBg}`}>
+                <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E67E22] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E67E22]"></span>
+                </span>
+                Open to Opportunities
               </span>
             </motion.div>
 
@@ -255,8 +262,12 @@ export default function Hero({ theme }) {
           {/* ── Left col ── */}
           <motion.div variants={stagger} initial="hidden" animate="show" className="md:col-span-7 space-y-7">
             <motion.div variants={fadeUp} className="flex items-center gap-3 flex-wrap">
-              <span className={`inline-flex items-center gap-2 text-[#E67E22] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border ${pillBg}`}>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] animate-glow" /> Open to Opportunities
+              <span className={`inline-flex items-center gap-2.5 text-[#E67E22] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border ${pillBg}`}>
+                <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E67E22] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E67E22]"></span>
+                </span>
+                Open to Opportunities
               </span>
               <span className={`inline-flex items-center gap-1.5 text-xs font-bold ${bodyColor}`}>
                 <FaMapMarkerAlt size={9} className="text-[#E67E22]" /> Srikalahasti, AP
@@ -277,7 +288,7 @@ export default function Hero({ theme }) {
             </motion.div>
 
             <motion.p variants={fadeUp} className={`text-lg font-medium max-w-lg leading-relaxed ${bodyColor}`}>
-              Building secure, high-performance web systems at NBKRIST. Specialized in full-stack engineering and retrieval-augmented AI.
+              Creating scalable websites, full-stack applications, AI automations, and well-crafted digital experiences from idea to deployment.
             </motion.p>
 
             {/* Tech pills — desktop */}
@@ -350,8 +361,11 @@ export default function Hero({ theme }) {
                 {/* ── AVAILABLE badge — top-right outside card, always visible ── */}
                 <motion.div initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.0, type: 'spring', stiffness: 300 }}
-                  className={`absolute -top-4 -right-4 flex items-center gap-2 px-3.5 py-2 rounded-2xl border shadow-lg z-20 backdrop-blur-md ${badgeBg}`}>
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-glow flex-shrink-0" />
+                  className={`absolute -top-4 -right-4 flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl border shadow-lg z-20 backdrop-blur-md ${badgeBg}`}>
+                  <span className="relative flex h-2 w-2 flex-shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
                   <div>
                     <div className={`text-[11px] font-black uppercase tracking-wider ${badgeText}`}>Available</div>
                     <div className={`text-[9px] font-semibold ${badgeSub}`}>for work</div>

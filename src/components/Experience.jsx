@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin } from 'react-icons/fa';
 
 const BULLETS = [
   { icon: <FaShieldAlt />, text: 'Performed vulnerability analysis and ethical hacking using Metasploit Framework, identifying and documenting security weaknesses in controlled lab environments.' },
@@ -31,6 +31,7 @@ const ACHIEVEMENTS = [
     year: '2026',
     desc: 'Developed StudentHub — a PWA campus super-app with Firebase, Supabase, and Sarvam AI in 36 hours.',
     link: 'https://gensync-78.vercel.app/',
+    linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
   },
   {
     emoji: '⚡',
@@ -41,6 +42,7 @@ const ACHIEVEMENTS = [
     org: "Mission Schrödinger's Cat · SRM AP University",
     year: '2025',
     desc: '36-hour national hackathon with 1200+ participants. Built Kiosk Vision — offline-first smart kiosk with local UPI QR & AI gesture interaction.',
+    linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackathon-firsthackathon-srmap-ugcPost-7444771007883776000-H4JA/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
   },
 ];
 
@@ -125,13 +127,20 @@ function AchievementCard({ a, i }) {
 
       <p className="text-sm text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">{a.desc}</p>
 
-      {a.link && (
-        <a href={a.link} target="_blank" rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-[#E67E22] text-xs font-black hover:underline"
-          onClick={e => e.stopPropagation()}>
-          <FaExternalLinkAlt size={9} /> View Project
-        </a>
-      )}
+      <div className="flex flex-wrap items-center gap-3 mt-1" onClick={e => e.stopPropagation()}>
+        {a.link && (
+          <a href={a.link} target="_blank" rel="noreferrer"
+            className="inline-flex items-center gap-1.5 text-[#E67E22] text-xs font-black hover:underline">
+            <FaExternalLinkAlt size={9} /> View Project
+          </a>
+        )}
+        {a.linkedin && (
+          <a href={a.linkedin} target="_blank" rel="noreferrer"
+            className="inline-flex items-center gap-1 text-[#0077B5] hover:text-[#005582] text-xs font-black hover:underline">
+            <FaLinkedin size={10} /> LinkedIn Post
+          </a>
+        )}
+      </div>
     </motion.div>
   );
 }
@@ -160,7 +169,11 @@ export default function Experience() {
           {/* Animated gradient bar */}
           <div className="h-1 w-full bg-gradient-to-r from-[#E67E22] via-[#f5a623] to-[#E67E22]/40 bg-[length:200%] animate-shimmer" />
 
-          <div className="p-6 md:p-10">
+          {/* Background grid details */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06] transition-opacity duration-500"
+            style={{ backgroundImage: 'radial-gradient(rgba(230,126,34,0.6) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
+
+          <div className="p-6 md:p-10 relative z-10">
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8 pb-6 border-b border-zinc-100 dark:border-zinc-800">
               <div className="space-y-2.5">
                 <div className="flex flex-wrap gap-2">

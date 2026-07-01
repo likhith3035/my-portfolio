@@ -218,7 +218,7 @@ export default function About() {
             </div>
 
             {/* Timeline */}
-            <div className="space-y-4">
+            <div className="relative pl-6 sm:pl-8 border-l border-zinc-200 dark:border-zinc-800 space-y-6 ml-4 sm:ml-5">
               {EDUCATION.map((edu, i) => (
                 <motion.div
                   key={i}
@@ -228,6 +228,15 @@ export default function About() {
                   transition={{ delay: i * 0.12, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                   className="relative"
                 >
+                  {/* Timeline dot */}
+                  <div
+                    className="absolute -left-[31px] sm:-left-[41px] top-6 w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full border-2 border-white dark:border-[#0B0B0C] z-10 transition-all duration-300"
+                    style={{
+                      backgroundColor: openEdu === i ? EDU_COLORS[i].accent : 'rgb(212 212 216)',
+                      boxShadow: openEdu === i ? `0 0 12px ${EDU_COLORS[i].accent}` : 'none'
+                    }}
+                  />
+
                   {/* Glowing number badge */}
                   <div className={`absolute -left-0 top-0 w-full h-full rounded-2xl pointer-events-none transition-opacity duration-300 ${openEdu === i ? 'opacity-100' : 'opacity-0'}`}
                     style={{ background: EDU_COLORS[i].glow, filter: 'blur(20px)', transform: 'scale(0.95)' }} />

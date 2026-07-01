@@ -119,6 +119,10 @@ function ProjectCard({ project, index }) {
       whileHover={{ y: -4, transition: { type: 'spring', stiffness: 260, damping: 20 } }}
       className={`relative overflow-hidden card card-hover border ${project.borderColor} bg-gradient-to-br ${project.color} flex flex-col ${project.featured ? 'lg:col-span-2' : ''}`}
     >
+      {/* Background grid details */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02] dark:opacity-[0.04]"
+        style={{ backgroundImage: 'radial-gradient(rgba(230,126,34,0.5) 1px, transparent 1px)', backgroundSize: '14px 14px' }} />
+
       {project.featured && (
         <div className="absolute top-4 right-4 z-10">
           <motion.div
@@ -414,15 +418,22 @@ export default function Projects() {
           {/* Filter tabs */}
           <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex items-center gap-2 justify-center flex-wrap">
+            className="flex items-center gap-2 justify-center flex-wrap bg-zinc-100/60 dark:bg-zinc-900/40 p-1 rounded-full border border-zinc-200/50 dark:border-zinc-800/40 max-w-max mx-auto">
             {filters.map(f => (
               <button key={f} onClick={() => setFilter(f)}
-                className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 ${
+                className={`relative px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-colors duration-250 select-none cursor-pointer ${
                   filter === f
-                    ? 'bg-[#E67E22] text-white shadow-[0_4px_12px_rgba(230,126,34,0.35)]'
-                    : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                    ? 'text-white'
+                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
                 }`}>
-                {f}
+                {filter === f && (
+                  <motion.span
+                    layoutId="activeFilterPill"
+                    transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                    className="absolute inset-0 bg-[#E67E22] rounded-full z-0 shadow-[0_4px_12px_rgba(230,126,34,0.3)]"
+                  />
+                )}
+                <span className="relative z-10">{f}</span>
               </button>
             ))}
           </motion.div>
