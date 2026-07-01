@@ -55,7 +55,7 @@ export default function App() {
       <CustomCursor />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <main>
-        <Hero />
+        <Hero theme={theme} />
         <ScrollingBanner />
         <About />
         <Experience />
