@@ -118,7 +118,7 @@ export default function Hero({ theme }) {
 
   return (
     <section id="home"
-      className={`relative min-h-[100dvh] flex flex-col justify-center overflow-hidden transition-colors duration-300 ${sectionBg}`}>
+      className={`relative min-h-[100dvh] flex flex-col justify-center pt-24 md:pt-28 overflow-hidden transition-colors duration-300 ${sectionBg}`}>
 
       {/* ── Ambient blobs — theme aware ── */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -141,7 +141,7 @@ export default function Hero({ theme }) {
       {/* Top hairline */}
       <div className={`pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#E67E22]/40 to-transparent`} />
 
-      <div className="container-md relative z-10 w-full pt-28 pb-16 md:pt-20">
+      <div className="container-md relative z-10 w-full pt-6 pb-16 md:pt-4">
 
         {/* ═══════════════ MOBILE ═══════════════ */}
         <div className="flex flex-col md:hidden items-center text-center gap-5">
