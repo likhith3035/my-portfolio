@@ -1,39 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import ContactModal from './components/ContactModal';
-import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ScrollingBanner from './components/ScrollingBanner';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import Support from './components/Support';
 import Footer from './components/Footer';
 import ChatBot from './components/ChatBot';
-import './App.css'; // Global styles
+import CustomCursor from './components/CustomCursor';
+import ScrollToTop from './components/ScrollToTop';
+import PageLoader from './components/PageLoader';
+import SpotlightCursor from './components/SpotlightCursor';
+import './App.css';
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    try { return localStorage.getItem('theme') || 'light'; }
+    catch { return 'light'; }
+  });
 
-  // Expose opener globally so child components can trigger it
+  useEffect(() => {
+    const root = window.document.documentElement;
+    theme === 'dark' ? root.classList.add('dark') : root.classList.remove('dark');
+    try { localStorage.setItem('theme', theme); } catch {}
+  }, [theme]);
+
   useEffect(() => {
     window.__openContactModal = () => setContactOpen(true);
     return () => { delete window.__openContactModal; };
   }, []);
 
+  /* Console Easter egg */
+  useEffect(() => {
+    console.log('%c👋 Hey there, curious dev!', 'color:#E67E22;font-size:18px;font-weight:900');
+    console.log('%cThis portfolio was built by Kami Likhith with React + Framer Motion + Tailwind.', 'color:#a1a1aa;font-size:13px');
+    console.log('%c📧 kamilikhith@gmail.com', 'color:#E67E22;font-size:13px;font-weight:700');
+  }, []);
+
+  const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light');
+
   return (
-    <div className="overflow-x-hidden cursor-none selection:bg-neo-purple selection:text-white">
+    <div className="overflow-x-hidden bg-[#FAF9F6] text-zinc-900 dark:bg-[#0B0B0C] dark:text-zinc-100 transition-colors duration-300 selection:bg-[#E67E22] selection:text-white">
+      <PageLoader />
+      <SpotlightCursor />
       <CustomCursor />
-      <Navbar />
+      <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <Hero />
         <ScrollingBanner />
         <About />
         <Experience />
         <Projects />
+        <Support />
       </main>
       <Footer />
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <ChatBot />
+      <ScrollToTop />
     </div>
   );
 }
