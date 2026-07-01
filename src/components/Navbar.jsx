@@ -49,12 +49,11 @@ export default function Navbar({ theme, onToggleTheme }) {
         initial={{ y: -60, opacity: 0, x: '-50%' }}
         animate={{ y: 0, opacity: 1, x: '-50%' }}
         transition={{ type: 'spring', stiffness: 120, damping: 22, delay: 0.1 }}
-        className={`fixed top-3 sm:top-5 left-1/2 z-50 w-[94%] max-w-3xl rounded-full transition-all duration-300 overflow-hidden
+        className={`fixed top-3 sm:top-5 left-1/2 z-50 w-[94%] max-w-3xl rounded-full transition-all duration-500 overflow-hidden
           ${scrolled
-            ? 'bg-white/90 dark:bg-[#121214]/90 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.4)] border border-zinc-200/70 dark:border-zinc-800/70'
-            : 'bg-white/75 dark:bg-[#121214]/75 backdrop-blur-md border border-zinc-200/50 dark:border-zinc-800/50'
-          }`}
-      >
+            ? 'bg-white/90 dark:bg-[#121214]/95 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.5)] border border-zinc-200/70 dark:border-zinc-800/70 text-zinc-900 dark:text-zinc-100'
+            : 'bg-[#0a0a0b]/60 backdrop-blur-md border border-white/10 text-white'
+          }`}      >
         {/* Scroll progress */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#E67E22] origin-left"

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { FaChevronDown, FaDownload, FaCode, FaBrain, FaShieldAlt, FaCloud, FaFire } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaDownload, FaCode, FaBrain, FaShieldAlt, FaCloud, FaFire } from 'react-icons/fa';
 
 const EDUCATION = [
   {
@@ -42,6 +42,39 @@ const v = (delay = 0) => ({
 });
 
 const CURRENTLY_LEARNING = ['LangGraph', 'Next.js 15', 'Docker', 'Vector DBs', 'Rust'];
+
+const EDU_COLORS = [
+  {
+    bg: 'linear-gradient(135deg,rgba(230,126,34,0.08),rgba(245,166,35,0.04))',
+    border: 'rgba(230,126,34,0.3)',
+    line: 'linear-gradient(90deg,#E67E22,#f5a623)',
+    glow: 'radial-gradient(circle,rgba(230,126,34,0.2),transparent 70%)',
+    accent: '#E67E22',
+    tagBg: 'rgba(230,126,34,0.1)',
+    numBg: 'rgba(230,126,34,0.15)',
+    numText: '#E67E22',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(168,85,247,0.08),rgba(139,92,246,0.04))',
+    border: 'rgba(168,85,247,0.3)',
+    line: 'linear-gradient(90deg,#A855F7,#8B5CF6)',
+    glow: 'radial-gradient(circle,rgba(168,85,247,0.2),transparent 70%)',
+    accent: '#A855F7',
+    tagBg: 'rgba(168,85,247,0.1)',
+    numBg: 'rgba(168,85,247,0.15)',
+    numText: '#A855F7',
+  },
+  {
+    bg: 'linear-gradient(135deg,rgba(20,184,166,0.08),rgba(6,182,212,0.04))',
+    border: 'rgba(20,184,166,0.3)',
+    line: 'linear-gradient(90deg,#14B8A6,#06B6D4)',
+    glow: 'radial-gradient(circle,rgba(20,184,166,0.2),transparent 70%)',
+    accent: '#14B8A6',
+    tagBg: 'rgba(20,184,166,0.1)',
+    numBg: 'rgba(20,184,166,0.15)',
+    numText: '#14B8A6',
+  },
+];
 
 export default function About() {
   const [openEdu, setOpenEdu] = useState(null);
@@ -185,58 +218,80 @@ export default function About() {
             </div>
 
             {/* Timeline */}
-            <div className="relative pl-6 space-y-4 before:absolute before:left-0 before:top-2 before:bottom-2 before:w-px before:bg-gradient-to-b before:from-[#E67E22]/60 before:via-zinc-200 before:to-transparent dark:before:via-zinc-800">
+            <div className="space-y-4">
               {EDUCATION.map((edu, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -12 }}
+                  initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: i * 0.12, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                   className="relative"
                 >
-                  {/* Node */}
-                  <div className="absolute -left-[1.45rem] top-4 w-3 h-3 rounded-full bg-white dark:bg-[#0B0B0C] border-2 border-[#E67E22] shadow-[0_0_0_3px_rgba(230,126,34,0.15)]" />
+                  {/* Glowing number badge */}
+                  <div className={`absolute -left-0 top-0 w-full h-full rounded-2xl pointer-events-none transition-opacity duration-300 ${openEdu === i ? 'opacity-100' : 'opacity-0'}`}
+                    style={{ background: EDU_COLORS[i].glow, filter: 'blur(20px)', transform: 'scale(0.95)' }} />
 
-                  {/* Card */}
                   <div
-                    className="card card-hover border border-zinc-100 dark:border-zinc-800 p-4 cursor-pointer rounded-2xl"
                     onClick={() => setOpenEdu(openEdu === i ? null : i)}
+                    className={`relative overflow-hidden rounded-2xl border cursor-pointer transition-all duration-300 ${
+                      openEdu === i
+                        ? 'border-transparent shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)]'
+                        : 'border-zinc-100 dark:border-zinc-800 hover:border-[#E67E22]/30 dark:hover:border-[#E67E22]/30 bg-white dark:bg-[#121214]'
+                    }`}
+                    style={openEdu === i ? { background: EDU_COLORS[i].bg, borderColor: EDU_COLORS[i].border } : {}}
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="text-xl leading-none pt-0.5">{edu.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2 flex-wrap">
-                          <div>
-                            <h4 className="font-extrabold text-zinc-900 dark:text-white text-sm leading-tight">{edu.degree}</h4>
-                            <p className="text-xs text-zinc-500 dark:text-zinc-400 font-bold mt-0.5">{edu.school}</p>
-                          </div>
-                          <div className="flex items-center gap-2 flex-shrink-0">
-                            <span className="tag">{edu.period}</span>
-                            <span className={`transition-transform duration-200 text-zinc-400 ${openEdu === i ? 'rotate-180' : ''}`}>
-                              <FaChevronDown size={9} />
-                            </span>
-                          </div>
+                    {/* Top accent line */}
+                    {openEdu === i && (
+                      <div className="h-0.5 w-full" style={{ background: EDU_COLORS[i].line }} />
+                    )}
+
+                    <div className="p-4 md:p-5">
+                      <div className="flex items-start gap-4">
+                        {/* Step number */}
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-black text-lg"
+                          style={{ background: EDU_COLORS[i].numBg, color: EDU_COLORS[i].numText }}>
+                          {edu.icon}
                         </div>
 
-                        <AnimatePresence>
-                          {openEdu === i && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.22 }}
-                              className="overflow-hidden"
-                            >
-                              <div className="mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-1">
-                                <span className="inline-flex items-center gap-1.5 bg-[#E67E22]/10 text-[#E67E22] text-xs font-bold px-2.5 py-1 rounded-lg">
-                                  📊 {edu.grade}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between gap-2 flex-wrap">
+                            <div>
+                              <h4 className="font-extrabold text-zinc-900 dark:text-white text-sm leading-tight">{edu.degree}</h4>
+                              <p className="text-xs font-bold mt-0.5"
+                                style={{ color: openEdu === i ? EDU_COLORS[i].accent : '' }}
+                              >
+                                <span className={openEdu === i ? '' : 'text-zinc-500 dark:text-zinc-400'}>
+                                  {edu.school}
                                 </span>
-                                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed">{edu.detail}</p>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                              <span className="inline-flex items-center text-[11px] font-black px-2.5 py-1 rounded-lg"
+                                style={openEdu === i ? { background: EDU_COLORS[i].tagBg, color: EDU_COLORS[i].accent, border: `1px solid ${EDU_COLORS[i].border}` }
+                                  : { background: 'rgb(244 244 245)', color: 'rgb(82 82 91)', border: '1px solid rgb(228 228 231)' }}>
+                                {edu.period}
+                              </span>
+                              <motion.span animate={{ rotate: openEdu === i ? 180 : 0 }} transition={{ duration: 0.22 }}
+                                className="text-zinc-400 text-xs">▼</motion.span>
+                            </div>
+                          </div>
+
+                          <AnimatePresence>
+                            {openEdu === i && (
+                              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
+                                <div className="mt-3 pt-3 border-t space-y-2" style={{ borderColor: EDU_COLORS[i].border }}>
+                                  <span className="inline-flex items-center gap-1.5 text-xs font-black px-2.5 py-1 rounded-lg"
+                                    style={{ background: EDU_COLORS[i].tagBg, color: EDU_COLORS[i].accent, border: `1px solid ${EDU_COLORS[i].border}` }}>
+                                    📊 {edu.grade}
+                                  </span>
+                                  <p className="text-xs font-medium leading-relaxed text-zinc-600 dark:text-zinc-400">{edu.detail}</p>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
                       </div>
                     </div>
                   </div>
