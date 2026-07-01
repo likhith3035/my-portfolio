@@ -248,14 +248,14 @@ export default function CommandPalette({
                     placeholder="Type a command or shortcut key..."
                     className="flex-1 bg-transparent text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 text-sm md:text-base outline-none font-medium"
                   />
-                  <div className="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-900 px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-400 dark:text-zinc-500 font-bold select-none">
+                  <div className="hidden sm:flex items-center gap-1 bg-zinc-100 dark:bg-zinc-900 px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-400 dark:text-zinc-500 font-bold select-none">
                     <FaRegKeyboard size={10} />
                     <span>CMD K</span>
                   </div>
                 </div>
 
                 {/* Items List */}
-                <div className="max-h-72 overflow-y-auto p-2 space-y-0.5">
+                <div className="max-h-64 sm:max-h-72 overflow-y-auto pl-3 pr-4 py-2 space-y-1 scroll-smooth">
                   {filtered.length > 0 ? (
                     filtered.map((act, idx) => {
                       const active = activeIndex === idx;
@@ -279,9 +279,11 @@ export default function CommandPalette({
                               <p className="text-[10px] md:text-xs text-zinc-400 dark:text-zinc-500 font-bold mt-0.5 truncate max-w-[280px] md:max-w-xs">{act.desc}</p>
                             </div>
                           </div>
-                          <span className={`text-[10px] font-black px-2 py-0.5 border rounded-md font-mono select-none ${active ? 'bg-[#E67E22]/15 text-[#E67E22] border-[#E67E22]/30' : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-600 border-zinc-200 dark:border-zinc-800'}`}>
-                            {act.shortcut}
-                          </span>
+                          {act.shortcut && (
+                            <span className={`hidden sm:inline-flex text-[10px] font-black px-2 py-0.5 border rounded-md font-mono select-none ${active ? 'bg-[#E67E22]/15 text-[#E67E22] border-[#E67E22]/30' : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-600 border-zinc-200 dark:border-zinc-800'}`}>
+                              {act.shortcut}
+                            </span>
+                          )}
                         </div>
                       );
                     })
@@ -294,11 +296,12 @@ export default function CommandPalette({
 
                 {/* Footer instructions */}
                 <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-50 dark:bg-zinc-900/40 border-t border-zinc-100 dark:border-zinc-900 select-none text-[10px] text-zinc-400 dark:text-zinc-500 font-bold">
-                  <div className="flex items-center gap-3">
+                  <div className="hidden sm:flex items-center gap-3">
                     <span>↑↓ to navigate</span>
                     <span>↵ to select</span>
                   </div>
-                  <span>ESC to close</span>
+                  <span className="hidden sm:inline">ESC to close</span>
+                  <span className="sm:hidden mx-auto text-center">Tap any command to run · Swipe to scroll</span>
                 </div>
               </>
             )}
