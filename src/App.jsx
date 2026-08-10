@@ -16,17 +16,26 @@ import SpotlightCursor from './components/SpotlightCursor';
 import CommandPalette from './components/CommandPalette';
 import MatrixRain from './components/MatrixRain';
 import ConfettiOverlay from './components/ConfettiOverlay';
-import './App.css';
+import MLSAModal from './components/MLSAModal';
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [matrixActive, setMatrixActive] = useState(false);
   const [confettiTriggerCount, setConfettiTriggerCount] = useState(0);
+  const [mlsaOpen, setMlsaOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
     try { return localStorage.getItem('theme') || 'light'; }
     catch { return 'light'; }
   });
+
+  useEffect(() => {
+    /* Auto open MLSA activity popup on initial site visit */
+    const timer = setTimeout(() => {
+      setMlsaOpen(true);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     /* Disable browser scroll restoration and force top on load */
@@ -45,11 +54,13 @@ export default function App() {
     window.__openCommandPalette = () => setCommandPaletteOpen(true);
     window.__triggerMatrix = () => setMatrixActive(true);
     window.__triggerConfetti = () => setConfettiTriggerCount(c => c + 1);
+    window.__openMLSAModal = () => setMlsaOpen(true);
     return () => {
       delete window.__openContactModal;
       delete window.__openCommandPalette;
       delete window.__triggerMatrix;
       delete window.__triggerConfetti;
+      delete window.__openMLSAModal;
     };
   }, []);
 
@@ -78,6 +89,7 @@ export default function App() {
       </main>
       <Footer />
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+      <MLSAModal isOpen={mlsaOpen} onClose={() => setMlsaOpen(false)} />
       <ChatBot />
       <ScrollToTop />
 
