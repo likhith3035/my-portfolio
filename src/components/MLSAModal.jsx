@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaExternalLinkAlt, FaCheckCircle, FaGraduationCap, FaClock, FaCheck, FaCopy, FaRocket } from 'react-icons/fa';
+import { FaTimes, FaExternalLinkAlt, FaCheckCircle, FaGraduationCap, FaClock, FaCheck, FaCopy, FaRocket, FaGlobe } from 'react-icons/fa';
 
 const MLSA_LINK = "https://learn.microsoft.com/startups/?tabs=getting-started&wt.mc_id=studentamb_532958";
+const MLSA_NETLIFY_LINK = "https://msa250.netlify.app/";
 
 function MicrosoftLogo({ className = "w-5 h-5" }) {
   return (
@@ -49,6 +50,10 @@ export default function MLSAModal({ isOpen, onClose }) {
     window.open(MLSA_LINK, '_blank');
     setHasClickedLink(true);
     setTimerRunning(true);
+  };
+
+  const handleOpenNetlifyLink = () => {
+    window.open(MLSA_NETLIFY_LINK, '_blank');
   };
 
   const handleCopyLink = () => {
@@ -195,27 +200,38 @@ export default function MLSAModal({ isOpen, onClose }) {
               )}
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="space-y-2.5">
                 {/* Glowing Pulse Wrapped Primary Action Button */}
-                <div className="relative flex-1 group">
+                <div className="relative group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-[#0078D4] via-[#00A4EF] to-emerald-400 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-700 animate-pulse" />
                   <button
                     onClick={handleOpenLink}
-                    className="relative w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#0078D4] to-[#00A4EF] hover:from-[#0063B1] hover:to-[#0078D4] active:scale-[0.98] text-white font-bold px-6 py-4 rounded-2xl text-sm shadow-xl transition-all cursor-pointer"
+                    className="relative w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#0078D4] to-[#00A4EF] hover:from-[#0063B1] hover:to-[#0078D4] active:scale-[0.98] text-white font-bold px-6 py-3.5 rounded-2xl text-sm shadow-xl transition-all cursor-pointer"
                   >
                     <FaRocket className="text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    {hasClickedLink ? 'Re-open Link' : 'Open Link & Support MLSA'}
+                    {hasClickedLink ? 'Re-open Microsoft Learn' : 'Open Microsoft Learn & Support'}
                   </button>
                 </div>
 
-                <button
-                  onClick={handleCopyLink}
-                  className="inline-flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 active:scale-[0.98] text-zinc-300 hover:text-white font-bold px-5 py-4 rounded-2xl text-sm transition-all cursor-pointer"
-                  title="Copy link to clipboard"
-                >
-                  {copied ? <FaCheck className="text-emerald-400" /> : <FaCopy className="text-xs" />}
-                  {copied ? 'Copied!' : 'Copy Link'}
-                </button>
+                {/* Secondary Actions: Netlify Activity Site & Copy Link */}
+                <div className="flex gap-2.5">
+                  <button
+                    onClick={handleOpenNetlifyLink}
+                    className="flex-1 inline-flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 active:scale-[0.98] text-zinc-200 hover:text-white font-bold px-4 py-3 rounded-2xl text-xs sm:text-sm transition-all cursor-pointer"
+                  >
+                    <FaGlobe className="text-xs text-[#00A4EF]" />
+                    Visit Activity Site ↗
+                  </button>
+
+                  <button
+                    onClick={handleCopyLink}
+                    className="inline-flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 active:scale-[0.98] text-zinc-300 hover:text-white font-bold px-4 py-3 rounded-2xl text-xs sm:text-sm transition-all cursor-pointer"
+                    title="Copy link to clipboard"
+                  >
+                    {copied ? <FaCheck className="text-emerald-400" /> : <FaCopy className="text-xs" />}
+                    {copied ? 'Copied!' : 'Copy Link'}
+                  </button>
+                </div>
               </div>
             </div>
           </motion.div>
