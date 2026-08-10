@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaExternalLinkAlt, FaCheckCircle, FaGraduationCap, FaClock, FaCheck, FaCopy, FaRocket, FaGlobe } from 'react-icons/fa';
 
-const MLSA_LINK = "https://learn.microsoft.com/startups/?tabs=getting-started&wt.mc_id=studentamb_532958";
+const MLSA_LINK = "https://bit.ly/likhith-mlsa";
 const MLSA_NETLIFY_LINK = "https://msa250.netlify.app/";
 
 function MicrosoftLogo({ className = "w-5 h-5" }) {
