@@ -17,6 +17,7 @@ import CommandPalette from './components/CommandPalette';
 import MatrixRain from './components/MatrixRain';
 import ConfettiOverlay from './components/ConfettiOverlay';
 import MLSAModal from './components/MLSAModal';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -103,6 +104,7 @@ export default function App() {
       />
       <MatrixRain active={matrixActive} onClose={() => setMatrixActive(false)} />
       <ConfettiOverlay triggerCount={confettiTriggerCount} />
+      <Analytics />
     </div>
   );
 }
