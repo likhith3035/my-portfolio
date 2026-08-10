@@ -107,6 +107,19 @@ export default function Navbar({ theme, onToggleTheme }) {
 
           {/* Right controls */}
           <div className="flex items-center gap-1.5">
+            {/* MLSA Activity pill badge */}
+            <button
+              onClick={() => window.__openMLSAModal?.()}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0078D4]/15 border border-[#0078D4]/40 text-[#00A4EF] text-xs font-bold hover:bg-[#0078D4]/25 transition-all shadow-[0_0_12px_rgba(0,120,212,0.25)] cursor-pointer"
+              title="Open MLSA Ambassador Activity"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A4EF] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00A4EF]"></span>
+              </span>
+              <span>🎓 MLSA Activity</span>
+            </button>
+
             {/* Command Palette trigger */}
             <button
               onClick={() => window.__openCommandPalette?.()}

@@ -196,17 +196,21 @@ export default function MLSAModal({ isOpen, onClose }) {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={handleOpenLink}
-                  className="flex-1 inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#0078D4] to-[#00A4EF] hover:from-[#0063B1] hover:to-[#0078D4] active:scale-[0.98] text-white font-bold px-6 py-4 rounded-2xl text-sm shadow-lg shadow-[#0078D4]/30 transition-all cursor-pointer group"
-                >
-                  <FaRocket className="text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  {hasClickedLink ? 'Re-open Link' : 'Open Link & Support MLSA'}
-                </button>
+                {/* Glowing Pulse Wrapped Primary Action Button */}
+                <div className="relative flex-1 group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#0078D4] via-[#00A4EF] to-emerald-400 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-700 animate-pulse" />
+                  <button
+                    onClick={handleOpenLink}
+                    className="relative w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#0078D4] to-[#00A4EF] hover:from-[#0063B1] hover:to-[#0078D4] active:scale-[0.98] text-white font-bold px-6 py-4 rounded-2xl text-sm shadow-xl transition-all cursor-pointer"
+                  >
+                    <FaRocket className="text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    {hasClickedLink ? 'Re-open Link' : 'Open Link & Support MLSA'}
+                  </button>
+                </div>
 
                 <button
                   onClick={handleCopyLink}
-                  className="inline-flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 active:scale-[0.98] text-zinc-300 hover:text-white font-bold px-4 py-4 rounded-2xl text-sm transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 active:scale-[0.98] text-zinc-300 hover:text-white font-bold px-5 py-4 rounded-2xl text-sm transition-all cursor-pointer"
                   title="Copy link to clipboard"
                 >
                   {copied ? <FaCheck className="text-emerald-400" /> : <FaCopy className="text-xs" />}
@@ -215,6 +219,23 @@ export default function MLSAModal({ isOpen, onClose }) {
               </div>
             </div>
           </motion.div>
+
+          {/* Floating Toast Notification when Link is Copied */}
+          <AnimatePresence>
+            {copied && (
+              <motion.div
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 30, scale: 0.9 }}
+                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] bg-zinc-900/95 border border-[#0078D4]/60 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold backdrop-blur-md"
+              >
+                <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                  <FaCheck className="text-xs" />
+                </div>
+                <span>Referral Link copied! Share with friends 📋</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>
