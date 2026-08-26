@@ -21,11 +21,11 @@ function Track({ reverse }) {
     >
       {[...ITEMS, ...ITEMS, ...ITEMS].map((item, i) => (
         <React.Fragment key={i}>
-          <span className={`flex items-center gap-2 ${item.accent ? 'text-[#FBD249]' : 'text-zinc-300'}`}>
+          <span className={`flex items-center gap-2 ${item.accent ? 'text-[#E67E22] font-black' : 'text-zinc-300'}`}>
             <span>{item.emoji}</span>
             {item.text}
           </span>
-          <span className="text-zinc-600 text-xs select-none">✦</span>
+          <span className="text-zinc-700 text-xs select-none">✦</span>
         </React.Fragment>
       ))}
     </div>
