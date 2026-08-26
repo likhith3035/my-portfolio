@@ -31,11 +31,18 @@ export default function App() {
   });
 
   useEffect(() => {
-    /* Auto open MLSA activity popup on initial site visit */
-    const timer = setTimeout(() => {
-      setMlsaOpen(true);
-    }, 1200);
-    return () => clearTimeout(timer);
+    /* Auto open MLSA activity popup on initial site visit (once per session) */
+    try {
+      if (!sessionStorage.getItem('mlsa_modal_seen')) {
+        const timer = setTimeout(() => {
+          setMlsaOpen(true);
+          sessionStorage.setItem('mlsa_modal_seen', 'true');
+        }, 1600);
+        return () => clearTimeout(timer);
+      }
+    } catch {
+      // Fallback in case sessionStorage is restricted
+    }
   }, []);
 
   useEffect(() => {

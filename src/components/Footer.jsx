@@ -117,33 +117,40 @@ export default function Footer() {
 
       {/* ── Bottom bar ── */}
       <div className="container-md py-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-zinc-600">
-          {/* Left: copyright */}
-          <p className="flex items-center gap-1.5">
-            © {new Date().getFullYear()} Kami Likhith
-            <span className="text-zinc-800">·</span>
-            Built with <FaHeart className="text-[#E67E22]" size={10} /> using React & Tailwind
-          </p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-zinc-500">
+          {/* Left: copyright + live status */}
+          <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
+            <p className="flex items-center gap-1.5 text-zinc-400">
+              © {new Date().getFullYear()} Kami Likhith
+              <span className="text-zinc-700">·</span>
+              Built with <FaHeart className="text-[#E67E22]" size={10} />
+            </p>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Srikalahasti, AP (IST)
+            </span>
+          </div>
 
-          {/* Right: nav */}
-          <nav className="flex gap-5">
-            {NAV.map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={e => scrollTo(e, link.href)}
-                className="hover:text-zinc-300 transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          {/* Right: nav + contact */}
+          <div className="flex items-center gap-6 flex-wrap justify-center">
+            <nav className="flex gap-4">
+              {NAV.map(link => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={e => scrollTo(e, link.href)}
+                  className="hover:text-white transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
 
-          {/* Contact */}
-          <a href="tel:+918885426155" className="flex items-center gap-1.5 hover:text-zinc-300 transition-colors">
-            <FaPhone size={10} className="text-[#E67E22]" />
-            +91 88854 26155
-          </a>
+            <a href="tel:+918885426155" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <FaPhone size={10} className="text-[#E67E22]" />
+              +91 88854 26155
+            </a>
+          </div>
         </div>
       </div>
     </footer>
