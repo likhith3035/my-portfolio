@@ -19,7 +19,7 @@ const SUPRAJA_CREDENTIAL = {
   year: '2025',
   desc: 'Conducted hands-on penetration testing, network security audits, vulnerability assessments with Metasploit Framework, and security hardening under mentorship.',
   skills: ['Metasploit Framework', 'Penetration Testing', 'Vulnerability Assessment', 'Network Hardening', 'Ethical Hacking'],
-  linkedin: 'https://linkedin.com/in/likhith-kami',
+  linkedin: 'https://www.linkedin.com/posts/likhith-kami_cybersecurity-internship-penetrationtesting-activity-7381190015613313024-Xg27?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
 };
 
 const ACHIEVEMENTS = [
@@ -51,7 +51,7 @@ const ACHIEVEMENTS = [
     desc: 'Engineered StudentHub — a PWA campus super-app with Firebase, Supabase, and Sarvam AI voice assistant in an intense 36-hour national hackathon sprint.',
     skills: ['Sarvam AI', 'Supabase', 'Firebase', 'Progressive Web App', 'Realtime Sync'],
     link: 'https://gensync-78.vercel.app/',
-    linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
+    linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-activity-7475955719209500672-yWf1?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
   },
   {
     id: 'srm-kiosk',
@@ -65,7 +65,7 @@ const ACHIEVEMENTS = [
     standing: 'National Competitor · Top Project',
     desc: '36-hour national hackathon with 1200+ participants. Built Kiosk Vision — offline-first smart kiosk with local UPI QR generation & AI gesture interaction.',
     skills: ['Computer Vision', 'Offline-First Systems', 'UPI Payment Integration', 'React'],
-    linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackathon-firsthackathon-srmap-ugcPost-7444771007883776000-H4JA/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
+    linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackathon-firsthackathon-srmap-activity-7444771009104310272-0Y6c?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
   },
 ];
 
