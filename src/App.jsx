@@ -30,20 +30,23 @@ export default function App() {
     catch { return 'light'; }
   });
 
+  const [introFinished, setIntroFinished] = useState(false);
+
   useEffect(() => {
-    /* Auto open MLSA activity popup on initial site visit (once per session) */
+    /* Auto open MLSA activity popup on initial site visit (once per session, after intro finishes) */
+    if (!introFinished) return;
     try {
       if (!sessionStorage.getItem('mlsa_modal_seen')) {
         const timer = setTimeout(() => {
           setMlsaOpen(true);
           sessionStorage.setItem('mlsa_modal_seen', 'true');
-        }, 1600);
+        }, 1500);
         return () => clearTimeout(timer);
       }
     } catch {
       // Fallback in case sessionStorage is restricted
     }
-  }, []);
+  }, [introFinished]);
 
   useEffect(() => {
     /* Disable browser scroll restoration and force top on load */
@@ -83,7 +86,7 @@ export default function App() {
 
   return (
     <div className="overflow-x-hidden bg-[#FAF9F6] text-zinc-900 dark:bg-[#0B0B0C] dark:text-zinc-100 transition-colors duration-300 selection:bg-[#E67E22] selection:text-white">
-      <PageLoader />
+      <PageLoader theme={theme} onComplete={() => setIntroFinished(true)} />
       <SpotlightCursor />
       <CustomCursor />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
