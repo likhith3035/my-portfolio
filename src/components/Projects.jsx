@@ -21,6 +21,7 @@ import {
   FaCube,
   FaEye,
   FaKey,
+  FaLinkedin,
 } from 'react-icons/fa';
 
 /* ─── Projects Data ─── */
@@ -30,23 +31,24 @@ const PROJECTS = [
     title: 'StudentHub',
     tagline: 'Campus Super-App & AI Platform',
     emoji: '🎓',
-    badge: '⭐ Featured · HackPrix Season 3',
+    badge: '🏆 Finalist · HackPrix Season 3',
     colorTheme: {
       from: 'from-orange-500/15',
       via: 'via-amber-500/8',
       to: 'to-transparent',
-      border: 'border-orange-500/30 hover:border-orange-500/60',
+      border: 'border-orange-500/40 hover:border-orange-500/70',
       pill: 'bg-orange-500/15 text-[#E67E22] border-orange-500/30',
       accent: '#E67E22',
-      glow: 'rgba(230, 126, 34, 0.25)',
+      glow: 'rgba(230, 126, 34, 0.35)',
     },
-    shortDesc: 'All-in-one PWA campus super-app uniting notes sharing, internship pipelines, collaboration feeds, and Sarvam AI voice assistant.',
+    shortDesc: 'All-in-one PWA campus super-app uniting notes sharing, internship pipelines, collaboration feeds, and Sarvam AI voice assistant. Built in 36 hours at HackPrix Season 3.',
     impactMetrics: [
-      { label: 'Built In', val: '36 Hours' },
-      { label: 'AI Engine', val: 'Sarvam AI' },
-      { label: 'Architecture', val: 'PWA + Supabase' },
+      { label: 'Sprint', val: '36 Hours' },
+      { label: 'Result', val: '🏆 Finalist' },
+      { label: 'AI Voice', val: 'Sarvam AI' },
     ],
     features: [
+      'National Hackathon Finalist at HackPrix Season 3 (Lords Institute of Engineering & Technology, Hyderabad).',
       'Unified campus portal: academic notes sharing, internship listings, and peer project matchmaking.',
       'Sarvam AI Assistant integration providing voice and text queries grounded on college resources.',
       'Secure smart link engine with temporary access codes and expiry for verified student resource sharing.',
@@ -65,6 +67,7 @@ const PROJECTS = [
     stack: ['PWA', 'React', 'Firebase Auth', 'Supabase', 'Sarvam AI', 'Realtime DB', 'Tailwind CSS'],
     link: 'https://github.com/likhith3035/StudentHub',
     liveLink: 'https://gensync-78.vercel.app/',
+    linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
     featured: true,
     categories: ['Web', 'AI', 'Mobile'],
   },
@@ -333,10 +336,22 @@ function ProjectCard({ project, index }) {
                 href={project.liveLink}
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:bg-[#E67E22] dark:hover:bg-[#E67E22] dark:hover:text-white flex items-center justify-center text-xs transition-all shadow-sm cursor-pointer"
-                title="Open Live App"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E67E22] hover:bg-[#d35400] text-white text-[11px] font-black transition-all shadow-[0_4px_14px_rgba(230,126,34,0.35)] hover:scale-105 cursor-pointer"
+                title="Launch Live App"
               >
-                <FaExternalLinkAlt size={10} />
+                <span>Live App</span>
+                <FaExternalLinkAlt size={9} />
+              </a>
+            )}
+            {project.linkedin && (
+              <a
+                href={project.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full bg-[#0A66C2]/10 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white border border-[#0A66C2]/30 flex items-center justify-center text-xs transition-all shadow-xs cursor-pointer"
+                title="View Hackathon Announcement on LinkedIn"
+              >
+                <FaLinkedin size={12} />
               </a>
             )}
             <a
