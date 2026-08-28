@@ -158,7 +158,10 @@ export default function Hero({ theme }) {
                 className={`relative w-36 h-36 rounded-full overflow-hidden border-3 focus:outline-none active:scale-95 transition-transform group
                   ${isDark ? 'border-[#E67E22]/50 shadow-[0_0_40px_rgba(230,126,34,0.35)]' : 'border-[#E67E22]/40 shadow-[0_16px_48px_rgba(0,0,0,0.12)]'}`}
                 style={{ borderWidth: 3 }}>
-                <img src="/likhith.jpg" alt="Kami Likhith" className="w-full h-full object-cover" />
+                <picture>
+                  <source srcSet="/likhith.webp" type="image/webp" />
+                  <img src="/likhith.jpg" alt="Kami Likhith" className="w-full h-full object-cover" width="144" height="144" loading="eager" decoding="async" />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-active:opacity-100 transition-opacity flex items-end justify-center pb-2">
                   <span className="text-white text-[10px] font-black uppercase tracking-wider">View</span>
                 </div>
@@ -354,7 +357,10 @@ export default function Hero({ theme }) {
                     ? 'border-2 border-[#E67E22]/30 shadow-[0_40px_100px_rgba(0,0,0,0.6),0_0_60px_rgba(230,126,34,0.18)]'
                     : 'border-2 border-zinc-200 shadow-[0_40px_80px_rgba(0,0,0,0.1),0_0_40px_rgba(230,126,34,0.08)]'
                   }`}>
-                  <img src="/likhith.jpg" alt="Kami Likhith" className="w-full h-full object-cover" />
+                  <picture>
+                    <source srcSet="/likhith.webp" type="image/webp" />
+                    <img src="/likhith.jpg" alt="Kami Likhith" className="w-full h-full object-cover" width="320" height="426" loading="eager" decoding="async" />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 </div>
 
@@ -425,7 +431,10 @@ export default function Hero({ theme }) {
               onClick={e => e.stopPropagation()}
               className="relative mx-5 rounded-3xl overflow-hidden border border-[#E67E22]/30 shadow-[0_40px_100px_rgba(0,0,0,0.8)]"
               style={{ maxWidth: 'min(86vw, 360px)', maxHeight: '84dvh' }}>
-              <img src="/likhith.jpg" alt="Kami Likhith" className="w-full h-full object-cover" style={{ maxHeight: '84dvh' }} />
+              <picture>
+                <source srcSet="/likhith.webp" type="image/webp" />
+                <img src="/likhith.jpg" alt="Kami Likhith" className="w-full h-full object-cover" style={{ maxHeight: '84dvh' }} loading="lazy" decoding="async" />
+              </picture>
               <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent px-5 pt-10 pb-5">
                 <p className="text-white font-black text-xl tracking-tight">Kami Likhith</p>
                 <p className="text-white/50 text-xs font-semibold mt-0.5">AI & Data Science · NBKRIST</p>

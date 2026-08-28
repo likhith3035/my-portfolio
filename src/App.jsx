@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ContactModal from './components/ContactModal';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ScrollingBanner from './components/ScrollingBanner';
@@ -8,16 +7,19 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Support from './components/Support';
 import Footer from './components/Footer';
-import ChatBot from './components/ChatBot';
-import CustomCursor from './components/CustomCursor';
 import ScrollToTop from './components/ScrollToTop';
 import PageLoader from './components/PageLoader';
-import SpotlightCursor from './components/SpotlightCursor';
-import CommandPalette from './components/CommandPalette';
-import MatrixRain from './components/MatrixRain';
-import ConfettiOverlay from './components/ConfettiOverlay';
-import MLSAModal from './components/MLSAModal';
 import { Analytics } from '@vercel/analytics/react';
+
+// Code-split heavy interactive overlays & modals
+const ContactModal = lazy(() => import('./components/ContactModal'));
+const MLSAModal = lazy(() => import('./components/MLSAModal'));
+const ChatBot = lazy(() => import('./components/ChatBot'));
+const CommandPalette = lazy(() => import('./components/CommandPalette'));
+const MatrixRain = lazy(() => import('./components/MatrixRain'));
+const ConfettiOverlay = lazy(() => import('./components/ConfettiOverlay'));
+const SpotlightCursor = lazy(() => import('./components/SpotlightCursor'));
+const CustomCursor = lazy(() => import('./components/CustomCursor'));
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -87,8 +89,6 @@ export default function App() {
   return (
     <div className="overflow-x-hidden bg-[#FAF9F6] text-zinc-900 dark:bg-[#0B0B0C] dark:text-zinc-100 transition-colors duration-300 selection:bg-[#E67E22] selection:text-white">
       <PageLoader theme={theme} onComplete={() => setIntroFinished(true)} />
-      <SpotlightCursor />
-      <CustomCursor />
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <Hero theme={theme} />
@@ -99,21 +99,30 @@ export default function App() {
         <Support />
       </main>
       <Footer />
-      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
-      <MLSAModal isOpen={mlsaOpen} onClose={() => setMlsaOpen(false)} />
-      <ChatBot />
       <ScrollToTop />
 
-      {/* Interactive Command Center & Animations */}
-      <CommandPalette
-        isOpen={commandPaletteOpen}
-        onClose={() => setCommandPaletteOpen(false)}
-        onToggleTheme={toggleTheme}
-        onTriggerMatrix={() => setMatrixActive(true)}
-        onTriggerConfetti={() => setConfettiTriggerCount(c => c + 1)}
-      />
-      <MatrixRain active={matrixActive} onClose={() => setMatrixActive(false)} />
-      <ConfettiOverlay triggerCount={confettiTriggerCount} />
+      {/* Asynchronously loaded interactive overlays & modals */}
+      <Suspense fallback={null}>
+        <SpotlightCursor />
+        <CustomCursor />
+        {contactOpen && <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />}
+        {mlsaOpen && <MLSAModal isOpen={mlsaOpen} onClose={() => setMlsaOpen(false)} />}
+        <ChatBot />
+
+        {/* Command Center & Effects */}
+        {commandPaletteOpen && (
+          <CommandPalette
+            isOpen={commandPaletteOpen}
+            onClose={() => setCommandPaletteOpen(false)}
+            onToggleTheme={toggleTheme}
+            onTriggerMatrix={() => setMatrixActive(true)}
+            onTriggerConfetti={() => setConfettiTriggerCount(c => c + 1)}
+          />
+        )}
+        {matrixActive && <MatrixRain active={matrixActive} onClose={() => setMatrixActive(false)} />}
+        {confettiTriggerCount > 0 && <ConfettiOverlay triggerCount={confettiTriggerCount} />}
+      </Suspense>
+
       <Analytics />
     </div>
   );
