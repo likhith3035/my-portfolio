@@ -63,8 +63,8 @@ export default function Navbar({ theme, onToggleTheme }) {
         <div className="flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3">
           {/* Logo */}
           <a href="#home" onClick={e => scrollTo(e, '#home')} className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 bg-zinc-900 dark:bg-white rounded-full flex items-center justify-center text-white dark:text-zinc-900 font-black text-sm group-hover:bg-[#E67E22] dark:group-hover:bg-[#E67E22] dark:group-hover:text-white transition-colors duration-200">
-              K
+            <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center border border-white/20 dark:border-zinc-700 shadow-sm group-hover:scale-105 group-hover:border-[#E67E22]/60 transition-all duration-200 flex-shrink-0 bg-black">
+              <img src="/favicon-96x96.png" alt="Likhith Logo" className="w-full h-full object-cover" />
             </div>
             <span className={`font-extrabold text-sm tracking-tight transition-colors duration-200 ${scrolled ? 'text-zinc-900 dark:text-white' : 'text-white'}`}>
               Kami Likhith
