@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaHeart, FaCopy, FaCheck } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { sound } from '../utils/sound';
 
 const SOCIALS = [
   { href: 'https://github.com/likhith3035',                               icon: <FaGithub />,    label: 'GitHub'    },
@@ -17,15 +18,38 @@ const NAV = [
 
 export default function Footer() {
   const [copied, setCopied] = useState(false);
+  const [istTime, setIstTime] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const timeStr = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
+        }).format(new Date());
+        setIstTime(timeStr);
+      } catch {
+        setIstTime(new Date().toLocaleTimeString());
+      }
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText('kamilikhith@gmail.com');
+    sound.success();
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const scrollTo = (e, href) => {
     e.preventDefault();
+    sound.click();
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -125,9 +149,11 @@ export default function Footer() {
               <span className="text-zinc-700">·</span>
               Built with <FaHeart className="text-[#E67E22]" size={10} />
             </p>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Srikalahasti, AP (IST)
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[10px] font-mono font-bold tracking-tight shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#10b981]" />
+              <span>Srikalahasti, AP</span>
+              <span className="opacity-40">·</span>
+              <span>{istTime || 'IST'}</span>
             </span>
           </div>
 

@@ -309,11 +309,21 @@ export default function CommandPalette({
       categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
       title: 'HackPrix Season 3 — Finalist',
       desc: 'Lords Institute of Engineering & Technology, Hyderabad · 36-hour sprint · StudentHub',
-      keywords: ['hackprix', 'finalist', 'hackathon', 'lords institute', 'hyderabad', 'studenthub', 'award', 'gensync'],
+      keywords: ['hackprix', 'finalist', 'hackathon', 'lords institute', 'hyderabad', 'studenthub', 'award', 'gensync', 'credential'],
       icon: <FaTrophy className="text-amber-400" />,
       action: () => {
         onClose();
-        scrollToSection('experience');
+        window.__openCredentialModal?.({
+          id: 'hackprix-studenthub',
+          emoji: '🚀',
+          title: 'HackPrix Season 3 — Finalist',
+          org: 'Lords Institute of Engineering & Technology, Hyderabad',
+          standing: 'National Finalist (Top 10)',
+          desc: 'Engineered StudentHub — a PWA campus super-app with Firebase, Supabase, and Sarvam AI voice assistant in an intense 36-hour national hackathon sprint.',
+          skills: ['Sarvam AI', 'Supabase', 'Firebase', 'Progressive Web App', 'Realtime Sync'],
+          link: 'https://gensync-78.vercel.app/',
+          linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
+        });
       },
     },
     {
@@ -323,11 +333,20 @@ export default function CommandPalette({
       categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
       title: '2nd Prize — IEEE-CIS Chatbot Buildathon',
       desc: 'TECHTATVA 2K25 · NBKRIST · Built fully functional conversational AI chatbot in timed competition',
-      keywords: ['ieee', 'ieee-cis', 'chatbot buildathon', '2nd prize', 'winner', 'techtatva', 'nbkrist', 'award'],
+      keywords: ['ieee', 'ieee-cis', 'chatbot buildathon', '2nd prize', 'winner', 'techtatva', 'nbkrist', 'award', 'credential'],
       icon: <FaTrophy className="text-amber-400" />,
       action: () => {
         onClose();
-        scrollToSection('experience');
+        window.__openCredentialModal?.({
+          id: 'ieee-chatbot',
+          emoji: '🏆',
+          title: '2nd Prize — Chatbot Buildathon',
+          org: 'IEEE-CIS · NBKRIST · TECHTATVA 2K25',
+          standing: '2nd Prize Winner',
+          desc: 'Won 2nd place among competitive teams by building and deploying a fully functional conversational AI chatbot under timed contest conditions.',
+          skills: ['Conversational AI', 'Natural Language Processing', 'Python', 'FastAPI'],
+          linkedin: 'https://linkedin.com/in/likhith-kami',
+        });
       },
     },
     {
@@ -337,11 +356,20 @@ export default function CommandPalette({
       categoryColor: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
       title: 'National Hackathon — SRM AP (Kiosk Vision)',
       desc: "Mission Schrödinger's Cat · 1200+ participants · Offline smart kiosk with local UPI",
-      keywords: ['srm', 'srm ap', 'hackathon', 'schrodinger', 'kiosk vision', 'upi', 'offline', 'gesture'],
+      keywords: ['srm', 'srm ap', 'hackathon', 'schrodinger', 'kiosk vision', 'upi', 'offline', 'gesture', 'credential'],
       icon: <FaTrophy className="text-purple-400" />,
       action: () => {
         onClose();
-        scrollToSection('experience');
+        window.__openCredentialModal?.({
+          id: 'srm-kiosk',
+          emoji: '⚡',
+          title: 'National Hackathon — SRM AP',
+          org: "Mission Schrödinger's Cat · SRM AP University",
+          standing: 'National Competitor · Top Project',
+          desc: '36-hour national hackathon with 1200+ participants. Built Kiosk Vision — offline-first smart kiosk with local UPI QR generation & AI gesture interaction.',
+          skills: ['Computer Vision', 'Offline-First Systems', 'UPI Payment Integration', 'React'],
+          linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackathon-firsthackathon-srmap-ugcPost-7444771007883776000-H4JA/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
+        });
       },
     },
     {
@@ -351,11 +379,20 @@ export default function CommandPalette({
       categoryColor: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
       title: 'Cybersecurity Intern — Supraja Technologies',
       desc: 'Penetration testing with Metasploit, network vulnerability scanning, threat analysis (June–July 2025)',
-      keywords: ['supraja', 'supraja technologies', 'internship', 'intern', 'cybersecurity intern', 'work', 'job', 'experience'],
+      keywords: ['supraja', 'supraja technologies', 'internship', 'intern', 'cybersecurity intern', 'work', 'job', 'experience', 'credential'],
       icon: <FaBriefcase className="text-blue-400" />,
       action: () => {
         onClose();
-        scrollToSection('experience');
+        window.__openCredentialModal?.({
+          id: 'supraja-internship',
+          emoji: '🛡️',
+          title: 'Cybersecurity Intern — Supraja Technologies',
+          org: 'Supraja Technologies · Vijayawada, India',
+          standing: '2-Month On-Site Internship (Jun – Jul 2025)',
+          desc: 'Conducted hands-on penetration testing, network security audits, vulnerability assessments with Metasploit Framework, and security hardening under mentorship.',
+          skills: ['Metasploit Framework', 'Penetration Testing', 'Vulnerability Assessment', 'Network Hardening', 'Ethical Hacking'],
+          linkedin: 'https://linkedin.com/in/likhith-kami',
+        });
       },
     },
 

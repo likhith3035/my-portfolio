@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin } from 'react-icons/fa';
+import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin, FaAward } from 'react-icons/fa';
+import { sound } from '../utils/sound';
 
 const BULLETS = [
   { icon: <FaShieldAlt />, text: 'Performed vulnerability analysis and ethical hacking using Metasploit Framework, identifying and documenting security weaknesses in controlled lab environments.' },
@@ -9,8 +10,21 @@ const BULLETS = [
   { icon: <FaUsers />, text: 'Collaborated in a team environment to solve real-world security challenges, strengthening communication and problem-solving skills.' },
 ];
 
+const SUPRAJA_CREDENTIAL = {
+  id: 'supraja-internship',
+  emoji: '🛡️',
+  title: 'Cybersecurity Intern — Supraja Technologies',
+  org: 'Supraja Technologies · Vijayawada, India',
+  standing: '2-Month On-Site Internship (Jun – Jul 2025)',
+  year: '2025',
+  desc: 'Conducted hands-on penetration testing, network security audits, vulnerability assessments with Metasploit Framework, and security hardening under mentorship.',
+  skills: ['Metasploit Framework', 'Penetration Testing', 'Vulnerability Assessment', 'Network Hardening', 'Ethical Hacking'],
+  linkedin: 'https://linkedin.com/in/likhith-kami',
+};
+
 const ACHIEVEMENTS = [
   {
+    id: 'ieee-chatbot',
     emoji: '🏆',
     gradient: 'from-amber-500/15 via-orange-500/8 to-transparent',
     border: 'border-amber-400/30 hover:border-amber-400/60',
@@ -18,10 +32,14 @@ const ACHIEVEMENTS = [
     title: '2nd Prize — Chatbot Buildathon',
     org: 'IEEE-CIS · NBKRIST · TECHTATVA 2K25',
     year: '2025',
-    desc: 'Won 2nd place among competitive teams by building a fully functional AI chatbot under contest conditions.',
+    standing: '2nd Prize Winner',
+    desc: 'Won 2nd place among competitive teams by building and deploying a fully functional conversational AI chatbot under timed contest conditions.',
+    skills: ['Conversational AI', 'Natural Language Processing', 'Python', 'FastAPI'],
     pop: true,
+    linkedin: 'https://linkedin.com/in/likhith-kami',
   },
   {
+    id: 'hackprix-studenthub',
     emoji: '🚀',
     gradient: 'from-blue-500/15 via-indigo-500/8 to-transparent',
     border: 'border-blue-400/30 hover:border-blue-400/60',
@@ -29,11 +47,14 @@ const ACHIEVEMENTS = [
     title: 'HackPrix Season 3 — Finalist',
     org: 'Lords Institute of Engineering & Technology, Hyderabad',
     year: '2026',
-    desc: 'Developed StudentHub — a PWA campus super-app with Firebase, Supabase, and Sarvam AI in 36 hours.',
+    standing: 'National Finalist (Top 10)',
+    desc: 'Engineered StudentHub — a PWA campus super-app with Firebase, Supabase, and Sarvam AI voice assistant in an intense 36-hour national hackathon sprint.',
+    skills: ['Sarvam AI', 'Supabase', 'Firebase', 'Progressive Web App', 'Realtime Sync'],
     link: 'https://gensync-78.vercel.app/',
     linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
   },
   {
+    id: 'srm-kiosk',
     emoji: '⚡',
     gradient: 'from-purple-500/15 via-violet-500/8 to-transparent',
     border: 'border-purple-400/30 hover:border-purple-400/60',
@@ -41,7 +62,9 @@ const ACHIEVEMENTS = [
     title: 'National Hackathon — SRM AP',
     org: "Mission Schrödinger's Cat · SRM AP University",
     year: '2025',
-    desc: '36-hour national hackathon with 1200+ participants. Built Kiosk Vision — offline-first smart kiosk with local UPI QR & AI gesture interaction.',
+    standing: 'National Competitor · Top Project',
+    desc: '36-hour national hackathon with 1200+ participants. Built Kiosk Vision — offline-first smart kiosk with local UPI QR generation & AI gesture interaction.',
+    skills: ['Computer Vision', 'Offline-First Systems', 'UPI Payment Integration', 'React'],
     linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackathon-firsthackathon-srmap-ugcPost-7444771007883776000-H4JA/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
   },
 ];
@@ -127,19 +150,32 @@ function AchievementCard({ a, i }) {
 
       <p className="text-sm text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">{a.desc}</p>
 
-      <div className="flex flex-wrap items-center gap-3 mt-1" onClick={e => e.stopPropagation()}>
-        {a.link && (
-          <a href={a.link} target="_blank" rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-[#E67E22] text-xs font-black hover:underline">
-            <FaExternalLinkAlt size={9} /> View Project
-          </a>
-        )}
-        {a.linkedin && (
-          <a href={a.linkedin} target="_blank" rel="noreferrer"
-            className="inline-flex items-center gap-1 text-[#0077B5] hover:text-[#005582] text-xs font-black hover:underline">
-            <FaLinkedin size={10} /> LinkedIn Post
-          </a>
-        )}
+      <div className="flex flex-wrap items-center justify-between gap-2.5 mt-2 pt-2 border-t border-zinc-200/50 dark:border-zinc-800/60" onClick={e => e.stopPropagation()}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            sound.pop();
+            window.__openCredentialModal?.(a);
+          }}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-[#E67E22] text-xs font-black border border-amber-500/25 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-2xs"
+        >
+          <FaAward size={11} /> View Credential
+        </button>
+
+        <div className="flex items-center gap-3">
+          {a.link && (
+            <a href={a.link} target="_blank" rel="noreferrer" onClick={() => sound.click()}
+              className="inline-flex items-center gap-1 text-zinc-600 dark:text-zinc-400 hover:text-[#E67E22] text-xs font-bold transition-colors">
+              <FaExternalLinkAlt size={9} /> Live App
+            </a>
+          )}
+          {a.linkedin && (
+            <a href={a.linkedin} target="_blank" rel="noreferrer" onClick={() => sound.click()}
+              className="inline-flex items-center gap-1 text-[#0077B5] hover:text-[#005582] text-xs font-bold transition-colors">
+              <FaLinkedin size={11} /> Post
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   );
@@ -204,10 +240,22 @@ export default function Experience() {
               ))}
             </ul>
 
-            <div className="flex flex-wrap gap-2">
-              {['Metasploit', 'Penetration Testing', 'Network Security', 'Ethical Hacking', 'Vulnerability Analysis'].map(t => (
-                <span key={t} className="tag">{t}</span>
-              ))}
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+              <div className="flex flex-wrap gap-2">
+                {['Metasploit', 'Penetration Testing', 'Network Security', 'Ethical Hacking', 'Vulnerability Analysis'].map(t => (
+                  <span key={t} className="tag">{t}</span>
+                ))}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  sound.pop();
+                  window.__openCredentialModal?.(SUPRAJA_CREDENTIAL);
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-[#E67E22] text-xs font-black border border-amber-500/25 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-xs"
+              >
+                <FaAward size={12} /> View Internship Credential
+              </button>
             </div>
           </div>
         </motion.div>
