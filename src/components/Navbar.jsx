@@ -197,10 +197,10 @@ export default function Navbar({ theme, onToggleTheme }) {
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl font-bold text-sm transition-colors ${
+                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl font-bold text-sm min-h-[44px] select-none transition-all active:scale-[0.98] ${
                       activeSection === link.href
                         ? 'bg-[#E67E22]/10 text-[#E67E22]'
-                        : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
+                        : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 active:bg-zinc-100 dark:active:bg-zinc-800'
                     }`}
                   >
                     <span className="text-base">{link.emoji}</span>
@@ -214,7 +214,7 @@ export default function Navbar({ theme, onToggleTheme }) {
               <div className="p-3 border-t border-zinc-100 dark:border-zinc-800">
                 <button
                   onClick={() => { setMobileOpen(false); window.__openContactModal?.(); }}
-                  className="w-full btn-primary text-sm py-3.5"
+                  className="w-full btn-primary text-sm py-3.5 min-h-[44px] active:scale-[0.98] transition-transform"
                 >
                   ✉️ Get in touch
                 </button>

@@ -635,10 +635,10 @@ export default function Projects() {
                 <span className="relative z-10 flex items-center gap-1.5">
                   <span>{f.label}</span>
                   <span
-                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-extrabold ${
                       activeFilter === f.label
-                        ? 'bg-white/20 text-white'
-                        : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500'
+                        ? 'bg-white/25 text-white'
+                        : 'bg-zinc-200/90 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300'
                     }`}
                   >
                     {f.count}
