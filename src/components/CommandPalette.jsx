@@ -1,6 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSearch, FaPalette, FaTerminal, FaCompass, FaComments, FaRegPaperPlane, FaQuoteRight, FaRegKeyboard } from 'react-icons/fa';
+import {
+  FaSearch,
+  FaPalette,
+  FaTerminal,
+  FaCompass,
+  FaComments,
+  FaRegPaperPlane,
+  FaQuoteRight,
+  FaRegKeyboard,
+  FaFilePdf,
+  FaCopy,
+  FaVolumeUp,
+  FaVolumeMute,
+  FaTrophy,
+  FaBriefcase,
+  FaGraduationCap,
+  FaCode,
+  FaShieldAlt,
+  FaTimes,
+} from 'react-icons/fa';
+import { sound } from '../utils/sound';
 
 const JOKES = [
   "Why do programmers wear glasses? Because they can't C#!",
@@ -23,12 +43,13 @@ export default function CommandPalette({
   const [search, setSearch] = useState('');
   const [joke, setJoke] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [copyToast, setCopyToast] = useState(false);
   const inputRef = useRef(null);
 
   // Keyboard shortcut listener to toggle palette (Cmd+K or Ctrl+K)
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         if (isOpen) onClose();
         else window.__openCommandPalette?.();
@@ -38,124 +59,401 @@ export default function CommandPalette({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Focus input when opened
+  // Focus input and sound on open
   useEffect(() => {
     if (isOpen) {
+      sound.pop();
       setSearch('');
       setJoke(null);
       setActiveIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 150);
+      setTimeout(() => inputRef.current?.focus(), 120);
     }
   }, [isOpen]);
 
-  const actions = [
+  const scrollToSection = (id) => {
+    sound.click();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.classList.add('transition-all', 'duration-500', 'ring-2', 'ring-[#E67E22]', 'ring-offset-4', 'ring-offset-white', 'dark:ring-offset-[#0B0B0C]');
+      setTimeout(() => {
+        el.classList.remove('ring-2', 'ring-[#E67E22]', 'ring-offset-4', 'ring-offset-white', 'dark:ring-offset-[#0B0B0C]');
+      }, 2000);
+    }
+  };
+
+  // Full site-wide indexed database
+  const SITE_INDEX = useMemo(() => [
+    // ── QUICK ACTIONS & TOOLS ──
     {
-      id: 'matrix',
-      title: 'Enter Matrix Sandbox',
-      desc: 'Start full-screen retro green code rain simulation',
-      icon: <FaTerminal className="text-teal-400" />,
-      shortcut: 'M',
+      id: 'resume',
+      group: 'Quick Actions',
+      category: 'Action',
+      categoryColor: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+      title: 'View Resume (PDF Preview)',
+      desc: 'Open interactive in-browser resume modal with direct PDF download',
+      keywords: ['resume', 'cv', 'curriculum vitae', 'pdf', 'profile', 'bio', 'download', 'experience', 'credentials'],
+      icon: <FaFilePdf className="text-emerald-500" />,
+      shortcut: 'R',
       action: () => {
-        onTriggerMatrix();
+        sound.click();
         onClose();
+        window.__openResumeModal?.();
       },
     },
     {
-      id: 'confetti',
-      title: 'Blast Confetti Particles',
-      desc: 'Shoot a double-cannon confetti blast from the bottom corners',
-      icon: <FaPalette className="text-pink-400" />,
-      shortcut: 'C',
-      action: () => {
-        onTriggerConfetti();
-        onClose();
-      },
-    },
-    {
-      id: 'theme',
-      title: 'Toggle Dark / Light Mode',
-      desc: 'Change UI color mode theme setting',
-      icon: <FaPalette className="text-amber-400" />,
-      shortcut: 'T',
-      action: () => {
-        onToggleTheme();
-        onClose();
-      },
-    },
-    {
-      id: 'chatbot',
-      title: 'Ask AI Portfolio Assistant',
-      desc: 'Open AI agent Chatbot to learn about Likhith',
-      icon: <FaComments className="text-blue-400" />,
-      shortcut: 'A',
-      action: () => {
-        window.__openChatBot?.();
+      id: 'copy-email',
+      group: 'Quick Actions',
+      category: 'Action',
+      categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
+      title: 'Copy Email Address',
+      desc: 'Copy kamilikhith@gmail.com instantly to clipboard',
+      keywords: ['email', 'copy', 'contact', 'gmail', 'mail', 'write', 'message', 'address', 'reach out'],
+      icon: <FaCopy className="text-amber-500" />,
+      shortcut: 'E',
+      action: async () => {
+        try {
+          await navigator.clipboard.writeText('kamilikhith@gmail.com');
+          sound.success();
+          setCopyToast(true);
+          setTimeout(() => setCopyToast(false), 2400);
+        } catch {}
         onClose();
       },
     },
     {
       id: 'hire',
-      title: 'Hire Likhith (Contact)',
-      desc: 'Open email/contact form modal panel',
+      group: 'Quick Actions',
+      category: 'Action',
+      categoryColor: 'bg-[#E67E22]/15 text-[#E67E22] border-[#E67E22]/30',
+      title: 'Get In Touch / Hire Likhith',
+      desc: 'Open direct message & recruiter inquiry dialog panel',
+      keywords: ['hire', 'contact', 'job', 'interview', 'work', 'freelance', 'internship', 'talk', 'message', 'inquiry'],
       icon: <FaRegPaperPlane className="text-[#E67E22]" />,
       shortcut: 'H',
       action: () => {
-        window.__openContactModal?.();
+        sound.click();
         onClose();
+        window.__openContactModal?.();
+      },
+    },
+    {
+      id: 'theme',
+      group: 'Quick Actions',
+      category: 'Action',
+      categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
+      title: 'Toggle Dark / Light Mode',
+      desc: 'Switch UI appearance between dark obsidian and paper light',
+      keywords: ['theme', 'dark', 'light', 'mode', 'color', 'toggle', 'switch', 'appearance', 'sun', 'moon'],
+      icon: <FaPalette className="text-amber-400" />,
+      shortcut: 'T',
+      action: () => {
+        sound.themeSwitch();
+        onToggleTheme();
+        onClose();
+      },
+    },
+    {
+      id: 'sound',
+      group: 'Quick Actions',
+      category: 'Action',
+      categoryColor: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+      title: 'Toggle UI Sound Effects',
+      desc: 'Enable or mute native Web Audio tactile micro-clicks and chimes',
+      keywords: ['sound', 'audio', 'mute', 'unmute', 'click', 'music', 'volume', 'effects', 'speaker'],
+      icon: <FaVolumeUp className="text-blue-400" />,
+      shortcut: 'S',
+      action: () => {
+        sound.toggle();
+        onClose();
+      },
+    },
+    {
+      id: 'chatbot',
+      group: 'Quick Actions',
+      category: 'AI Assistant',
+      categoryColor: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
+      title: 'Ask AI Portfolio Assistant',
+      desc: 'Converse with AI agent to ask about Likhith’s projects, tech stack & college',
+      keywords: ['ai', 'bot', 'chatbot', 'assistant', 'chat', 'ask', 'question', 'sarvam', 'agent'],
+      icon: <FaComments className="text-purple-400" />,
+      shortcut: 'A',
+      action: () => {
+        sound.pop();
+        onClose();
+        window.__openChatBot?.();
+      },
+    },
+
+    // ── PROJECTS & CODE WORKS ──
+    {
+      id: 'proj-studenthub',
+      group: 'Projects',
+      category: 'Project',
+      categoryColor: 'bg-orange-500/15 text-[#E67E22] border-orange-500/30',
+      title: 'StudentHub — Campus PWA Super-App',
+      desc: '🏆 HackPrix Season 3 Finalist · Notes sharing, internship tracker, Sarvam AI voice assistant',
+      keywords: ['studenthub', 'gensync', 'hackprix', 'campus', 'superapp', 'pwa', 'sarvam ai', 'supabase', 'firebase', 'voice', 'notes', 'finalist'],
+      icon: <span className="text-base">🎓</span>,
+      action: () => {
+        onClose();
+        scrollToSection('projects');
+      },
+    },
+    {
+      id: 'proj-secure-vault',
+      group: 'Projects',
+      category: 'Project',
+      categoryColor: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30',
+      title: 'Secure Vault — AES-256 Folder Encryption',
+      desc: 'Military-grade folder security · Python, CustomTkinter, cryptography, Gmail API OTP key distribution',
+      keywords: ['secure vault', 'aes-256', 'encryption', 'cryptography', 'security', 'python', 'customtkinter', 'gmail api', 'otp', 'folder'],
+      icon: <span className="text-base">🔒</span>,
+      action: () => {
+        onClose();
+        scrollToSection('projects');
+      },
+    },
+    {
+      id: 'proj-livetalk',
+      group: 'Projects',
+      category: 'Project',
+      categoryColor: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+      title: 'LiveTalk — P2P Anonymous Real-Time Chat',
+      desc: 'WebRTC peer-to-peer real-time communication platform with zero server logs',
+      keywords: ['livetalk', 'webrtc', 'chat', 'realtime', 'anonymous', 'p2p', 'websockets', 'messaging', 'communication'],
+      icon: <span className="text-base">💬</span>,
+      action: () => {
+        onClose();
+        scrollToSection('projects');
+      },
+    },
+    {
+      id: 'proj-hostel',
+      group: 'Projects',
+      category: 'Project',
+      categoryColor: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+      title: 'NBKR Hostel Management Portal',
+      desc: 'Firebase-powered hostel administration and real-time room allocation system',
+      keywords: ['hostel portal', 'nbkr', 'nbkrist', 'firebase', 'management', 'realtime', 'room', 'allocation'],
+      icon: <span className="text-base">🏢</span>,
+      action: () => {
+        onClose();
+        scrollToSection('projects');
+      },
+    },
+
+    // ── TECHNICAL SKILLS & STACK ──
+    {
+      id: 'skill-react',
+      group: 'Technical Skills',
+      category: 'Frontend',
+      categoryColor: 'bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
+      title: 'React 19, Vite & Tailwind CSS',
+      desc: 'Single-page architecture, responsive bento grids, Framer Motion fluid animations',
+      keywords: ['react', 'react 19', 'javascript', 'frontend', 'tailwind', 'css', 'vite', 'ui', 'components', 'html', 'web'],
+      icon: <FaCode className="text-cyan-400" />,
+      action: () => {
+        onClose();
+        scrollToSection('about');
+      },
+    },
+    {
+      id: 'skill-python',
+      group: 'Technical Skills',
+      category: 'AI & Data Science',
+      categoryColor: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
+      title: 'Python, AI / ML & RAG Architectures',
+      desc: 'Sarvam AI, LangChain, local LLMs (Ollama, Llama), Vector DBs & data science',
+      keywords: ['python', 'ai', 'ml', 'machine learning', 'data science', 'ollama', 'langchain', 'rag', 'vector', 'models', 'llm'],
+      icon: <span className="text-base">🐍</span>,
+      action: () => {
+        onClose();
+        scrollToSection('about');
+      },
+    },
+    {
+      id: 'skill-security',
+      group: 'Technical Skills',
+      category: 'Cybersecurity',
+      categoryColor: 'bg-[#E67E22]/15 text-[#E67E22] border-[#E67E22]/30',
+      title: 'Cybersecurity & Ethical Hacking',
+      desc: 'Metasploit Framework, penetration testing, AES-256 block cipher, vulnerability scanning',
+      keywords: ['cybersecurity', 'security', 'ethical hacking', 'metasploit', 'penetration testing', 'vulnerability', 'aes', 'cipher', 'network'],
+      icon: <FaShieldAlt className="text-[#E67E22]" />,
+      action: () => {
+        onClose();
+        scrollToSection('about');
+      },
+    },
+    {
+      id: 'skill-cloud',
+      group: 'Technical Skills',
+      category: 'Cloud & Database',
+      categoryColor: 'bg-yellow-500/15 text-yellow-600 dark:text-yellow-400 border-yellow-500/30',
+      title: 'Firebase & Supabase Cloud Systems',
+      desc: 'Realtime DB, PostgreSQL, Auth, Firestore, access policies & cloud functions',
+      keywords: ['firebase', 'supabase', 'cloud', 'database', 'postgres', 'sql', 'nosql', 'firestore', 'auth', 'backend'],
+      icon: <span className="text-base">☁️</span>,
+      action: () => {
+        onClose();
+        scrollToSection('about');
+      },
+    },
+
+    // ── ACHIEVEMENTS & EXPERIENCE ──
+    {
+      id: 'achieve-hackprix',
+      group: 'Achievements',
+      category: 'Accolade',
+      categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
+      title: 'HackPrix Season 3 — Finalist',
+      desc: 'Lords Institute of Engineering & Technology, Hyderabad · 36-hour sprint · StudentHub',
+      keywords: ['hackprix', 'finalist', 'hackathon', 'lords institute', 'hyderabad', 'studenthub', 'award', 'gensync'],
+      icon: <FaTrophy className="text-amber-400" />,
+      action: () => {
+        onClose();
+        scrollToSection('experience');
+      },
+    },
+    {
+      id: 'achieve-chatbot',
+      group: 'Achievements',
+      category: 'Accolade',
+      categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
+      title: '2nd Prize — IEEE-CIS Chatbot Buildathon',
+      desc: 'TECHTATVA 2K25 · NBKRIST · Built fully functional conversational AI chatbot in timed competition',
+      keywords: ['ieee', 'ieee-cis', 'chatbot buildathon', '2nd prize', 'winner', 'techtatva', 'nbkrist', 'award'],
+      icon: <FaTrophy className="text-amber-400" />,
+      action: () => {
+        onClose();
+        scrollToSection('experience');
+      },
+    },
+    {
+      id: 'achieve-srmap',
+      group: 'Achievements',
+      category: 'Accolade',
+      categoryColor: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
+      title: 'National Hackathon — SRM AP (Kiosk Vision)',
+      desc: "Mission Schrödinger's Cat · 1200+ participants · Offline smart kiosk with local UPI",
+      keywords: ['srm', 'srm ap', 'hackathon', 'schrodinger', 'kiosk vision', 'upi', 'offline', 'gesture'],
+      icon: <FaTrophy className="text-purple-400" />,
+      action: () => {
+        onClose();
+        scrollToSection('experience');
+      },
+    },
+    {
+      id: 'exp-supraja',
+      group: 'Experience',
+      category: 'Work History',
+      categoryColor: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+      title: 'Cybersecurity Intern — Supraja Technologies',
+      desc: 'Penetration testing with Metasploit, network vulnerability scanning, threat analysis (June–July 2025)',
+      keywords: ['supraja', 'supraja technologies', 'internship', 'intern', 'cybersecurity intern', 'work', 'job', 'experience'],
+      icon: <FaBriefcase className="text-blue-400" />,
+      action: () => {
+        onClose();
+        scrollToSection('experience');
+      },
+    },
+
+    // ── EDUCATION ──
+    {
+      id: 'edu-nbkrist',
+      group: 'Education',
+      category: 'Academics',
+      categoryColor: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+      title: 'B.Tech in AI & Data Science — NBKRIST',
+      desc: 'NBKR Institute of Science and Technology · 2023–2027 · Specializing in AI/ML & Cyber Systems',
+      keywords: ['nbkrist', 'btech', 'college', 'degree', 'education', 'ai and data science', 'vidyanagar', 'gpa'],
+      icon: <FaGraduationCap className="text-emerald-500" />,
+      action: () => {
+        onClose();
+        scrollToSection('about');
+      },
+    },
+    {
+      id: 'edu-vamsi',
+      group: 'Education',
+      category: 'Academics',
+      categoryColor: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+      title: 'Intermediate (MPC) — Vamsi Junior College',
+      desc: 'Mathematics, Physics, Chemistry · 2021–2023 · 756 / 1000',
+      keywords: ['vamsi', 'intermediate', 'mpc', 'junior college', 'maths', 'physics'],
+      icon: <FaGraduationCap className="text-blue-400" />,
+      action: () => {
+        onClose();
+        scrollToSection('about');
+      },
+    },
+
+    // ── EASTER EGGS ──
+    {
+      id: 'matrix',
+      group: 'Developer Tools',
+      category: 'Easter Egg',
+      categoryColor: 'bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30',
+      title: 'Enter Matrix Cyber Rain Mode',
+      desc: 'Start full-screen retro green falling code canvas simulation',
+      keywords: ['matrix', 'rain', 'hacker', 'terminal', 'cyber', 'easter egg', 'code'],
+      icon: <FaTerminal className="text-teal-400" />,
+      shortcut: 'M',
+      action: () => {
+        sound.pop();
+        onClose();
+        onTriggerMatrix();
+      },
+    },
+    {
+      id: 'confetti',
+      group: 'Developer Tools',
+      category: 'Easter Egg',
+      categoryColor: 'bg-pink-500/15 text-pink-600 dark:text-pink-400 border-pink-500/30',
+      title: 'Blast Confetti Particles',
+      desc: 'Trigger dual-cannon celebration confetti explosion',
+      keywords: ['confetti', 'party', 'celebrate', 'fun', 'blast', 'fireworks'],
+      icon: <FaPalette className="text-pink-400" />,
+      shortcut: 'C',
+      action: () => {
+        sound.success();
+        onClose();
+        onTriggerConfetti();
       },
     },
     {
       id: 'joke',
+      group: 'Developer Tools',
+      category: 'Easter Egg',
+      categoryColor: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
       title: 'Tell Me a Dev Joke',
-      desc: 'Expose a random programmer coding joke',
+      desc: 'Random programmer humor and coding punchlines',
+      keywords: ['joke', 'humor', 'funny', 'laugh', 'dev joke', 'pun'],
       icon: <FaQuoteRight className="text-purple-400" />,
       shortcut: 'J',
       action: () => {
+        sound.pop();
         setJoke(JOKES[Math.floor(Math.random() * JOKES.length)]);
       },
     },
-    {
-      id: 'nav-about',
-      title: 'Navigate to About Me',
-      desc: 'Scroll smoothly to qualifications, bio, and stats',
-      icon: <FaCompass className="text-zinc-400" />,
-      shortcut: '1',
-      action: () => {
-        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-        onClose();
-      },
-    },
-    {
-      id: 'nav-experience',
-      title: 'Navigate to Experience',
-      desc: 'Scroll smoothly to achievements and work timeline',
-      icon: <FaCompass className="text-zinc-400" />,
-      shortcut: '2',
-      action: () => {
-        document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' });
-        onClose();
-      },
-    },
-    {
-      id: 'nav-projects',
-      title: 'Navigate to Projects',
-      desc: 'Scroll smoothly to code works and security console',
-      icon: <FaCompass className="text-zinc-400" />,
-      shortcut: '3',
-      action: () => {
-        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-        onClose();
-      },
-    },
-  ];
+  ], [onClose, onToggleTheme, onTriggerMatrix, onTriggerConfetti]);
 
-  // Filter actions based on search
-  const filtered = actions.filter((act) =>
-    act.title.toLowerCase().includes(search.toLowerCase()) ||
-    act.desc.toLowerCase().includes(search.toLowerCase())
-  );
+  // Search filtering logic
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return SITE_INDEX;
 
-  // Keyboard navigation inside open palette
+    return SITE_INDEX.filter((item) => {
+      const matchTitle = item.title.toLowerCase().includes(q);
+      const matchDesc = item.desc.toLowerCase().includes(q);
+      const matchCategory = item.category.toLowerCase().includes(q);
+      const matchKeywords = item.keywords.some((k) => k.toLowerCase().includes(q));
+      return matchTitle || matchDesc || matchCategory || matchKeywords;
+    });
+  }, [search, SITE_INDEX]);
+
+  // Keyboard navigation
   useEffect(() => {
     if (!isOpen) return;
 
@@ -164,9 +462,11 @@ export default function CommandPalette({
         onClose();
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
+        sound.click();
         setActiveIndex((prev) => (filtered.length > 0 ? (prev + 1) % filtered.length : 0));
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
+        sound.click();
         setActiveIndex((prev) => (filtered.length > 0 ? (prev - 1 + filtered.length) % filtered.length : 0));
       } else if (e.key === 'Enter') {
         e.preventDefault();
@@ -176,11 +476,10 @@ export default function CommandPalette({
           filtered[activeIndex].action();
         }
       } else if (e.ctrlKey || e.metaKey) {
-        // Let system handle system shortcuts
-      } else if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-        // Direct character shortcut triggers
+        // Let system shortcut pass
+      } else if (e.target.tagName !== 'INPUT') {
         const key = e.key.toUpperCase();
-        const matched = actions.find((act) => act.shortcut === key);
+        const matched = SITE_INDEX.find((act) => act.shortcut === key);
         if (matched) {
           e.preventDefault();
           matched.action();
@@ -190,28 +489,28 @@ export default function CommandPalette({
 
     window.addEventListener('keydown', handleNav);
     return () => window.removeEventListener('keydown', handleNav);
-  }, [isOpen, activeIndex, filtered, onClose, joke]);
+  }, [isOpen, activeIndex, filtered, onClose, joke, SITE_INDEX]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9990] flex items-start justify-center pt-[12vh] md:pt-[18vh] px-4">
+        <div className="fixed inset-0 z-[9990] flex items-start justify-center pt-[10vh] md:pt-[15vh] px-3 sm:px-4">
           {/* Overlay backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-xs"
+            className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-xs"
           />
 
           {/* Palette container */}
           <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.96 }}
+            initial={{ opacity: 0, y: -24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.96 }}
+            exit={{ opacity: 0, y: -24, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-lg rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-2xl shadow-[0_32px_80px_rgba(0,0,0,0.25)] flex flex-col font-sans"
+            className="relative w-full max-w-2xl rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-[#111113]/95 backdrop-blur-2xl shadow-[0_32px_90px_rgba(0,0,0,0.35)] flex flex-col font-sans z-10"
           >
             {joke ? (
               /* Joke display state */
@@ -226,18 +525,21 @@ export default function CommandPalette({
                   </p>
                 </div>
                 <button
-                  onClick={() => setJoke(null)}
-                  className="btn-primary w-full justify-center text-xs py-3"
+                  onClick={() => {
+                    sound.click();
+                    setJoke(null);
+                  }}
+                  className="btn-primary w-full justify-center text-xs py-3.5"
                 >
-                  Back to Commands
+                  Back to Site Search
                 </button>
               </div>
             ) : (
-              /* Standard commands state */
+              /* Site-wide search state */
               <>
                 {/* Search Bar */}
-                <div className="flex items-center gap-3.5 px-4 md:px-5 py-4 border-b border-zinc-100 dark:border-zinc-800/80">
-                  <FaSearch className="text-zinc-400 dark:text-zinc-500 flex-shrink-0" size={14} />
+                <div className="flex items-center gap-3.5 px-4 md:px-6 py-4 border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/20">
+                  <FaSearch className="text-[#E67E22] flex-shrink-0" size={15} />
                   <input
                     ref={inputRef}
                     value={search}
@@ -245,17 +547,32 @@ export default function CommandPalette({
                       setSearch(e.target.value);
                       setActiveIndex(0);
                     }}
-                    placeholder="Type a command or shortcut key..."
-                    className="flex-1 bg-transparent text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 text-sm md:text-base outline-none font-medium"
+                    placeholder="Search across entire portfolio (projects, skills, education, tools)..."
+                    className="flex-1 bg-transparent text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm md:text-base outline-none font-semibold"
                   />
-                  <div className="hidden sm:flex items-center gap-1 bg-zinc-100 dark:bg-zinc-900 px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-400 dark:text-zinc-500 font-bold select-none">
+                  {search && (
+                    <button
+                      onClick={() => setSearch('')}
+                      className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 p-1"
+                      title="Clear search"
+                    >
+                      <FaTimes size={12} />
+                    </button>
+                  )}
+                  <div className="hidden sm:flex items-center gap-1 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-500 dark:text-zinc-400 font-bold select-none">
                     <FaRegKeyboard size={10} />
-                    <span>CMD K</span>
+                    <span>ESC to close</span>
                   </div>
                 </div>
 
+                {/* Match Counter Header */}
+                <div className="flex items-center justify-between px-5 py-2 bg-zinc-50/80 dark:bg-zinc-900/40 border-b border-zinc-100 dark:border-zinc-900 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 select-none">
+                  <span>{search ? `Found ${filtered.length} matching entries` : 'Quick Navigation & Global Site Index'}</span>
+                  <span className="text-[#E67E22] font-black">{search ? `Filter: "${search}"` : 'Type anything to search'}</span>
+                </div>
+
                 {/* Items List */}
-                <div className="max-h-64 sm:max-h-72 overflow-y-auto pl-3 pr-4 py-2 space-y-1 scroll-smooth">
+                <div className="max-h-[52vh] sm:max-h-[58vh] overflow-y-auto px-2 sm:px-3 py-2 space-y-1 scroll-smooth">
                   {filtered.length > 0 ? (
                     filtered.map((act, idx) => {
                       const active = activeIndex === idx;
@@ -264,23 +581,37 @@ export default function CommandPalette({
                           key={act.id}
                           onClick={act.action}
                           onMouseEnter={() => setActiveIndex(idx)}
-                          className={`flex items-center justify-between gap-4 p-3 rounded-xl cursor-pointer transition-colors ${
+                          className={`flex items-center justify-between gap-3.5 p-3 rounded-xl cursor-pointer transition-all duration-150 ${
                             active
-                              ? 'bg-[#E67E22]/10 text-zinc-900 dark:text-white'
-                              : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50'
+                              ? 'bg-[#E67E22]/10 dark:bg-[#E67E22]/15 text-zinc-900 dark:text-white translate-x-0.5'
+                              : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100/70 dark:hover:bg-zinc-900/50'
                           }`}
                         >
-                          <div className="flex items-center gap-3">
-                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800 transition-colors ${active ? 'bg-white dark:bg-zinc-800 border-[#E67E22]/30' : ''}`}>
+                          <div className="flex items-center gap-3.5 min-w-0">
+                            {/* Icon badge */}
+                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800 transition-colors ${active ? 'bg-white dark:bg-zinc-800 border-[#E67E22]/40 shadow-xs' : ''}`}>
                               {act.icon}
                             </div>
+
+                            {/* Text content */}
                             <div className="min-w-0">
-                              <p className="text-xs md:text-sm font-black leading-tight">{act.title}</p>
-                              <p className="text-[10px] md:text-xs text-zinc-400 dark:text-zinc-500 font-bold mt-0.5 truncate max-w-[280px] md:max-w-xs">{act.desc}</p>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <p className="text-xs sm:text-sm font-black leading-tight truncate">
+                                  {act.title}
+                                </p>
+                                <span className={`text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${act.categoryColor}`}>
+                                  {act.category}
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium mt-0.5 line-clamp-1">
+                                {act.desc}
+                              </p>
                             </div>
                           </div>
+
+                          {/* Shortcut key */}
                           {act.shortcut && (
-                            <span className={`hidden sm:inline-flex text-[10px] font-black px-2 py-0.5 border rounded-md font-mono select-none ${active ? 'bg-[#E67E22]/15 text-[#E67E22] border-[#E67E22]/30' : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-600 border-zinc-200 dark:border-zinc-800'}`}>
+                            <span className={`hidden sm:inline-flex text-[10px] font-black px-2.5 py-1 border rounded-md font-mono select-none flex-shrink-0 ${active ? 'bg-[#E67E22] text-white border-[#E67E22]' : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-500 border-zinc-200 dark:border-zinc-800'}`}>
                               {act.shortcut}
                             </span>
                           )}
@@ -288,20 +619,29 @@ export default function CommandPalette({
                       );
                     })
                   ) : (
-                    <div className="py-8 text-center text-zinc-400 dark:text-zinc-500 font-medium text-xs">
-                      No matching commands found.
+                    <div className="py-12 text-center space-y-3">
+                      <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mx-auto text-zinc-400">
+                        <FaSearch size={14} />
+                      </div>
+                      <p className="text-zinc-700 dark:text-zinc-300 font-bold text-sm">
+                        No matches found for "{search}"
+                      </p>
+                      <p className="text-zinc-400 dark:text-zinc-500 text-xs font-medium max-w-xs mx-auto">
+                        Try searching for "StudentHub", "Python", "Metasploit", "Resume", "NBKRIST", or "Hackathon".
+                      </p>
                     </div>
                   )}
                 </div>
 
                 {/* Footer instructions */}
-                <div className="flex items-center justify-between px-5 py-3.5 bg-zinc-50 dark:bg-zinc-900/40 border-t border-zinc-100 dark:border-zinc-900 select-none text-[10px] text-zinc-400 dark:text-zinc-500 font-bold">
-                  <div className="hidden sm:flex items-center gap-3">
-                    <span>↑↓ to navigate</span>
-                    <span>↵ to select</span>
+                <div className="flex items-center justify-between px-5 py-3 bg-zinc-50 dark:bg-zinc-900/60 border-t border-zinc-100 dark:border-zinc-900 select-none text-[11px] text-zinc-400 dark:text-zinc-500 font-bold">
+                  <div className="hidden sm:flex items-center gap-4">
+                    <span>↑↓ Navigate</span>
+                    <span>↵ Select</span>
+                    <span>ESC Close</span>
                   </div>
-                  <span className="hidden sm:inline">ESC to close</span>
-                  <span className="sm:hidden mx-auto text-center">Tap any command to run · Swipe to scroll</span>
+                  <span className="sm:hidden mx-auto text-center">Tap any entry to jump directly to it</span>
+                  <span className="hidden sm:inline text-zinc-400">Kami Likhith Portfolio Index</span>
                 </div>
               </>
             )}
