@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaArrowDown, FaDownload, FaTimes, FaMapMarkerAlt, FaCode, FaShieldAlt, FaBrain } from 'react-icons/fa';
+import CopyEmailPill from './CopyEmailPill';
+import { sound } from '../utils/sound';
 
 /* ─── Typewriter ─── */
 const ROLES = [
@@ -222,19 +224,22 @@ export default function Hero({ theme }) {
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-col gap-2.5 px-2">
-              <button onClick={() => window.__openContactModal?.()}
+              <button onClick={() => { sound.click(); window.__openContactModal?.(); }}
                 className="btn-primary w-full py-4 shadow-[0_8px_24px_rgba(230,126,34,0.35)]">
                 ✉️ Get in touch
               </button>
               <div className="grid grid-cols-2 gap-2.5">
-                <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer"
+                <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer" onClick={() => sound.click()}
                   className={`inline-flex items-center justify-center gap-2 border font-bold rounded-full px-5 py-3.5 text-sm active:scale-95 transition-all ${secondaryBtn}`}>
                   <FaGithub size={13} /> GitHub
                 </a>
-                <a href="/resume.pdf" target="_blank" rel="noreferrer"
-                  className={`inline-flex items-center justify-center gap-2 bg-transparent border font-bold rounded-full px-5 py-3.5 text-sm active:scale-95 transition-all ${ghostBtn}`}>
+                <button onClick={(e) => { e.preventDefault(); sound.click(); window.__openResumeModal?.(); }}
+                  className={`inline-flex items-center justify-center gap-2 bg-transparent border font-bold rounded-full px-5 py-3.5 text-sm active:scale-95 transition-all cursor-pointer ${ghostBtn}`}>
                   <FaDownload size={11} /> Resume
-                </a>
+                </button>
+              </div>
+              <div className="flex justify-center pt-1">
+                <CopyEmailPill />
               </div>
             </motion.div>
 
@@ -305,19 +310,20 @@ export default function Hero({ theme }) {
               ))}
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
-              <button onClick={() => window.__openContactModal?.()}
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-3">
+              <button onClick={() => { sound.click(); window.__openContactModal?.(); }}
                 className="btn-primary px-8 py-4 text-base shadow-[0_8px_32px_rgba(230,126,34,0.4)] hover:shadow-[0_12px_40px_rgba(230,126,34,0.5)]">
                 ✉️ Get in touch
               </button>
-              <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer"
+              <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer" onClick={() => sound.click()}
                 className={`inline-flex items-center gap-2 border font-bold rounded-full px-8 py-4 text-base active:scale-95 transition-all ${secondaryBtn}`}>
                 <FaGithub /> GitHub
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noreferrer"
-                className={`inline-flex items-center gap-2 bg-transparent border font-bold rounded-full px-8 py-4 text-base active:scale-95 transition-all ${ghostBtn}`}>
+              <button onClick={(e) => { e.preventDefault(); sound.click(); window.__openResumeModal?.(); }}
+                className={`inline-flex items-center gap-2 bg-transparent border font-bold rounded-full px-8 py-4 text-base active:scale-95 transition-all cursor-pointer ${ghostBtn}`}>
                 <FaDownload size={13} /> Resume
-              </a>
+              </button>
+              <CopyEmailPill />
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex gap-10">

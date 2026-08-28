@@ -20,9 +20,11 @@ const MatrixRain = lazy(() => import('./components/MatrixRain'));
 const ConfettiOverlay = lazy(() => import('./components/ConfettiOverlay'));
 const SpotlightCursor = lazy(() => import('./components/SpotlightCursor'));
 const CustomCursor = lazy(() => import('./components/CustomCursor'));
+const ResumeModal = lazy(() => import('./components/ResumeModal'));
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [matrixActive, setMatrixActive] = useState(false);
   const [confettiTriggerCount, setConfettiTriggerCount] = useState(0);
@@ -64,12 +66,14 @@ export default function App() {
 
   useEffect(() => {
     window.__openContactModal = () => setContactOpen(true);
+    window.__openResumeModal = () => setResumeOpen(true);
     window.__openCommandPalette = () => setCommandPaletteOpen(true);
     window.__triggerMatrix = () => setMatrixActive(true);
     window.__triggerConfetti = () => setConfettiTriggerCount(c => c + 1);
     window.__openMLSAModal = () => setMlsaOpen(true);
     return () => {
       delete window.__openContactModal;
+      delete window.__openResumeModal;
       delete window.__openCommandPalette;
       delete window.__triggerMatrix;
       delete window.__triggerConfetti;
@@ -106,6 +110,7 @@ export default function App() {
         <SpotlightCursor />
         <CustomCursor />
         {contactOpen && <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />}
+        {resumeOpen && <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />}
         {mlsaOpen && <MLSAModal isOpen={mlsaOpen} onClose={() => setMlsaOpen(false)} />}
         <ChatBot />
 

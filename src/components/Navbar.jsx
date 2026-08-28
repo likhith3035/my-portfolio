@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
-import { FaSun, FaMoon, FaTimes, FaSearch } from 'react-icons/fa';
+import { FaSun, FaMoon, FaTimes, FaSearch, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 import { HiMenuAlt3 } from 'react-icons/hi';
+import { sound } from '../utils/sound';
 
 const NAV_LINKS = [
   { href: '#home',       label: 'Home',       emoji: '🏠' },
@@ -15,6 +16,7 @@ export default function Navbar({ theme, onToggleTheme }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('#home');
+  const [soundOn, setSoundOn] = useState(() => sound.enabled);
 
   /* Shadow on scroll */
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function Navbar({ theme, onToggleTheme }) {
 
   const scrollTo = (e, href) => {
     e.preventDefault();
+    sound.click();
     setMobileOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -122,16 +125,39 @@ export default function Navbar({ theme, onToggleTheme }) {
 
             {/* Command Palette trigger */}
             <button
-              onClick={() => window.__openCommandPalette?.()}
+              onClick={() => {
+                sound.pop();
+                window.__openCommandPalette?.();
+              }}
               aria-label="Search or run command"
               className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
             >
               <FaSearch size={13} />
             </button>
 
+            {/* UI Sound Effects Toggle */}
+            <button
+              onClick={() => {
+                const state = sound.toggle();
+                setSoundOn(state);
+              }}
+              aria-label={soundOn ? "Mute UI sounds" : "Enable UI sounds"}
+              title={soundOn ? "UI sound effects on (click to mute)" : "UI sound effects muted (click to enable)"}
+              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
+            >
+              {soundOn ? (
+                <FaVolumeUp size={13} className="text-[#E67E22]" />
+              ) : (
+                <FaVolumeMute size={13} className="opacity-50" />
+              )}
+            </button>
+
             {/* Theme toggle */}
             <button
-              onClick={onToggleTheme}
+              onClick={() => {
+                sound.themeSwitch();
+                onToggleTheme();
+              }}
               aria-label="Toggle theme"
               className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
             >
@@ -150,7 +176,10 @@ export default function Navbar({ theme, onToggleTheme }) {
 
             {/* CTA – desktop */}
             <button
-              onClick={() => window.__openContactModal?.()}
+              onClick={() => {
+                sound.click();
+                window.__openContactModal?.();
+              }}
               className={`hidden md:inline-flex items-center gap-1.5 font-bold text-xs px-4 py-2 rounded-full transition-all duration-200 ${scrolled ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:bg-[#E67E22] dark:hover:bg-[#E67E22] dark:hover:text-white' : 'bg-white text-zinc-900 hover:bg-[#E67E22] hover:text-white'}`}
             >
               Hire me
