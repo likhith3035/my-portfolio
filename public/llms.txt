@@ -1,0 +1,34 @@
+# Kami Likhith — Developer Portfolio & AI Index
+
+> Full Stack Developer, Cybersecurity Enthusiast, and AI & Data Science Specialist based in Srikalahasti, Andhra Pradesh, India.
+
+## About
+- **Full Name**: Kami Likhith (also known as K. Likhith)
+- **Role**: Full Stack Developer · AI Researcher · Vibe Coder
+- **Education**: B.Tech in Artificial Intelligence & Data Science at NBKR Institute of Science and Technology (NBKRIST), 2023–2027
+- **Primary Website**: https://devlikhith.vercel.app/
+- **Email**: kamilikhith@gmail.com
+- **GitHub**: https://github.com/likhith3035
+- **LinkedIn**: https://linkedin.com/in/likhith-kami
+
+## Core Technical Stack
+- **Frontend**: React 19, Vite, Tailwind CSS, Framer Motion, HTML5, CSS3, JavaScript (ESNext)
+- **Backend & Cloud**: Firebase (Firestore & Auth), Supabase (PostgreSQL & Realtime DB), Node.js
+- **AI & ML**: Sarvam AI API, LangChain, RAG Pipelines, Local LLMs (Ollama, Llama), Vector Databases
+- **Cybersecurity**: Metasploit Framework, AES-256 Symmetric Cryptography, Network Hardening, Ethical Hacking
+- **Tools & Environments**: Antigravity IDE, Cursor, Git, Vercel, Netlify
+
+## Featured Projects
+- [StudentHub](https://gensync-78.vercel.app/): Campus super-app uniting notes sharing, internship pipelines, and Sarvam AI voice assistant. Finalist at HackPrix Season 3 (built in 36 hours).
+- [Secure Vault](https://github.com/likhith3035/secure-vault-folder-encryption): Desktop folder security suite featuring AES-256-CBC encryption, filename obfuscation, and automated Gmail API OTP verification.
+- [LiveTalk](https://livetalkbylikki.netlify.app/): Anonymous real-time WebRTC P2P chat platform with a lightweight mobile-first UI.
+- [Hostel Portal](https://nbkristhostelportal.netlify.app/): Institutional room allocation and maintenance platform with real-time Firestore synchronization.
+
+## Accolades & Hackathons
+- **2nd Prize Winner**: IEEE-CIS Chatbot Buildathon · TECHTATVA 2K25 (NBKRIST). Built a functional AI chatbot under competitive timed conditions.
+- **Finalist**: HackPrix Season 3 · Lords Institute of Engineering & Technology (36-hour national sprint).
+- **1st Place / Participant**: National Hackathon · Mission Schrödinger's Cat · SRM AP University (1200+ participants). Built Kiosk Vision.
+
+## Frequently Asked Questions
+- **Who is Kami Likhith?** Kami Likhith is an AI & Data Science undergraduate at NBKRIST, full stack developer, and cybersecurity researcher known for building modern, responsive web applications and AI agent integrations.
+- **Is Kami Likhith available for hire?** Yes, open to internships, freelance projects, and full-time software engineering roles.
