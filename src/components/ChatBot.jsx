@@ -7,8 +7,8 @@ const KB = [
   {
     keywords: ['who', 'name', 'about', 'yourself', 'introduce', 'likhith', 'kami'], weight: 2,
     answers: [
-      "I'm Kami Likhith — a B.Tech AI & Data Science student at NBKRIST. I build modern web applications, work with local AI agents, and dive deep into cybersecurity. People call me a Vibe Coder! 😎",
-      "Hey! I'm Likhith — a full-stack developer, cybersecurity enthusiast, and AI researcher. I specialize in React, Firebase, Supabase, and building AI agents. 🚀",
+      "I'm Kami Likhith — a B.Tech AI & Data Science student at NBKRIST and Microsoft Learn Student Ambassador. I engineer modern web systems, deploy local AI agents, and conduct cybersecurity research.",
+      "Hey! I'm Likhith — a software engineer, cybersecurity researcher, and AI developer specializing in React, Python, Firebase, Supabase, and RAG architectures.",
     ],
     followUps: [
       { label: '🛠️ View Tech Stack', q: 'What is your tech stack?' },
@@ -152,18 +152,18 @@ const KB = [
       "I love utilizing advanced AI models. I build web applications using Sarvam AI, deploy local LLMs using Ollama, write code with Cursor and Antigravity IDE, and study AI & Data Science at NBKRIST! 🤖",
     ],
     followUps: [
-      { label: '⚡ What is Vibe Coding?', q: 'What is a vibe coder?' },
-      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' }
+      { label: 'AI & Engineering Tools', q: 'What tools and AI workflows do you use?' },
+      { label: 'Key Projects', q: 'Tell me about your key projects' }
     ]
   },
   {
-    keywords: ['vibe', 'coder', 'coding'], weight: 2,
+    keywords: ['engineering', 'philosophy', 'workflow', 'approach'], weight: 2,
     answers: [
-      "A 'Vibe Coder' is someone who builds rapid software by combining strong design taste with AI-powered development tools like Antigravity IDE, Cursor, and local LLMs (Ollama) to ship products in record time! ⚡",
+      "My development philosophy focuses on rapid, high-leverage execution: combining robust software architecture and security foundations with state-of-the-art developer tooling to ship verified, production-grade applications.",
     ],
     followUps: [
-      { label: '🛠️ AI Tools', q: 'Which AI tools do you use?' },
-      { label: '🚀 Key Projects', q: 'What projects did you build?' }
+      { label: 'AI Tools', q: 'Which AI tools do you use?' },
+      { label: 'Key Projects', q: 'What projects did you build?' }
     ]
   },
   {
