@@ -7,9 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
+        accent: {
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+          secondary: 'var(--accent-secondary)',
+        },
         'neo-yellow':  '#FBD249',
         'neo-blue':    '#1D4ED8',
-        'neo-orange':  '#E67E22',
+        'neo-orange':  'var(--accent)',
         'neo-teal':    '#14B8A6',
         'neo-purple':  '#A855F7',
       },

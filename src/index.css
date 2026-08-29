@@ -4,6 +4,187 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Dynamic Accent Themes ──────────────────────────────── */
+:root,
+[data-accent="orange"] {
+  --accent: #E67E22;
+  --accent-hover: #d35400;
+  --accent-secondary: #f5a623;
+  --accent-rgb: 230, 126, 34;
+  --accent-glow: rgba(230, 126, 34, 0.35);
+  --accent-tint: rgba(230, 126, 34, 0.12);
+  --accent-ring: rgba(230, 126, 34, 0.4);
+}
+
+[data-accent="pink"] {
+  --accent: #EC4899;
+  --accent-hover: #db2777;
+  --accent-secondary: #f472b6;
+  --accent-rgb: 236, 72, 153;
+  --accent-glow: rgba(236, 72, 153, 0.35);
+  --accent-tint: rgba(236, 72, 153, 0.12);
+  --accent-ring: rgba(236, 72, 153, 0.4);
+}
+
+[data-accent="blue"] {
+  --accent: #3B82F6;
+  --accent-hover: #2563eb;
+  --accent-secondary: #60a5fa;
+  --accent-rgb: 59, 130, 246;
+  --accent-glow: rgba(59, 130, 246, 0.35);
+  --accent-tint: rgba(59, 130, 246, 0.12);
+  --accent-ring: rgba(59, 130, 246, 0.4);
+}
+
+[data-accent="green"] {
+  --accent: #10B981;
+  --accent-hover: #059669;
+  --accent-secondary: #34d399;
+  --accent-rgb: 16, 185, 129;
+  --accent-glow: rgba(16, 185, 129, 0.35);
+  --accent-tint: rgba(16, 185, 129, 0.12);
+  --accent-ring: rgba(16, 185, 129, 0.4);
+}
+
+[data-accent="love"] {
+  --accent: #E11D48;
+  --accent-hover: #be123c;
+  --accent-secondary: #fb7185;
+  --accent-rgb: 225, 29, 72;
+  --accent-glow: rgba(225, 29, 72, 0.45);
+  --accent-tint: rgba(225, 29, 72, 0.15);
+  --accent-ring: rgba(225, 29, 72, 0.45);
+}
+
+/* Atmospheric Romantic Candlelight & Rose Bokeh Lighting */
+[data-accent="love"] body {
+  background-image: 
+    radial-gradient(circle 600px at 50% 5%, rgba(225, 29, 72, 0.12), transparent 70%),
+    radial-gradient(circle 500px at 15% 45%, rgba(251, 113, 133, 0.08), transparent 60%),
+    radial-gradient(circle 650px at 85% 65%, rgba(244, 63, 94, 0.09), transparent 65%),
+    radial-gradient(rgba(225, 29, 72, 0.04) 1px, transparent 1px) !important;
+}
+
+/* Glowing Ruby-to-Peach Romantic Typography */
+[data-accent="love"] .text-gradient {
+  background: linear-gradient(135deg, #F43F5E 0%, #FB7185 35%, #FDA4AF 70%, #FBBF24 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0 16px rgba(244, 63, 94, 0.35));
+}
+
+/* Heartbeat pulse animation */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.16); filter: drop-shadow(0 0 8px rgba(225, 29, 72, 0.6)); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); filter: drop-shadow(0 0 4px rgba(225, 29, 72, 0.4)); }
+  70% { transform: scale(1); }
+}
+
+.heartbeat {
+  display: inline-block;
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+/* Transform hero radar dot into a beating heart in Love theme */
+[data-accent="love"] .hero-status-dot {
+  display: none !important;
+}
+
+[data-accent="love"] .hero-status-pill::before {
+  content: '❤️';
+  font-size: 11px;
+  line-height: 1;
+  display: inline-block;
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+/* Floating Love Sparks on Click */
+@keyframes love-spark {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(calc(-50% + var(--spark-dx, 0px)), -110%) scale(1.2) rotate(-8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--spark-dx, 0px)), -200%) scale(0.9) rotate(12deg);
+  }
+}
+
+.animate-love-spark {
+  animation: love-spark 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Velvet Glassmorphic Cards for Love Theme */
+[data-accent="love"] .card {
+  border-color: rgba(225, 29, 72, 0.18) !important;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark[data-accent="love"] .card,
+[data-accent="love"] .dark .card,
+[data-accent="love"].dark .card {
+  border-color: rgba(225, 29, 72, 0.2) !important;
+  background: rgba(18, 14, 16, 0.85) !important;
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4), 0 0 1px 1px rgba(225, 29, 72, 0.15);
+}
+
+[data-accent="love"] .card:hover {
+  border-color: rgba(225, 29, 72, 0.5) !important;
+  box-shadow: 0 20px 50px -10px rgba(225, 29, 72, 0.25), 0 0 25px rgba(225, 29, 72, 0.15) !important;
+}
+
+/* Satin light sheen sweep on Primary Button hover in Love mode */
+[data-accent="love"] .btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+[data-accent="love"] .btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 90%
+  );
+  transform: rotate(25deg);
+  transition: all 0.8s ease;
+  pointer-events: none;
+}
+
+[data-accent="love"] .btn-primary:hover::after {
+  left: 140%;
+}
+
+/* Breathing rose aura around Hero photo */
+[data-accent="love"] .hero-photo-ring {
+  box-shadow: 0 0 35px rgba(225, 29, 72, 0.35), 0 0 70px rgba(225, 29, 72, 0.15) !important;
+  animation: rose-breathe 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes rose-breathe {
+  0% {
+    box-shadow: 0 0 25px rgba(225, 29, 72, 0.25), 0 0 50px rgba(225, 29, 72, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 45px rgba(225, 29, 72, 0.5), 0 0 90px rgba(225, 29, 72, 0.25);
+  }
+}
+
 /* ─── Design Tokens ────────────────────────────────────── */
 @layer base {
   html {
@@ -14,14 +195,19 @@
   }
 
   body {
-    background-image: radial-gradient(rgba(230, 126, 34, 0.025) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(var(--accent-rgb), 0.035) 1px, transparent 1px);
     background-size: 28px 28px;
     @apply font-sans bg-[#FAF9F6] dark:bg-[#0B0B0C] text-zinc-900 dark:text-zinc-100
       antialiased overflow-x-hidden transition-colors duration-300 min-h-screen;
   }
 
+  ::selection {
+    background-color: var(--accent);
+    color: #ffffff;
+  }
+
   :focus-visible {
-    outline: 2px solid #E67E22;
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -37,39 +223,74 @@
       rounded-2xl transition-all duration-300;
   }
   .card-hover {
-    @apply hover:border-[#E67E22]/25 dark:hover:border-[#E67E22]/25
-      hover:shadow-[0_20px_60px_-12px_rgba(230,126,34,0.1)];
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-hover:hover {
+    border-color: rgba(var(--accent-rgb), 0.3);
+    box-shadow: 0 20px 60px -12px rgba(var(--accent-rgb), 0.15);
   }
 
   /* ── Buttons ── */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-[#E67E22] text-white
-      font-bold rounded-full px-6 py-3.5 text-sm active:scale-95 cursor-pointer
-      hover:bg-[#d35400] transition-all duration-200;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.35);
   }
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 12px 32px rgba(var(--accent-rgb), 0.45);
+  }
+  .btn-primary:active {
+    transform: scale(0.96);
+  }
+
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 bg-zinc-900 dark:bg-white
       text-white dark:text-zinc-900 font-bold rounded-full px-6 py-3.5 text-sm
       hover:bg-zinc-800 dark:hover:bg-zinc-100 active:scale-95 cursor-pointer
       transition-all duration-200;
   }
+
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-zinc-200
-      dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold rounded-full
-      px-6 py-3.5 text-sm hover:border-[#E67E22] hover:text-[#E67E22]
-      active:scale-95 cursor-pointer transition-all duration-200;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid;
+    @apply border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold rounded-full px-6 py-3.5 text-sm active:scale-95 cursor-pointer transition-all duration-200;
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   /* ── Typography helpers ── */
   .section-label {
-    @apply text-[11px] font-black uppercase tracking-[0.2em] text-[#E67E22];
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
   }
   .section-heading {
     @apply text-3xl sm:text-4xl md:text-5xl font-black text-zinc-900 dark:text-white
       uppercase tracking-tight leading-none;
   }
   .accent-underline {
-    @apply underline decoration-[#E67E22] decoration-2 underline-offset-4;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
   /* ── Layout ── */
@@ -94,7 +315,7 @@
 /* ─── Utilities ────────────────────────────────────────── */
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(135deg, #E67E22 0%, #f5a623 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -118,8 +339,8 @@
 /* ─── Scrollbar ────────────────────────────────────────── */
 ::-webkit-scrollbar          { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track    { background: transparent; }
-::-webkit-scrollbar-thumb    { background: #e67e2230; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: #E67E22; }
+::-webkit-scrollbar-thumb    { background: rgba(var(--accent-rgb), 0.25); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ─── Section divider with centered text ──────────────── */
 .divider {
