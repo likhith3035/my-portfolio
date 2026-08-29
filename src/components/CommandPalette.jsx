@@ -39,11 +39,14 @@ export default function CommandPalette({
   onToggleTheme,
   onTriggerMatrix,
   onTriggerConfetti,
+  accentTheme = 'orange',
+  onSelectAccent,
 }) {
   const [search, setSearch] = useState('');
   const [joke, setJoke] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [copyToast, setCopyToast] = useState(false);
+  const [themeToast, setThemeToast] = useState(null);
   const inputRef = useRef(null);
 
   // Keyboard shortcut listener to toggle palette (Cmd+K or Ctrl+K)
@@ -75,15 +78,127 @@ export default function CommandPalette({
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      el.classList.add('transition-all', 'duration-500', 'ring-2', 'ring-[#E67E22]', 'ring-offset-4', 'ring-offset-white', 'dark:ring-offset-[#0B0B0C]');
+      el.classList.add('transition-all', 'duration-500', 'ring-2', 'ring-[var(--accent)]', 'ring-offset-4', 'ring-offset-white', 'dark:ring-offset-[#0B0B0C]');
       setTimeout(() => {
-        el.classList.remove('ring-2', 'ring-[#E67E22]', 'ring-offset-4', 'ring-offset-white', 'dark:ring-offset-[#0B0B0C]');
+        el.classList.remove('ring-2', 'ring-[var(--accent)]', 'ring-offset-4', 'ring-offset-white', 'dark:ring-offset-[#0B0B0C]');
       }, 2000);
     }
   };
 
   // Full site-wide indexed database
   const SITE_INDEX = useMemo(() => [
+    // ── ACCENT COLOR THEMES ──
+    {
+      id: 'theme-orange',
+      group: 'Themes',
+      category: 'Theme',
+      categoryColor: 'bg-orange-500/15 text-orange-600 dark:text-orange-400 border-orange-500/30',
+      title: 'Orange Theme (Signature Amber)',
+      desc: 'Set primary accent to warm signature amber & gold (Default identity)',
+      keywords: ['theme', 'themes', 'orange', 'amber', 'gold', 'accent', 'color', 'default', 'signature'],
+      icon: (
+        <span className="w-4 h-4 rounded-full bg-[#E67E22] ring-2 ring-[#E67E22]/40 shadow-xs flex items-center justify-center text-[9px] text-white font-black">
+          {accentTheme === 'orange' ? '✓' : ''}
+        </span>
+      ),
+      shortcut: accentTheme === 'orange' ? 'ACTIVE' : undefined,
+      action: () => {
+        sound.themeSwitch();
+        onSelectAccent?.('orange');
+        setThemeToast('Switched to Signature Orange Theme');
+        setTimeout(() => setThemeToast(null), 2000);
+        onClose();
+      },
+    },
+    {
+      id: 'theme-pink',
+      group: 'Themes',
+      category: 'Theme',
+      categoryColor: 'bg-pink-500/15 text-pink-600 dark:text-pink-400 border-pink-500/30',
+      title: 'Pink Theme (Cyber Magenta)',
+      desc: 'Set primary accent to vibrant neon pink & luxury magenta',
+      keywords: ['theme', 'themes', 'pink', 'magenta', 'rose', 'neon', 'accent', 'color'],
+      icon: (
+        <span className="w-4 h-4 rounded-full bg-[#EC4899] ring-2 ring-[#EC4899]/40 shadow-xs flex items-center justify-center text-[9px] text-white font-black">
+          {accentTheme === 'pink' ? '✓' : ''}
+        </span>
+      ),
+      shortcut: accentTheme === 'pink' ? 'ACTIVE' : undefined,
+      action: () => {
+        sound.themeSwitch();
+        onSelectAccent?.('pink');
+        setThemeToast('Switched to Cyber Pink Theme');
+        setTimeout(() => setThemeToast(null), 2000);
+        onClose();
+      },
+    },
+    {
+      id: 'theme-blue',
+      group: 'Themes',
+      category: 'Theme',
+      categoryColor: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+      title: 'Blue Theme (Electric Azure)',
+      desc: 'Set primary accent to high-contrast electric blue & cyber azure',
+      keywords: ['theme', 'themes', 'blue', 'azure', 'cyan', 'electric', 'accent', 'color'],
+      icon: (
+        <span className="w-4 h-4 rounded-full bg-[#3B82F6] ring-2 ring-[#3B82F6]/40 shadow-xs flex items-center justify-center text-[9px] text-white font-black">
+          {accentTheme === 'blue' ? '✓' : ''}
+        </span>
+      ),
+      shortcut: accentTheme === 'blue' ? 'ACTIVE' : undefined,
+      action: () => {
+        sound.themeSwitch();
+        onSelectAccent?.('blue');
+        setThemeToast('Switched to Electric Blue Theme');
+        setTimeout(() => setThemeToast(null), 2000);
+        onClose();
+      },
+    },
+    {
+      id: 'theme-green',
+      group: 'Themes',
+      category: 'Theme',
+      categoryColor: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+      title: 'Green Theme (Matrix Emerald)',
+      desc: 'Set primary accent to matrix terminal emerald & cyber mint',
+      keywords: ['theme', 'themes', 'green', 'emerald', 'matrix', 'mint', 'terminal', 'accent', 'color'],
+      icon: (
+        <span className="w-4 h-4 rounded-full bg-[#10B981] ring-2 ring-[#10B981]/40 shadow-xs flex items-center justify-center text-[9px] text-white font-black">
+          {accentTheme === 'green' ? '✓' : ''}
+        </span>
+      ),
+      shortcut: accentTheme === 'green' ? 'ACTIVE' : undefined,
+      action: () => {
+        sound.themeSwitch();
+        onSelectAccent?.('green');
+        setThemeToast('Switched to Matrix Green Theme');
+        setTimeout(() => setThemeToast(null), 2000);
+        onClose();
+      },
+    },
+    {
+      id: 'theme-love',
+      group: 'Themes',
+      category: 'Theme',
+      categoryColor: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30',
+      title: 'Love Theme (Velvet Passion Crimson)',
+      desc: 'Set primary accent to romantic passion ruby & velvet crimson glow',
+      keywords: ['theme', 'themes', 'love', 'red', 'crimson', 'ruby', 'heart', 'passion', 'romance', 'accent', 'color'],
+      icon: (
+        <span className="w-4 h-4 rounded-full bg-[#E11D48] ring-2 ring-[#E11D48]/40 shadow-xs flex items-center justify-center text-[9px] text-white font-black">
+          {accentTheme === 'love' ? '✓' : '💖'}
+        </span>
+      ),
+      shortcut: accentTheme === 'love' ? 'ACTIVE' : undefined,
+      action: () => {
+        sound.loveChime();
+        onSelectAccent?.('love');
+        setThemeToast('💖 Activated Love Theme');
+        setTimeout(() => setThemeToast(null), 2000);
+        onClose();
+      },
+    },
+
     // ── QUICK ACTIONS & TOOLS ──
     {
       id: 'resume',
@@ -144,7 +259,7 @@ export default function CommandPalette({
       categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
       title: 'Toggle Dark / Light Mode',
       desc: 'Switch UI appearance between dark obsidian and paper light',
-      keywords: ['theme', 'dark', 'light', 'mode', 'color', 'toggle', 'switch', 'appearance', 'sun', 'moon'],
+      keywords: ['dark', 'light', 'mode', 'display', 'sun', 'moon', 'night', 'appearance'],
       icon: <FaPalette className="text-amber-400" />,
       shortcut: 'T',
       action: () => {
@@ -474,20 +589,26 @@ export default function CommandPalette({
         setJoke(JOKES[Math.floor(Math.random() * JOKES.length)]);
       },
     },
-  ], [onClose, onToggleTheme, onTriggerMatrix, onTriggerConfetti]);
+  ], [onClose, onToggleTheme, onTriggerMatrix, onTriggerConfetti, accentTheme, onSelectAccent]);
 
   // Search filtering logic
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return SITE_INDEX;
 
-    return SITE_INDEX.filter((item) => {
+    const matches = SITE_INDEX.filter((item) => {
       const matchTitle = item.title.toLowerCase().includes(q);
       const matchDesc = item.desc.toLowerCase().includes(q);
       const matchCategory = item.category.toLowerCase().includes(q);
       const matchKeywords = item.keywords.some((k) => k.toLowerCase().includes(q));
       return matchTitle || matchDesc || matchCategory || matchKeywords;
     });
+
+    // Prioritize theme items when querying for themes/colors
+    if (q === 'theme' || q === 'themes' || q === 'color' || q === 'accent') {
+      return [...matches].sort((a, b) => (a.group === 'Themes' ? -1 : b.group === 'Themes' ? 1 : 0));
+    }
+    return matches;
   }, [search, SITE_INDEX]);
 
   // Keyboard navigation
@@ -576,7 +697,7 @@ export default function CommandPalette({
               <>
                 {/* Search Bar */}
                 <div className="flex items-center gap-3.5 px-4 md:px-6 py-4 border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/20">
-                  <FaSearch className="text-[#E67E22] flex-shrink-0" size={15} />
+                  <FaSearch className="text-[var(--accent)] flex-shrink-0" size={15} />
                   <input
                     ref={inputRef}
                     value={search}
@@ -584,7 +705,7 @@ export default function CommandPalette({
                       setSearch(e.target.value);
                       setActiveIndex(0);
                     }}
-                    placeholder="Search across entire portfolio (projects, skills, education, tools)..."
+                    placeholder="Search across entire portfolio (themes, projects, skills, tools)..."
                     className="flex-1 bg-transparent text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm md:text-base outline-none font-semibold"
                   />
                   {search && (
@@ -602,10 +723,17 @@ export default function CommandPalette({
                   </div>
                 </div>
 
+                {/* Theme Switch Toast */}
+                {themeToast && (
+                  <div className="bg-[var(--accent)]/15 border-b border-[var(--accent)]/30 text-[var(--accent)] text-xs font-black px-4 py-2 text-center tracking-wide flex items-center justify-center gap-2">
+                    <span>✓</span> {themeToast}
+                  </div>
+                )}
+
                 {/* Match Counter Header */}
                 <div className="flex items-center justify-between px-5 py-2 bg-zinc-50/80 dark:bg-zinc-900/40 border-b border-zinc-100 dark:border-zinc-900 text-[11px] font-bold text-zinc-500 dark:text-zinc-400 select-none">
                   <span>{search ? `Found ${filtered.length} matching entries` : 'Quick Navigation & Global Site Index'}</span>
-                  <span className="text-[#E67E22] font-black">{search ? `Filter: "${search}"` : 'Type anything to search'}</span>
+                  <span className="text-[var(--accent)] font-black">{search ? `Filter: "${search}"` : 'Type anything to search'}</span>
                 </div>
 
                 {/* Items List */}
@@ -620,13 +748,13 @@ export default function CommandPalette({
                           onMouseEnter={() => setActiveIndex(idx)}
                           className={`flex items-center justify-between gap-3.5 p-3 rounded-xl cursor-pointer transition-all duration-150 ${
                             active
-                              ? 'bg-[#E67E22]/10 dark:bg-[#E67E22]/15 text-zinc-900 dark:text-white translate-x-0.5'
+                              ? 'bg-[var(--accent)]/10 dark:bg-[var(--accent)]/15 text-zinc-900 dark:text-white translate-x-0.5'
                               : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100/70 dark:hover:bg-zinc-900/50'
                           }`}
                         >
                           <div className="flex items-center gap-3.5 min-w-0">
                             {/* Icon badge */}
-                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800 transition-colors ${active ? 'bg-white dark:bg-zinc-800 border-[#E67E22]/40 shadow-xs' : ''}`}>
+                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800 transition-colors ${active ? 'bg-white dark:bg-zinc-800 border-[var(--accent)]/40 shadow-xs' : ''}`}>
                               {act.icon}
                             </div>
 
@@ -646,11 +774,17 @@ export default function CommandPalette({
                             </div>
                           </div>
 
-                          {/* Shortcut key */}
+                          {/* Shortcut key or Active status */}
                           {act.shortcut && (
-                            <span className={`hidden sm:inline-flex text-[10px] font-black px-2.5 py-1 border rounded-md font-mono select-none flex-shrink-0 ${active ? 'bg-[#E67E22] text-white border-[#E67E22]' : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-500 border-zinc-200 dark:border-zinc-800'}`}>
-                              {act.shortcut}
-                            </span>
+                            act.shortcut === 'ACTIVE' ? (
+                              <span className="text-[10px] font-black px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 select-none flex-shrink-0 font-mono tracking-wide">
+                                ACTIVE ✓
+                              </span>
+                            ) : (
+                              <span className={`hidden sm:inline-flex text-[10px] font-black px-2.5 py-1 border rounded-md font-mono select-none flex-shrink-0 ${active ? 'bg-[var(--accent)] text-white border-[var(--accent)]' : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-500 border-zinc-200 dark:border-zinc-800'}`}>
+                                {act.shortcut}
+                              </span>
+                            )
                           )}
                         </div>
                       );
