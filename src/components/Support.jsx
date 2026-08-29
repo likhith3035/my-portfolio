@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaHeart, FaStar } from 'react-icons/fa';
+import { FaGithub, FaHeart, FaStar, FaCode, FaRocket } from 'react-icons/fa';
 
 function MicrosoftLogo({ className = "w-4 h-4" }) {
   return (
@@ -14,9 +14,9 @@ function MicrosoftLogo({ className = "w-4 h-4" }) {
 }
 
 const PERKS = [
-  { emoji: '🔓', text: '100% open source, always' },
-  { emoji: '🚀', text: 'New features shipped regularly' },
-  { emoji: '🎓', text: 'Microsoft Learn Student Ambassador' },
+  { icon: <FaCode className="text-[var(--accent)]" size={13} />, text: '100% open source & public architecture' },
+  { icon: <FaRocket className="text-emerald-500" size={13} />, text: 'Continuous feature delivery & security hardening' },
+  { icon: <MicrosoftLogo className="w-3.5 h-3.5" />, text: 'Verified Microsoft Learn Student Ambassador' },
 ];
 
 export default function Support() {
@@ -40,7 +40,7 @@ export default function Support() {
                   my work
                 </span>
               </h2>
-              <div className="w-10 h-1 bg-[#E67E22] rounded-full" />
+              <div className="w-10 h-1 bg-[var(--accent)] rounded-full" />
             </div>
 
             <p className="text-base md:text-lg text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed max-w-md">
@@ -58,7 +58,9 @@ export default function Support() {
                   transition={{ delay: i * 0.08, duration: 0.5 }}
                   className="flex items-center gap-3 text-sm font-medium text-zinc-600 dark:text-zinc-400"
                 >
-                  <span className="text-base">{p.emoji}</span>
+                  <span className="w-6 h-6 rounded-lg bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/60 flex items-center justify-center flex-shrink-0">
+                    {p.icon}
+                  </span>
                   {p.text}
                 </motion.li>
               ))}
@@ -105,7 +107,7 @@ export default function Support() {
               className="relative w-full max-w-xs"
             >
               {/* Decorative background blob */}
-              <div className="absolute inset-0 -m-4 rounded-3xl bg-[#E67E22]/5 blur-2xl" />
+              <div className="absolute inset-0 -m-4 rounded-3xl bg-[var(--accent)]/5 blur-2xl" />
               <div className="relative card border border-zinc-200/60 dark:border-zinc-800 overflow-hidden p-2 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_64px_rgba(0,0,0,0.5)]">
                 <img
                   src="/support-sculpture.png"

@@ -1,15 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaArrowDown, FaDownload, FaTimes, FaMapMarkerAlt, FaCode, FaShieldAlt, FaBrain } from 'react-icons/fa';
+import { HiArrowRight } from 'react-icons/hi';
 import CopyEmailPill from './CopyEmailPill';
 import { sound } from '../utils/sound';
 
 /* ─── Typewriter ─── */
 const ROLES = [
-  { text: 'Full Stack Developer', color: '#E67E22' },
+  { text: 'Full Stack Developer', color: 'var(--accent)' },
   { text: 'Cybersecurity Enthusiast', color: '#14B8A6' },
   { text: 'AI & ML Explorer', color: '#A855F7' },
-  { text: 'Vibe Coder ⚡', color: '#f5a623' },
+  { text: 'Software Engineer', color: 'var(--accent-secondary)' },
 ];
 
 function useTypewriter(items) {
@@ -183,15 +184,22 @@ export default function Hero({ theme }) {
           {/* Location */}
           <motion.span initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
             className={`inline-flex items-center gap-1.5 text-xs font-bold ${bodyColor}`}>
-            <FaMapMarkerAlt size={10} className="text-[#E67E22]" /> Srikalahasti, Andhra Pradesh
+            <FaMapMarkerAlt size={10} className="text-[var(--accent)]" /> Srikalahasti, Andhra Pradesh
           </motion.span>
 
           <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-4 w-full">
             <motion.div variants={fadeUp} className="flex justify-center">
-              <span className={`inline-flex items-center gap-2.5 text-[#E67E22] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border ${pillBg}`}>
-                <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E67E22] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E67E22]"></span>
+              <span
+                onClick={(e) => {
+                  if (document.documentElement.getAttribute('data-accent') === 'love') {
+                    sound.harpRipple?.();
+                  }
+                }}
+                className={`hero-status-pill inline-flex items-center gap-2.5 text-[var(--accent)] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border cursor-pointer select-none transition-transform hover:scale-105 active:scale-95 ${pillBg}`}
+              >
+                <span className="hero-status-dot relative flex h-1.5 w-1.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--accent)]"></span>
                 </span>
                 Open to Opportunities
               </span>
@@ -225,8 +233,9 @@ export default function Hero({ theme }) {
 
             <motion.div variants={fadeUp} className="flex flex-col gap-2.5 px-2">
               <button onClick={() => { sound.click(); window.__openContactModal?.(); }}
-                className="btn-primary w-full py-4 shadow-[0_8px_24px_rgba(230,126,34,0.35)]">
-                ✉️ Get in touch
+                className="btn-primary w-full py-4 shadow-[0_8px_24px_rgba(230,126,34,0.35)] inline-flex items-center justify-center gap-2 font-bold">
+                <span>Get in touch</span>
+                <HiArrowRight size={14} />
               </button>
               <div className="grid grid-cols-2 gap-2.5">
                 <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer" onClick={() => sound.click()}
@@ -256,7 +265,7 @@ export default function Hero({ theme }) {
               {SOCIALS.map((s, i) => (
                 <motion.a key={i} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
                   whileTap={{ scale: 0.88 }}
-                  className={`w-10 h-10 rounded-full border flex items-center justify-center hover:text-[#E67E22] hover:border-[#E67E22]/40 transition-all text-base ${socialBg}`}>
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center hover:text-[var(--accent)] hover:border-[var(--accent)]/40 transition-all text-base ${socialBg}`}>
                   {s.icon}
                 </motion.a>
               ))}
@@ -270,15 +279,22 @@ export default function Hero({ theme }) {
           {/* ── Left col ── */}
           <motion.div variants={stagger} initial="hidden" animate="show" className="md:col-span-7 space-y-7">
             <motion.div variants={fadeUp} className="flex items-center gap-3 flex-wrap">
-              <span className={`inline-flex items-center gap-2.5 text-[#E67E22] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border ${pillBg}`}>
-                <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E67E22] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E67E22]"></span>
+              <span
+                onClick={(e) => {
+                  if (document.documentElement.getAttribute('data-accent') === 'love') {
+                    sound.harpRipple?.();
+                  }
+                }}
+                className={`hero-status-pill inline-flex items-center gap-2.5 text-[var(--accent)] text-xs font-black py-1.5 px-4 rounded-full uppercase tracking-wider border cursor-pointer select-none transition-transform hover:scale-105 active:scale-95 ${pillBg}`}
+              >
+                <span className="hero-status-dot relative flex h-1.5 w-1.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--accent)]"></span>
                 </span>
                 Open to Opportunities
               </span>
               <span className={`inline-flex items-center gap-1.5 text-xs font-bold ${bodyColor}`}>
-                <FaMapMarkerAlt size={9} className="text-[#E67E22]" /> Srikalahasti, AP
+                <FaMapMarkerAlt size={9} className="text-[var(--accent)]" /> Srikalahasti, AP
               </span>
             </motion.div>
 
@@ -312,8 +328,9 @@ export default function Hero({ theme }) {
 
             <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-3">
               <button onClick={() => { sound.click(); window.__openContactModal?.(); }}
-                className="btn-primary px-8 py-4 text-base shadow-[0_8px_32px_rgba(230,126,34,0.4)] hover:shadow-[0_12px_40px_rgba(230,126,34,0.5)]">
-                ✉️ Get in touch
+                className="btn-primary px-8 py-4 text-base shadow-[0_8px_32px_rgba(230,126,34,0.4)] hover:shadow-[0_12px_40px_rgba(230,126,34,0.5)] inline-flex items-center gap-2">
+                <span>Get in touch</span>
+                <HiArrowRight size={15} />
               </button>
               <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer" onClick={() => sound.click()}
                 className={`inline-flex items-center gap-2 border font-bold rounded-full px-8 py-4 text-base active:scale-95 transition-all ${secondaryBtn}`}>
@@ -353,15 +370,15 @@ export default function Hero({ theme }) {
             <TiltCard>
               <div className="animate-float relative">
                 {/* Dashed spinning border */}
-                <div className="absolute -inset-7 rounded-[3rem] border border-dashed border-[#E67E22]/20 pointer-events-none animate-spin-slow" />
+                <div className="absolute -inset-7 rounded-[3rem] border border-dashed border-[var(--accent)]/20 pointer-events-none animate-spin-slow" />
                 {/* Glow behind photo */}
-                <div className={`absolute inset-0 rounded-[2.5rem] blur-2xl scale-110 pointer-events-none transition-opacity ${isDark ? 'bg-[#E67E22]/20 opacity-100' : 'bg-[#E67E22]/10 opacity-100'}`} />
+                <div className={`absolute inset-0 rounded-[2.5rem] blur-2xl scale-110 pointer-events-none transition-opacity ${isDark ? 'bg-[var(--accent)]/20 opacity-100' : 'bg-[var(--accent)]/10 opacity-100'}`} />
 
                 {/* Photo card */}
-                <div className={`relative w-72 lg:w-80 aspect-[3/4] rounded-[2.5rem] overflow-hidden
+                <div className={`hero-photo-ring relative w-72 lg:w-80 aspect-[3/4] rounded-[2.5rem] overflow-hidden
                   ${isDark
-                    ? 'border-2 border-[#E67E22]/30 shadow-[0_40px_100px_rgba(0,0,0,0.6),0_0_60px_rgba(230,126,34,0.18)]'
-                    : 'border-2 border-zinc-200 shadow-[0_40px_80px_rgba(0,0,0,0.1),0_0_40px_rgba(230,126,34,0.08)]'
+                    ? 'border-2 border-[var(--accent)]/30 shadow-[0_40px_100px_rgba(0,0,0,0.6),0_0_60px_rgba(var(--accent-rgb),0.18)]'
+                    : 'border-2 border-zinc-200 shadow-[0_40px_80px_rgba(0,0,0,0.1),0_0_40px_rgba(var(--accent-rgb),0.08)]'
                   }`}>
                   <picture>
                     <source srcSet="/likhith.webp" type="image/webp" />
@@ -435,7 +452,7 @@ export default function Hero({ theme }) {
               exit={{ scale: 0.88, opacity: 0 }}
               transition={{ type: 'spring', damping: 28, stiffness: 300 }}
               onClick={e => e.stopPropagation()}
-              className="relative mx-5 rounded-3xl overflow-hidden border border-[#E67E22]/30 shadow-[0_40px_100px_rgba(0,0,0,0.8)]"
+              className="relative mx-5 rounded-3xl overflow-hidden border border-[var(--accent)]/30 shadow-[0_40px_100px_rgba(0,0,0,0.8)]"
               style={{ maxWidth: 'min(86vw, 360px)', maxHeight: '84dvh' }}>
               <picture>
                 <source srcSet="/likhith.webp" type="image/webp" />

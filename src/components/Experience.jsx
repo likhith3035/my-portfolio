@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin, FaAward } from 'react-icons/fa';
+import { FaShieldAlt, FaNetworkWired, FaTerminal, FaUsers, FaCalendarAlt, FaMapMarkerAlt, FaExternalLinkAlt, FaLinkedin, FaAward, FaRocket, FaTrophy } from 'react-icons/fa';
 import { sound } from '../utils/sound';
 
 const BULLETS = [
@@ -25,7 +25,7 @@ const SUPRAJA_CREDENTIAL = {
 const ACHIEVEMENTS = [
   {
     id: 'ieee-chatbot',
-    emoji: '🏆',
+    icon: <FaTrophy size={18} className="text-amber-500" />,
     gradient: 'from-amber-500/15 via-orange-500/8 to-transparent',
     border: 'border-amber-400/30 hover:border-amber-400/60',
     badge: 'bg-amber-400/15 text-amber-600 dark:text-amber-400 border-amber-400/30',
@@ -40,7 +40,7 @@ const ACHIEVEMENTS = [
   },
   {
     id: 'hackprix-studenthub',
-    emoji: '🚀',
+    icon: <FaRocket size={18} className="text-blue-500" />,
     gradient: 'from-blue-500/15 via-indigo-500/8 to-transparent',
     border: 'border-blue-400/30 hover:border-blue-400/60',
     badge: 'bg-blue-400/15 text-blue-600 dark:text-blue-400 border-blue-400/30',
@@ -55,7 +55,7 @@ const ACHIEVEMENTS = [
   },
   {
     id: 'srm-kiosk',
-    emoji: '⚡',
+    icon: <FaAward size={18} className="text-purple-500" />,
     gradient: 'from-purple-500/15 via-violet-500/8 to-transparent',
     border: 'border-purple-400/30 hover:border-purple-400/60',
     badge: 'bg-purple-400/15 text-purple-600 dark:text-purple-400 border-purple-400/30',
@@ -131,13 +131,9 @@ function AchievementCard({ a, i }) {
       {showConfetti && <Confetti />}
 
       <div className="flex items-start justify-between gap-3">
-        <motion.span
-          animate={hovered ? { rotate: [0, -12, 12, -8, 0], scale: [1, 1.2, 1] } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-3xl leading-none select-none"
-        >
-          {a.emoji}
-        </motion.span>
+        <div className="w-10 h-10 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center justify-center shadow-xs flex-shrink-0">
+          {a.icon}
+        </div>
         <span className={`inline-flex items-center border text-[11px] font-black px-2.5 py-1 rounded-lg ${a.badge}`}>
           {a.year}
         </span>
@@ -207,21 +203,21 @@ export default function Experience() {
 
           {/* Background grid details */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.06] transition-opacity duration-500"
-            style={{ backgroundImage: 'radial-gradient(rgba(230,126,34,0.6) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
+            style={{ backgroundImage: 'radial-gradient(rgba(var(--accent-rgb), 0.6) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
 
           <div className="p-6 md:p-10 relative z-10">
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8 pb-6 border-b border-zinc-100 dark:border-zinc-800">
               <div className="space-y-2.5">
                 <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1.5 tag"><FaCalendarAlt className="text-[#E67E22]" size={10} />Jun – Jul 2025</span>
-                  <span className="inline-flex items-center gap-1.5 tag"><FaMapMarkerAlt className="text-[#E67E22]" size={10} />Vijayawada · On-site</span>
+                  <span className="inline-flex items-center gap-1.5 tag"><FaCalendarAlt className="text-[var(--accent)]" size={10} />Jun – Jul 2025</span>
+                  <span className="inline-flex items-center gap-1.5 tag"><FaMapMarkerAlt className="text-[var(--accent)]" size={10} />Vijayawada · On-site</span>
                   <span className="inline-flex items-center gap-1.5 tag bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-300/40">✓ Completed</span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white">Cybersecurity Intern</h3>
-                <p className="text-base md:text-lg font-bold text-[#E67E22]">Supraja Technologies</p>
+                <p className="text-base md:text-lg font-bold text-[var(--accent)]">Supraja Technologies</p>
               </div>
-              <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br from-[#E67E22]/20 to-[#E67E22]/5 border border-[#E67E22]/20 flex flex-col items-center justify-center">
-                <span className="text-3xl font-black text-[#E67E22] leading-none">2</span>
+              <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br from-[var(--accent)]/20 to-[var(--accent)]/5 border border-[var(--accent)]/20 flex flex-col items-center justify-center">
+                <span className="text-3xl font-black text-[var(--accent)] leading-none">2</span>
                 <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mt-0.5">Months</span>
               </div>
             </div>
@@ -234,7 +230,7 @@ export default function Experience() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08, duration: 0.5 }}
                   className="flex gap-3.5 text-sm md:text-base text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">
-                  <span className="text-[#E67E22] flex-shrink-0 mt-1">{b.icon}</span>
+                  <span className="text-[var(--accent)] flex-shrink-0 mt-1">{b.icon}</span>
                   <span>{b.text}</span>
                 </motion.li>
               ))}
@@ -252,7 +248,7 @@ export default function Experience() {
                   sound.pop();
                   window.__openCredentialModal?.(SUPRAJA_CREDENTIAL);
                 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-[#E67E22] text-xs font-black border border-amber-500/25 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-[var(--accent)] text-xs font-black border border-amber-500/25 transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-xs"
               >
                 <FaAward size={12} /> View Internship Credential
               </button>

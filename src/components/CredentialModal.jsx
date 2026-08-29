@@ -60,7 +60,7 @@ export default function CredentialModal({ isOpen, credential, onClose }) {
             className="relative w-full max-w-2xl bg-white dark:bg-[#111113] rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-[0_32px_90px_rgba(0,0,0,0.4)] flex flex-col overflow-hidden z-10 my-auto"
           >
             {/* Top decorative accent bar */}
-            <div className="h-1.5 w-full bg-gradient-to-r from-[#E67E22] via-[#f5a623] to-[#10b981]" />
+            <div className="h-1.5 w-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-[#10b981]" />
 
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-zinc-900/30">

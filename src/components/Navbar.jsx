@@ -1,40 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, AnimatePresence } from 'framer-motion';
-import { FaSun, FaMoon, FaTimes, FaSearch, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
-import { HiMenuAlt3 } from 'react-icons/hi';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { FaSun, FaMoon, FaTimes, FaSearch, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { HiMenuAlt3, HiArrowRight } from 'react-icons/hi';
 import { sound } from '../utils/sound';
 
 const NAV_LINKS = [
-  { href: '#home',       label: 'Home',       emoji: '🏠' },
-  { href: '#about',      label: 'About',      emoji: '👤' },
-  { href: '#experience', label: 'Experience', emoji: '💼' },
-  { href: '#projects',   label: 'Projects',   emoji: '🚀' },
+  { href: '#home',       label: 'Home',       index: '01', sub: 'Overview & Intro' },
+  { href: '#about',      label: 'About',      index: '02', sub: 'Background & Skills' },
+  { href: '#experience', label: 'Experience', index: '03', sub: 'Career Milestones' },
+  { href: '#projects',   label: 'Projects',   index: '04', sub: 'Selected Works' },
 ];
 
-export default function Navbar({ theme, onToggleTheme }) {
+export default function Navbar({ theme = 'light', onToggleTheme, introFinished = true }) {
+  const isDark = theme === 'dark';
   const { scrollYProgress } = useScroll();
+
+  // Silk liquid scroll progress: eliminates stepped wheel scroll cuts
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 280,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('#home');
-  const [soundOn, setSoundOn] = useState(() => sound.enabled);
 
-  /* Shadow on scroll */
+  /* Shadow & glass shift on scroll with passive listener */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  /* Lock body scroll when mobile menu is open to eliminate background jitter */
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
   /* Active section tracker */
   useEffect(() => {
     const ids = NAV_LINKS.map(l => l.href.slice(1));
     const observer = new IntersectionObserver(
       entries => {
-        entries.forEach(e => { if (e.isIntersecting) setActiveSection('#' + e.target.id); });
+        entries.forEach(e => {
+          if (e.isIntersecting) setActiveSection('#' + e.target.id);
+        });
       },
-      { rootMargin: '-30% 0px -60% 0px' }
+      { rootMargin: '-25% 0px -55% 0px' }
     );
-    ids.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
     return () => observer.disconnect();
   }, []);
 
@@ -45,67 +79,79 @@ export default function Navbar({ theme, onToggleTheme }) {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  // Harmonious theme-aware styles with smooth property transitions (no transition-all)
+  const navContainerStyle = isDark
+    ? scrolled
+      ? 'bg-[#0c0c0e]/92 border-white/12 text-white shadow-[0_16px_40px_rgba(0,0,0,0.55),0_0_20px_rgba(230,126,34,0.06)]'
+      : 'bg-black/40 border-white/10 text-white shadow-[0_8px_30px_rgba(0,0,0,0.25)]'
+    : scrolled
+      ? 'bg-white/92 border-zinc-200/90 text-zinc-900 shadow-[0_16px_40px_rgba(0,0,0,0.08),0_0_20px_rgba(230,126,34,0.04)]'
+      : 'bg-white/80 border-zinc-200/80 text-zinc-900 shadow-[0_8px_30px_rgba(0,0,0,0.04)]';
+
   return (
     <>
       {/* ── Navbar pill ── */}
       <motion.nav
-        initial={{ y: -60, opacity: 0, x: '-50%' }}
+        initial={{ y: -50, opacity: 0, x: '-50%' }}
         animate={{ y: 0, opacity: 1, x: '-50%' }}
-        transition={{ type: 'spring', stiffness: 120, damping: 22, delay: 0.1 }}
-        className={`fixed top-3 sm:top-5 left-1/2 z-50 w-[94%] max-w-3xl rounded-full transition-all duration-500 overflow-hidden
-          ${scrolled
-            ? 'bg-white/90 dark:bg-[#121214]/95 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.5)] border border-zinc-200/70 dark:border-zinc-800/70 text-zinc-900 dark:text-zinc-100'
-            : 'bg-[#0a0a0b]/60 backdrop-blur-md border border-white/10 text-white'
-          }`}      >
-        {/* Scroll progress */}
+        transition={{ type: 'spring', stiffness: 180, damping: 24, delay: 0.15 }}
+        style={{ willChange: 'transform' }}
+        className={`fixed top-3 sm:top-5 left-1/2 z-50 w-[94%] max-w-3xl rounded-full backdrop-blur-2xl border overflow-hidden transition-[background-color,border-color,box-shadow,color] duration-300 ease-out ${navContainerStyle}`}
+      >
+        {/* Specular Top Glint Line */}
+        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 dark:via-white/15 to-transparent pointer-events-none" />
+
+        {/* Liquid Laser Scroll Progress */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#E67E22] origin-left"
-          style={{ scaleX: scrollYProgress }}
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-[var(--accent)] origin-left shadow-[0_0_8px_var(--accent)]"
+          style={{ scaleX: smoothProgress }}
         />
 
         <div className="flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3">
-          {/* Logo */}
-          <a href="#home" onClick={e => scrollTo(e, '#home')} className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center border border-white/20 dark:border-zinc-700 shadow-sm group-hover:scale-105 group-hover:border-[#E67E22]/60 transition-all duration-200 flex-shrink-0 bg-black">
-              <img src="/favicon-96x96.png" alt="Likhith Logo" className="w-full h-full object-cover" />
+          {/* Logo Brand Anchor */}
+          <a href="#home" onClick={e => scrollTo(e, '#home')} className="flex items-center gap-2.5 group select-none">
+            <div
+              id="navbar-logo-target"
+              className={`w-8 h-8 rounded-full overflow-hidden flex items-center justify-center border border-white/20 dark:border-zinc-700 shadow-sm group-hover:scale-105 group-hover:border-[var(--accent)]/60 transition-[transform,border-color] duration-200 flex-shrink-0 bg-black ${
+                !introFinished ? 'opacity-0' : 'opacity-100'
+              }`}
+            >
+              <img src="/favicon-96x96.png" alt="Kami Likhith Logo" className="w-full h-full object-cover" />
             </div>
-            <span className={`font-extrabold text-sm tracking-tight transition-colors duration-200 ${scrolled ? 'text-zinc-900 dark:text-white' : 'text-white'}`}>
+            <span className={`font-extrabold text-sm tracking-tight transition-colors duration-200 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
               Kami Likhith
             </span>
           </a>
 
           {/* Desktop links */}
           <ul className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map(link => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={e => scrollTo(e, link.href)}
-                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors duration-300 select-none block ${
-                    activeSection === link.href
-                      ? scrolled
-                        ? 'text-[#E67E22]'
-                        : 'text-white'
-                      : scrolled
-                        ? 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-                        : 'text-zinc-300 hover:text-white'
-                  }`}
-                >
-                  {activeSection === link.href && (
-                    <motion.span
-                      layoutId="activeNavPill"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      className={`absolute inset-0 rounded-full z-[-1] ${
-                        scrolled
-                          ? 'bg-[#E67E22]/10 dark:bg-[#E67E22]/15'
-                          : 'bg-white/15'
-                      }`}
-                    />
-                  )}
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {NAV_LINKS.map(link => {
+              const isActive = activeSection === link.href;
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={e => scrollTo(e, link.href)}
+                    className={`relative px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors duration-200 select-none block ${
+                      isActive
+                        ? 'text-[var(--accent)]'
+                        : isDark
+                          ? 'text-zinc-400 hover:text-white'
+                          : 'text-zinc-600 hover:text-zinc-950'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="activeNavPill"
+                        transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                        className="absolute inset-0 rounded-full z-[-1] bg-[var(--accent)]/12 dark:bg-[var(--accent)]/15 border border-[var(--accent)]/25"
+                      />
+                    )}
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Right controls */}
@@ -113,14 +159,14 @@ export default function Navbar({ theme, onToggleTheme }) {
             {/* MLSA Activity pill badge */}
             <button
               onClick={() => window.__openMLSAModal?.()}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0078D4]/15 border border-[#0078D4]/40 text-[#00A4EF] text-xs font-bold hover:bg-[#0078D4]/25 transition-all shadow-[0_0_12px_rgba(0,120,212,0.25)] cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0078D4]/12 border border-[#0078D4]/35 text-[#0078D4] dark:text-[#00A4EF] text-xs font-semibold hover:bg-[#0078D4]/20 transition-all shadow-[0_0_12px_rgba(0,120,212,0.18)] cursor-pointer"
               title="Open MLSA Ambassador Activity"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A4EF] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00A4EF]"></span>
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A4EF] opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00A4EF]" />
               </span>
-              <span>🎓 MLSA Activity</span>
+              <span className="tracking-wide">MLSA Activity</span>
             </button>
 
             {/* Command Palette trigger */}
@@ -130,26 +176,13 @@ export default function Navbar({ theme, onToggleTheme }) {
                 window.__openCommandPalette?.();
               }}
               aria-label="Search or run command"
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
+              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${
+                isDark
+                  ? 'text-zinc-400 hover:text-white hover:bg-white/10'
+                  : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+              }`}
             >
               <FaSearch size={13} />
-            </button>
-
-            {/* UI Sound Effects Toggle */}
-            <button
-              onClick={() => {
-                const state = sound.toggle();
-                setSoundOn(state);
-              }}
-              aria-label={soundOn ? "Mute UI sounds" : "Enable UI sounds"}
-              title={soundOn ? "UI sound effects on (click to mute)" : "UI sound effects muted (click to enable)"}
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
-            >
-              {soundOn ? (
-                <FaVolumeUp size={13} className="text-[#E67E22]" />
-              ) : (
-                <FaVolumeMute size={13} className="opacity-50" />
-              )}
             </button>
 
             {/* Theme toggle */}
@@ -159,17 +192,21 @@ export default function Navbar({ theme, onToggleTheme }) {
                 onToggleTheme();
               }}
               aria-label="Toggle theme"
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
+              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 overflow-hidden relative ${
+                isDark
+                  ? 'text-zinc-400 hover:text-white hover:bg-white/10'
+                  : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+              }`}
             >
-              <AnimatePresence mode="wait" initial={false}>
+              <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                   key={theme}
-                  initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+                  initial={{ rotate: -80, opacity: 0, scale: 0.6 }}
                   animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                  exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                  transition={{ duration: 0.2 }}
+                  exit={{ rotate: 80, opacity: 0, scale: 0.6 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
                 >
-                  {theme === 'dark' ? <FaSun size={14} /> : <FaMoon size={14} />}
+                  {isDark ? <FaSun size={14} /> : <FaMoon size={14} />}
                 </motion.span>
               </AnimatePresence>
             </button>
@@ -180,73 +217,208 @@ export default function Navbar({ theme, onToggleTheme }) {
                 sound.click();
                 window.__openContactModal?.();
               }}
-              className={`hidden md:inline-flex items-center gap-1.5 font-bold text-xs px-4 py-2 rounded-full transition-all duration-200 ${scrolled ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:bg-[#E67E22] dark:hover:bg-[#E67E22] dark:hover:text-white' : 'bg-white text-zinc-900 hover:bg-[#E67E22] hover:text-white'}`}
+              className={`hidden md:inline-flex items-center gap-1.5 font-bold text-xs px-4 py-2 rounded-full transition-all duration-200 ${
+                isDark
+                  ? 'bg-white text-zinc-950 hover:bg-[var(--accent)] hover:text-white'
+                  : 'bg-zinc-900 text-white hover:bg-[var(--accent)] hover:text-white'
+              }`}
             >
               Hire me
             </button>
 
-            {/* Hamburger */}
+            {/* Hamburger Button with Smooth Icon Spring Flip */}
             <button
-              onClick={() => setMobileOpen(v => !v)}
-              aria-label="Menu"
-              className={`md:hidden w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-200 ${scrolled ? 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800' : 'text-zinc-300 hover:text-white hover:bg-white/10'}`}
+              onClick={() => {
+                sound.click();
+                setMobileOpen(v => !v);
+              }}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              className={`md:hidden w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 active:scale-90 ${
+                isDark
+                  ? 'text-zinc-400 hover:text-white hover:bg-white/10'
+                  : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+              }`}
             >
-              {mobileOpen ? <FaTimes size={14} /> : <HiMenuAlt3 size={18} />}
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.span
+                  key={mobileOpen ? 'close' : 'open'}
+                  initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+                  transition={{ duration: 0.16, ease: 'easeOut' }}
+                >
+                  {mobileOpen ? <FaTimes size={15} /> : <HiMenuAlt3 size={19} />}
+                </motion.span>
+              </AnimatePresence>
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* ── Mobile full-screen menu ── */}
+      {/* ── Mobile Executive Minimalist Island Menu ── */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
+            {/* Dark Studio Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              onClick={() => {
+                sound.click();
+                setMobileOpen(false);
+              }}
+              className="fixed inset-0 bg-black/70 backdrop-blur-md z-40 md:hidden"
             />
-            {/* Panel */}
+
+            {/* Architectural Floating Island */}
             <motion.div
-              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              initial={{ opacity: 0, y: -12, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.97 }}
-              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-[4.2rem] left-4 right-4 z-40 md:hidden bg-white dark:bg-[#121214] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] overflow-hidden"
+              exit={{ opacity: 0, y: -10, scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+              style={{ willChange: 'transform, opacity' }}
+              className="fixed top-[4.5rem] left-4 right-4 max-w-sm mx-auto z-50 md:hidden rounded-2xl overflow-hidden bg-zinc-950/95 dark:bg-[#0c0c0e]/95 backdrop-blur-2xl border border-zinc-800/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6),0_0_1px_1px_rgba(255,255,255,0.06)] flex flex-col text-white"
             >
-              <nav className="p-3 space-y-1">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    onClick={e => scrollTo(e, link.href)}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 }}
-                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl font-bold text-sm min-h-[44px] select-none transition-all active:scale-[0.98] ${
-                      activeSection === link.href
-                        ? 'bg-[#E67E22]/10 text-[#E67E22]'
-                        : 'text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 active:bg-zinc-100 dark:active:bg-zinc-800'
-                    }`}
-                  >
-                    <span className="text-base">{link.emoji}</span>
-                    {link.label}
-                    {activeSection === link.href && (
-                      <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#E67E22]" />
-                    )}
-                  </motion.a>
-                ))}
+              {/* Header Bar */}
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-zinc-800/70 bg-white/[0.02]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-black border border-white/20 shrink-0">
+                    <img src="/favicon-96x96.png" alt="Kami Likhith" className="w-full h-full object-cover" />
+                  </div>
+                  <span className="text-xs font-mono font-bold tracking-wider text-zinc-300 uppercase">
+                    Kami Likhith
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-400 font-semibold">
+                    Available
+                  </span>
+                </div>
+              </div>
+
+              {/* Navigation Items (Clean Architectural Index) */}
+              <nav className="p-2 space-y-1">
+                {NAV_LINKS.map((link, i) => {
+                  const isActive = activeSection === link.href;
+                  return (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      onClick={e => scrollTo(e, link.href)}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.02 + i * 0.03, ease: [0.16, 1, 0.3, 1] }}
+                      className={`group flex items-center justify-between px-3.5 py-3 rounded-xl transition-all duration-200 select-none ${
+                        isActive
+                          ? 'bg-white/[0.08] text-white border border-white/10'
+                          : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className={`font-mono text-[10px] tracking-wider transition-colors ${
+                          isActive ? 'text-[#E67E22] font-bold' : 'text-zinc-600 group-hover:text-zinc-400'
+                        }`}>
+                          {link.index}
+                        </span>
+                        <div className="flex flex-col text-left">
+                          <span className={`text-sm font-medium tracking-tight transition-colors ${
+                            isActive ? 'text-white font-semibold' : 'text-zinc-300 group-hover:text-white'
+                          }`}>
+                            {link.label}
+                          </span>
+                          <span className="text-[10px] text-zinc-500 font-mono tracking-normal">
+                            {link.sub}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center">
+                        {isActive ? (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]" />
+                        ) : (
+                          <HiArrowRight className="text-zinc-600 group-hover:text-zinc-300 group-hover:translate-x-0.5 transition-all text-xs" />
+                        )}
+                      </div>
+                    </motion.a>
+                  );
+                })}
               </nav>
-              <div className="p-3 border-t border-zinc-100 dark:border-zinc-800">
+
+              {/* Secondary Feature: Verified Ambassador Pill */}
+              <div className="px-3 pb-2">
                 <button
-                  onClick={() => { setMobileOpen(false); window.__openContactModal?.(); }}
-                  className="w-full btn-primary text-sm py-3.5 min-h-[44px] active:scale-[0.98] transition-transform"
+                  onClick={() => {
+                    sound.pop();
+                    setMobileOpen(false);
+                    window.__openMLSAModal?.();
+                  }}
+                  className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#0078D4]/10 hover:bg-[#0078D4]/15 border border-[#0078D4]/25 text-[#00A4EF] text-xs transition-all cursor-pointer group"
                 >
-                  ✉️ Get in touch
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00A4EF]" />
+                    <span className="font-medium text-[11px] tracking-tight">Microsoft Learn Ambassador</span>
+                  </div>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-400 group-hover:text-white transition-colors">
+                    VERIFIED ↗
+                  </span>
                 </button>
+              </div>
+
+              {/* Bottom Actions & Social Drawer */}
+              <div className="p-3.5 border-t border-zinc-800/70 bg-white/[0.01] flex flex-col gap-3">
+                <button
+                  onClick={() => {
+                    sound.click();
+                    setMobileOpen(false);
+                    window.__openContactModal?.();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-zinc-950 hover:bg-[var(--accent)] hover:text-white font-semibold text-xs transition-all duration-200 shadow-md shadow-white/5 active:scale-[0.98]"
+                >
+                  <span>Initiate Contact</span>
+                  <HiArrowRight size={13} />
+                </button>
+
+                <div className="flex items-center justify-between px-1 pt-1 text-zinc-400">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">
+                    NETWORK
+                  </span>
+                  <div className="flex items-center gap-3">
+                    <a
+                      href="https://github.com/likhith3035"
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => sound.click()}
+                      aria-label="GitHub"
+                      className="text-zinc-400 hover:text-white transition-colors p-1"
+                    >
+                      <FaGithub size={15} />
+                    </a>
+                    <a
+                      href="https://linkedin.com/in/likhith-kami"
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => sound.click()}
+                      aria-label="LinkedIn"
+                      className="text-zinc-400 hover:text-white transition-colors p-1"
+                    >
+                      <FaLinkedin size={15} />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/lucky__likhith"
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => sound.click()}
+                      aria-label="Instagram"
+                      className="text-zinc-400 hover:text-white transition-colors p-1"
+                    >
+                      <FaInstagram size={15} />
+                    </a>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </>

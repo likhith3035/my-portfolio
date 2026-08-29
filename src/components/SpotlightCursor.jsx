@@ -21,10 +21,11 @@ export default function SpotlightCursor() {
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const rgb = getComputedStyle(document.documentElement).getPropertyValue('--accent-rgb').trim() || '230, 126, 34';
       const grad = ctx.createRadialGradient(mx, my, 0, mx, my, 320);
-      grad.addColorStop(0,   'rgba(230,126,34,0.06)');
-      grad.addColorStop(0.5, 'rgba(230,126,34,0.02)');
-      grad.addColorStop(1,   'rgba(230,126,34,0)');
+      grad.addColorStop(0,   `rgba(${rgb},0.08)`);
+      grad.addColorStop(0.5, `rgba(${rgb},0.02)`);
+      grad.addColorStop(1,   `rgba(${rgb},0)`);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     };

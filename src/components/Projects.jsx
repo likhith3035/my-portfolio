@@ -22,6 +22,9 @@ import {
   FaEye,
   FaKey,
   FaLinkedin,
+  FaGraduationCap,
+  FaComments,
+  FaBuilding,
 } from 'react-icons/fa';
 
 /* ─── Projects Data ─── */
@@ -30,21 +33,21 @@ const PROJECTS = [
     id: 'studenthub',
     title: 'StudentHub',
     tagline: 'Campus Super-App & AI Platform',
-    emoji: '🎓',
-    badge: '🏆 Finalist · HackPrix Season 3',
+    icon: <FaGraduationCap className="text-[var(--accent)]" size={24} />,
+    badge: 'National Finalist · HackPrix Season 3',
     colorTheme: {
-      from: 'from-orange-500/15',
-      via: 'via-amber-500/8',
+      from: 'from-[var(--accent)]/15',
+      via: 'via-[var(--accent-secondary)]/8',
       to: 'to-transparent',
-      border: 'border-orange-500/40 hover:border-orange-500/70',
-      pill: 'bg-orange-500/15 text-[#E67E22] border-orange-500/30',
-      accent: '#E67E22',
-      glow: 'rgba(230, 126, 34, 0.35)',
+      border: 'border-[var(--accent)]/40 hover:border-[var(--accent)]/70',
+      pill: 'bg-[var(--accent)]/15 text-[var(--accent)] border-[var(--accent)]/30',
+      accent: 'var(--accent)',
+      glow: 'rgba(var(--accent-rgb), 0.35)',
     },
     shortDesc: 'All-in-one PWA campus super-app uniting notes sharing, internship pipelines, collaboration feeds, and Sarvam AI voice assistant. Built in 36 hours at HackPrix Season 3.',
     impactMetrics: [
       { label: 'Sprint', val: '36 Hours' },
-      { label: 'Result', val: '🏆 Finalist' },
+      { label: 'Result', val: 'National Finalist' },
       { label: 'AI Voice', val: 'Sarvam AI' },
     ],
     features: [
@@ -75,7 +78,7 @@ const PROJECTS = [
     id: 'secure-vault',
     title: 'Secure Vault',
     tagline: 'AES-256 Folder Encryption System',
-    emoji: '🔒',
+    icon: <FaLock className="text-rose-500" size={22} />,
     badge: 'Military Grade · Zero Leakage',
     colorTheme: {
       from: 'from-rose-500/15',
@@ -116,7 +119,7 @@ const PROJECTS = [
     id: 'livetalk',
     title: 'LiveTalk',
     tagline: 'P2P Anonymous Real-Time Chat',
-    emoji: '💬',
+    icon: <FaComments className="text-emerald-500" size={24} />,
     badge: 'WebSockets · Instant P2P',
     colorTheme: {
       from: 'from-emerald-500/15',
@@ -157,7 +160,7 @@ const PROJECTS = [
     id: 'dept-ai',
     title: 'Dept. AI Assistant',
     tagline: 'RAG Academic Q&A Knowledge Agent',
-    emoji: '🤖',
+    icon: <FaRobot className="text-purple-500" size={24} />,
     badge: 'LangChain · Vector RAG',
     colorTheme: {
       from: 'from-purple-500/15',
@@ -200,7 +203,7 @@ const PROJECTS = [
     id: 'hostel-portal',
     title: 'Hostel Portal',
     tagline: 'Full-Stack Room & Service Manager',
-    emoji: '🏢',
+    icon: <FaBuilding className="text-blue-500" size={22} />,
     badge: 'Firebase · Real-Time Sync',
     colorTheme: {
       from: 'from-cyan-500/15',
@@ -366,15 +369,15 @@ function ProjectCard({ project, index }) {
           </div>
         </div>
 
-        {/* Title, Emoji & Tagline */}
+        {/* Title, Icon & Tagline */}
         <div className="flex items-start gap-4">
           <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-700/80 shadow-md flex items-center justify-center text-2xl sm:text-3xl flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-            {project.emoji}
+            {project.icon}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight leading-tight group-hover:text-[#E67E22] transition-colors">
+              <h3 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight leading-tight group-hover:text-[var(--accent)] transition-colors">
                 {project.title}
               </h3>
               <motion.div
@@ -512,7 +515,7 @@ function ProjectCard({ project, index }) {
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
                           copiedTag === s
                             ? 'bg-emerald-500 text-white border-emerald-600 shadow-sm'
-                            : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-[#E67E22] hover:text-[#E67E22]'
+                            : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-[var(--accent)] hover:text-[var(--accent)]'
                         }`}
                       >
                         {copiedTag === s ? (
@@ -521,7 +524,7 @@ function ProjectCard({ project, index }) {
                           </>
                         ) : (
                           <>
-                            <FaCube size={10} className="text-[#E67E22]" /> {s}
+                            <FaCube size={10} className="text-[var(--accent)]" /> {s}
                           </>
                         )}
                       </button>
@@ -585,7 +588,7 @@ export default function Projects() {
     >
       {/* Subtle background ambient mesh */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -right-40 w-96 h-96 bg-[#E67E22]/5 dark:bg-[#E67E22]/10 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 -right-40 w-96 h-96 bg-[var(--accent)]/5 dark:bg-[var(--accent)]/10 rounded-full blur-[100px]" />
         <div className="absolute bottom-1/4 -left-40 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px]" />
       </div>
 
@@ -601,7 +604,7 @@ export default function Projects() {
           >
             <p className="section-label">Featured Works & Systems</p>
             <h2 className="section-heading">Projects</h2>
-            <div className="w-12 h-1 bg-[#E67E22] rounded-full mx-auto mt-3" />
+            <div className="w-12 h-1 bg-[var(--accent)] rounded-full mx-auto mt-3" />
             <p className="text-sm md:text-base text-zinc-500 dark:text-zinc-400 font-medium max-w-xl mx-auto pt-1">
               Production-ready web applications, AI-powered systems, and cryptographic security tools built from concept to live deployment.
             </p>
@@ -629,7 +632,7 @@ export default function Projects() {
                   <motion.span
                     layoutId="activeProjectFilterPill"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    className="absolute inset-0 bg-[#E67E22] rounded-full z-0 shadow-[0_4px_14px_rgba(230,126,34,0.35)]"
+                    className="absolute inset-0 bg-[var(--accent)] rounded-full z-0 shadow-[0_4px_14px_rgba(var(--accent-rgb),0.35)]"
                   />
                 )}
                 <span className="relative z-10 flex items-center gap-1.5">

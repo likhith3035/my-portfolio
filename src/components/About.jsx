@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaDownload, FaCode, FaBrain, FaShieldAlt, FaCloud, FaFire } from 'react-icons/fa';
+import { FaDownload, FaCode, FaBrain, FaShieldAlt, FaCloud, FaFire, FaGraduationCap, FaBookOpen, FaSchool } from 'react-icons/fa';
 
 const EDUCATION = [
   {
@@ -9,7 +9,7 @@ const EDUCATION = [
     period: '2023 – 2027',
     grade: 'CGPA: 7.0 / 10',
     detail: 'Specializing in Artificial Intelligence and Data Science. Active in hackathons and technical events.',
-    icon: '🎓',
+    icon: <FaGraduationCap size={18} />,
   },
   {
     degree: 'Intermediate (MPC)',
@@ -17,7 +17,7 @@ const EDUCATION = [
     period: '2021 – 2023',
     grade: '756 / 1000',
     detail: 'Mathematics, Physics, Chemistry stream. Strong analytical foundation.',
-    icon: '📚',
+    icon: <FaBookOpen size={16} />,
   },
   {
     degree: 'SSC Board',
@@ -25,14 +25,14 @@ const EDUCATION = [
     period: '2020',
     grade: '564 / 600',
     detail: 'Consistent academic performance with strong fundamentals.',
-    icon: '🏫',
+    icon: <FaSchool size={16} />,
   },
 ];
 
 const SKILLS = [
   { label: 'React / Frontend', pct: 88, icon: <FaCode />, color: '#61DBFB' },
   { label: 'Python / AI & ML',  pct: 82, icon: <FaBrain />, color: '#A855F7' },
-  { label: 'Cybersecurity',     pct: 75, icon: <FaShieldAlt />, color: '#E67E22' },
+  { label: 'Cybersecurity',     pct: 75, icon: <FaShieldAlt />, color: 'var(--accent)' },
   { label: 'Firebase / Cloud',  pct: 85, icon: <FaCloud />, color: '#FFCA28' },
 ];
 
@@ -187,7 +187,7 @@ export default function About() {
               variants={v(0.22)} initial="hidden" whileInView="show" viewport={{ once: true }}
               className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 rounded-2xl px-4 py-3"
             >
-              <FaFire className="text-[#E67E22] flex-shrink-0" size={14} />
+              <FaFire className="text-[var(--accent)] flex-shrink-0" size={14} />
               <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider flex-shrink-0">Currently learning</span>
               <div className="flex-1 overflow-hidden h-5 relative">
                 <AnimatePresence mode="wait">
@@ -197,7 +197,7 @@ export default function About() {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -20, opacity: 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-0 text-xs font-black text-[#E67E22] uppercase tracking-wide"
+                    className="absolute left-0 text-xs font-black text-[var(--accent)] uppercase tracking-wide"
                   >
                     {CURRENTLY_LEARNING[learnIdx]}
                   </motion.span>
@@ -214,7 +214,7 @@ export default function About() {
             <div className="space-y-2">
               <p className="section-label">Background</p>
               <h3 className="text-2xl md:text-3xl font-black text-zinc-900 dark:text-white uppercase tracking-tight">Education</h3>
-              <div className="w-10 h-1 bg-[#E67E22] rounded-full" />
+              <div className="w-10 h-1 bg-[var(--accent)] rounded-full" />
             </div>
 
             {/* Timeline */}
@@ -246,7 +246,7 @@ export default function About() {
                     className={`relative overflow-hidden rounded-2xl border cursor-pointer transition-all duration-300 ${
                       openEdu === i
                         ? 'border-transparent shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)]'
-                        : 'border-zinc-100 dark:border-zinc-800 hover:border-[#E67E22]/30 dark:hover:border-[#E67E22]/30 bg-white dark:bg-[#121214]'
+                        : 'border-zinc-100 dark:border-zinc-800 hover:border-[var(--accent)]/30 dark:hover:border-[var(--accent)]/30 bg-white dark:bg-[#121214]'
                     }`}
                     style={openEdu === i ? { background: EDU_COLORS[i].bg, borderColor: EDU_COLORS[i].border } : {}}
                   >

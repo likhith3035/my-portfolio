@@ -51,7 +51,7 @@ export default function ResumeModal({ isOpen, onClose }) {
             {/* Header */}
             <div className="flex items-center justify-between px-5 sm:px-7 py-4 border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/80 dark:bg-zinc-900/50">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#E67E22]/10 text-[#E67E22] flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-[var(--accent)]/10 text-[var(--accent)] flex items-center justify-center">
                   <FaFilePdf size={16} />
                 </div>
                 <div>
@@ -70,7 +70,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                   href="/resume.pdf"
                   download="Kami_Likhith_Resume.pdf"
                   onClick={() => sound.click()}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E67E22] hover:bg-[#d35400] text-white font-bold text-xs shadow-sm transition-all hover:scale-105 active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white font-bold text-xs shadow-sm transition-all hover:scale-105 active:scale-95"
                 >
                   <FaDownload size={11} />
                   <span className="hidden sm:inline">Download PDF</span>

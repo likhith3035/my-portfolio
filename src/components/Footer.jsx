@@ -64,7 +64,7 @@ export default function Footer() {
             viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="space-y-3"
           >
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#E67E22]">Let's work together</p>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--accent)]">Let's work together</p>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase leading-none">
               Let's Build<br />
               <span className="text-gradient">Something</span>
@@ -89,12 +89,12 @@ export default function Footer() {
               onClick={() => window.__openContactModal?.()}
               className="btn-primary px-8 py-4 text-base"
             >
-              ✉️ Send a message
+              Send a message
             </motion.button>
             <motion.a
               whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
               href="mailto:kamilikhith@gmail.com"
-              className="inline-flex items-center justify-center gap-2 border border-zinc-700 text-zinc-300 font-bold rounded-full px-8 py-4 text-base hover:border-[#E67E22] hover:text-[#E67E22] transition-all"
+              className="inline-flex items-center justify-center gap-2 border border-zinc-700 text-zinc-300 font-bold rounded-full px-8 py-4 text-base hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all"
             >
               <FaEnvelope size={14} /> kamilikhith@gmail.com
             </motion.a>
@@ -102,7 +102,7 @@ export default function Footer() {
             <motion.button
               whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}
               onClick={copyEmail}
-              className="w-14 h-14 rounded-full border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[#E67E22] hover:border-[#E67E22]/40 transition-all"
+              className="w-14 h-14 rounded-full border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-[var(--accent)] hover:border-[var(--accent)]/40 transition-all"
               aria-label="Copy email"
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -130,7 +130,7 @@ export default function Footer() {
                 key={i} href={s.href} target="_blank" rel="noreferrer"
                 aria-label={s.label}
                 whileHover={{ y: -4, scale: 1.1 }} whileTap={{ scale: 0.95 }}
-                className="w-11 h-11 rounded-full border border-zinc-800 bg-zinc-900 flex items-center justify-center text-lg text-zinc-400 hover:text-[#E67E22] hover:border-[#E67E22]/40 transition-all"
+                className="w-11 h-11 rounded-full border border-zinc-800 bg-zinc-900 flex items-center justify-center text-lg text-zinc-400 hover:text-[var(--accent)] hover:border-[var(--accent)]/40 transition-all"
               >
                 {s.icon}
               </motion.a>
@@ -147,7 +147,7 @@ export default function Footer() {
             <p className="flex items-center gap-1.5 text-zinc-400">
               © {new Date().getFullYear()} Kami Likhith
               <span className="text-zinc-700">·</span>
-              Built with <FaHeart className="text-[#E67E22]" size={10} />
+              Built with <FaHeart className="text-[var(--accent)]" size={10} />
             </p>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[10px] font-mono font-bold tracking-tight shadow-xs">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#10b981]" />
@@ -173,7 +173,7 @@ export default function Footer() {
             </nav>
 
             <a href="tel:+918885426155" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <FaPhone size={10} className="text-[#E67E22]" />
+              <FaPhone size={10} className="text-[var(--accent)]" />
               +91 88854 26155
             </a>
           </div>
