@@ -2,21 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaHeart, FaStar, FaCode, FaRocket } from 'react-icons/fa';
 
-function MicrosoftLogo({ className = "w-4 h-4" }) {
-  return (
-    <svg className={className} viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="1" y="1" width="10" height="10" fill="#F25022" />
-      <rect x="12" y="1" width="10" height="10" fill="#7FBA00" />
-      <rect x="1" y="12" width="10" height="10" fill="#00A4EF" />
-      <rect x="12" y="12" width="10" height="10" fill="#FFB900" />
-    </svg>
-  );
-}
-
 const PERKS = [
   { icon: <FaCode className="text-[var(--accent)]" size={13} />, text: '100% open source & public architecture' },
   { icon: <FaRocket className="text-emerald-500" size={13} />, text: 'Continuous feature delivery & security hardening' },
-  { icon: <MicrosoftLogo className="w-3.5 h-3.5" />, text: 'Verified Microsoft Learn Student Ambassador' },
+  { icon: <FaGithub className="text-purple-500" size={13} />, text: 'Modern frontend with React, Vite & Tailwind CSS' },
 ];
 
 export default function Support() {
@@ -44,7 +33,7 @@ export default function Support() {
             </div>
 
             <p className="text-base md:text-lg text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed max-w-md">
-              This portfolio is completely open source. You can support my work or help me complete my Microsoft Learn Student Ambassador (MLSA) activity!
+              This portfolio is completely open source. You can support my work by starring repositories or sponsoring future open-source projects!
             </p>
 
             {/* Perks */}
@@ -67,20 +56,13 @@ export default function Support() {
             </ul>
 
             <div className="flex flex-wrap gap-3 pt-1">
-              <motion.button
-                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                onClick={() => window.__openMLSAModal?.()}
-                className="btn-primary bg-[#0078D4] hover:bg-[#0063B1] px-7 py-4 text-white shadow-md shadow-[#0078D4]/20 border-none inline-flex items-center gap-2"
-              >
-                <MicrosoftLogo className="w-4 h-4" /> Support MLSA Activity
-              </motion.button>
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
                 href="https://github.com/sponsors/likhith3035"
                 target="_blank" rel="noreferrer"
-                className="btn-ghost px-6 py-4"
+                className="btn-primary px-7 py-4 text-white shadow-md inline-flex items-center gap-2"
               >
-                <FaHeart size={13} /> Sponsor
+                <FaHeart size={13} /> Sponsor on GitHub
               </motion.a>
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
@@ -89,6 +71,14 @@ export default function Support() {
                 className="btn-ghost px-6 py-4"
               >
                 <FaStar size={13} /> Star Repo
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
+                href="https://github.com/likhith3035/my-portfolio"
+                target="_blank" rel="noreferrer"
+                className="btn-ghost px-6 py-4"
+              >
+                <FaGithub size={13} /> View Source
               </motion.a>
             </div>
           </motion.div>

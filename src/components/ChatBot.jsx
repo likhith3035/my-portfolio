@@ -7,7 +7,7 @@ const KB = [
   {
     keywords: ['who', 'name', 'about', 'yourself', 'introduce', 'likhith', 'kami'], weight: 2,
     answers: [
-      "I'm Kami Likhith — a B.Tech AI & Data Science student at NBKRIST and Microsoft Learn Student Ambassador. I engineer modern web systems, deploy local AI agents, and conduct cybersecurity research.",
+      "I'm Kami Likhith — a B.Tech AI & Data Science student at NBKRIST. I engineer modern web systems, deploy local AI agents, and conduct cybersecurity research.",
       "Hey! I'm Likhith — a software engineer, cybersecurity researcher, and AI developer specializing in React, Python, Firebase, Supabase, and RAG architectures.",
     ],
     followUps: [
