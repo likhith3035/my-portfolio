@@ -26,6 +26,7 @@ import {
   FaComments,
   FaBuilding,
 } from 'react-icons/fa';
+import GlintCard from './GlintCard';
 
 /* ─── Projects Data ─── */
 const PROJECTS = [
@@ -290,12 +291,13 @@ function ProjectCard({ project, index }) {
   };
 
   return (
-    <motion.div
+    <GlintCard
       layout
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.55, delay: index * 0.06 }}
+      glintColor={project.colorTheme.accent || 'var(--accent)'}
       className={`group relative overflow-hidden rounded-3xl border bg-gradient-to-br transition-all duration-300 ${
         project.colorTheme.border
       } ${project.colorTheme.from} ${project.colorTheme.via} ${
@@ -561,7 +563,7 @@ function ProjectCard({ project, index }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </GlintCard>
   );
 }
 
@@ -679,13 +681,14 @@ export default function Projects() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {SKILL_CATEGORIES.map((cat, i) => (
-              <motion.div
+              <GlintCard
                 key={cat.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 whileHover={{ y: -4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
                 transition={{ duration: 0.5, delay: i * 0.06 }}
+                glintColor={cat.color}
                 className="card card-hover border border-zinc-200/80 dark:border-zinc-800 p-5 sm:p-6 space-y-4 bg-white dark:bg-[#121215] shadow-xs"
               >
                 <div className="flex items-center gap-3">
@@ -714,7 +717,7 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </GlintCard>
             ))}
           </div>
         </div>
