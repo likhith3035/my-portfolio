@@ -12,7 +12,6 @@ import { Analytics } from '@vercel/analytics/react';
 
 // Code-split heavy interactive overlays & modals
 const ContactModal = lazy(() => import('./components/ContactModal'));
-const MLSAModal = lazy(() => import('./components/MLSAModal'));
 const ChatBot = lazy(() => import('./components/ChatBot'));
 const CommandPalette = lazy(() => import('./components/CommandPalette'));
 const MatrixRain = lazy(() => import('./components/MatrixRain'));
@@ -30,7 +29,6 @@ export default function App() {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [matrixActive, setMatrixActive] = useState(false);
   const [confettiTriggerCount, setConfettiTriggerCount] = useState(0);
-  const [mlsaOpen, setMlsaOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
     try { return localStorage.getItem('theme') || 'light'; }
     catch { return 'light'; }
@@ -77,21 +75,6 @@ export default function App() {
     return () => window.removeEventListener('click', handleLoveClick);
   }, [accentTheme]);
 
-  useEffect(() => {
-    /* Auto open MLSA activity popup on initial site visit (once per session, after intro finishes) */
-    if (!introFinished) return;
-    try {
-      if (!sessionStorage.getItem('mlsa_modal_seen')) {
-        const timer = setTimeout(() => {
-          setMlsaOpen(true);
-          sessionStorage.setItem('mlsa_modal_seen', 'true');
-        }, 1500);
-        return () => clearTimeout(timer);
-      }
-    } catch {
-      // Fallback in case sessionStorage is restricted
-    }
-  }, [introFinished]);
 
   useEffect(() => {
     /* Disable browser scroll restoration and force top on load */
@@ -118,7 +101,6 @@ export default function App() {
     window.__openCommandPalette = () => setCommandPaletteOpen(true);
     window.__triggerMatrix = () => setMatrixActive(true);
     window.__triggerConfetti = () => setConfettiTriggerCount(c => c + 1);
-    window.__openMLSAModal = () => setMlsaOpen(true);
     return () => {
       delete window.__openContactModal;
       delete window.__openResumeModal;
@@ -126,7 +108,6 @@ export default function App() {
       delete window.__openCommandPalette;
       delete window.__triggerMatrix;
       delete window.__triggerConfetti;
-      delete window.__openMLSAModal;
     };
   }, []);
 
@@ -144,7 +125,7 @@ export default function App() {
       <PageLoader theme={theme} onComplete={() => setIntroFinished(true)} />
       <Navbar theme={theme} onToggleTheme={toggleTheme} introFinished={introFinished} />
       <main>
-        <Hero theme={theme} />
+        <Hero theme={theme} introFinished={introFinished} />
         <About />
         <Experience />
         <Projects />
@@ -166,7 +147,6 @@ export default function App() {
             onClose={() => setActiveCredential(null)}
           />
         )}
-        {mlsaOpen && <MLSAModal isOpen={mlsaOpen} onClose={() => setMlsaOpen(false)} />}
         <ChatBot />
 
         {/* Command Center & Effects */}

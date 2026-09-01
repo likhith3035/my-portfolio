@@ -93,8 +93,8 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
       {/* ── Navbar pill ── */}
       <motion.nav
         initial={{ y: -50, opacity: 0, x: '-50%' }}
-        animate={{ y: 0, opacity: 1, x: '-50%' }}
-        transition={{ type: 'spring', stiffness: 180, damping: 24, delay: 0.15 }}
+        animate={introFinished ? { y: 0, opacity: 1, x: '-50%' } : { y: -50, opacity: 0, x: '-50%' }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
         style={{ willChange: 'transform' }}
         className={`fixed top-3 sm:top-5 left-1/2 z-50 w-[94%] max-w-3xl rounded-full backdrop-blur-2xl border overflow-hidden transition-[background-color,border-color,box-shadow,color] duration-300 ease-out ${navContainerStyle}`}
       >
@@ -112,11 +112,11 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
           <a href="#home" onClick={e => scrollTo(e, '#home')} className="flex items-center gap-2.5 group select-none">
             <div
               id="navbar-logo-target"
-              className={`w-8 h-8 rounded-full overflow-hidden flex items-center justify-center border border-white/20 dark:border-zinc-700 shadow-sm group-hover:scale-105 group-hover:border-[var(--accent)]/60 transition-[transform,border-color] duration-200 flex-shrink-0 bg-black ${
+              className={`w-8 h-8 rounded-full overflow-hidden flex items-center justify-center border border-[#E67E22]/40 shadow-[0_0_10px_rgba(230,126,34,0.25)] group-hover:scale-105 group-hover:border-[var(--accent)]/80 transition-[transform,border-color,opacity] duration-300 flex-shrink-0 bg-black ${
                 !introFinished ? 'opacity-0' : 'opacity-100'
               }`}
             >
-              <img src="/favicon-96x96.png" alt="Kami Likhith Logo" className="w-full h-full object-cover" />
+              <img src="/apple-touch-icon.png" alt="Kami Likhith Logo" className="w-full h-full object-cover rounded-full" />
             </div>
             <span className={`font-extrabold text-sm tracking-tight transition-colors duration-200 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
               Kami Likhith
@@ -156,19 +156,6 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
 
           {/* Right controls */}
           <div className="flex items-center gap-1.5">
-            {/* MLSA Activity pill badge */}
-            <button
-              onClick={() => window.__openMLSAModal?.()}
-              className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0078D4]/12 border border-[#0078D4]/35 text-[#0078D4] dark:text-[#00A4EF] text-xs font-semibold hover:bg-[#0078D4]/20 transition-all shadow-[0_0_12px_rgba(0,120,212,0.18)] cursor-pointer"
-              title="Open MLSA Ambassador Activity"
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A4EF] opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00A4EF]" />
-              </span>
-              <span className="tracking-wide">MLSA Activity</span>
-            </button>
-
             {/* Command Palette trigger */}
             <button
               onClick={() => {
@@ -348,25 +335,6 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
                 })}
               </nav>
 
-              {/* Secondary Feature: Verified Ambassador Pill */}
-              <div className="px-3 pb-2">
-                <button
-                  onClick={() => {
-                    sound.pop();
-                    setMobileOpen(false);
-                    window.__openMLSAModal?.();
-                  }}
-                  className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#0078D4]/10 hover:bg-[#0078D4]/15 border border-[#0078D4]/25 text-[#00A4EF] text-xs transition-all cursor-pointer group"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00A4EF]" />
-                    <span className="font-medium text-[11px] tracking-tight">Microsoft Learn Ambassador</span>
-                  </div>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-400 group-hover:text-white transition-colors">
-                    VERIFIED ↗
-                  </span>
-                </button>
-              </div>
 
               {/* Bottom Actions & Social Drawer */}
               <div className="p-3.5 border-t border-zinc-800/70 bg-white/[0.01] flex flex-col gap-3">
