@@ -94,7 +94,7 @@ const TECH_PILLS = [
 const stagger = { show: { transition: { staggerChildren: 0.09 } } };
 const fadeUp = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } } };
 
-export default function Hero({ theme }) {
+export default function Hero({ theme, introFinished = true }) {
   const isDark = theme === 'dark';
   const { text: roleText, color: roleColor } = useTypewriter(ROLES);
   const [photoOpen, setPhotoOpen] = useState(false);
@@ -150,8 +150,12 @@ export default function Hero({ theme }) {
         <div className="flex flex-col md:hidden items-center text-center gap-5">
 
           {/* Avatar */}
-          <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="relative mt-2">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={introFinished ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mt-2"
+          >
             <div className="animate-float relative inline-block">
               {/* Outer glow ring */}
               <div className={`absolute -inset-3 rounded-full blur-md pointer-events-none transition-opacity ${isDark ? 'bg-gradient-to-br from-[#E67E22]/40 to-[#A855F7]/20 opacity-100' : 'bg-gradient-to-br from-[#E67E22]/25 to-[#A855F7]/10 opacity-100'}`} />
@@ -182,12 +186,12 @@ export default function Hero({ theme }) {
           </motion.div>
 
           {/* Location */}
-          <motion.span initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+          <motion.span initial={{ opacity: 0, y: 8 }} animate={introFinished ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }} transition={{ delay: 0.2, duration: 0.6 }}
             className={`inline-flex items-center gap-1.5 text-xs font-bold ${bodyColor}`}>
             <FaMapMarkerAlt size={10} className="text-[var(--accent)]" /> Srikalahasti, Andhra Pradesh
           </motion.span>
 
-          <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-4 w-full">
+          <motion.div variants={stagger} initial="hidden" animate={introFinished ? "show" : "hidden"} className="space-y-4 w-full">
             <motion.div variants={fadeUp} className="flex justify-center">
               <span
                 onClick={(e) => {
@@ -274,10 +278,10 @@ export default function Hero({ theme }) {
         </div>
 
         {/* ═══════════════ DESKTOP ═══════════════ */}
-        <div className="hidden md:grid md:grid-cols-12 gap-14 xl:gap-20 items-center min-h-[calc(100dvh-80px)]">
+        <div className="hidden md:grid md:grid-cols-12 gap-14 xl:gap-20 items-start min-h-[calc(100dvh-100px)] pt-4 lg:pt-6">
 
           {/* ── Left col ── */}
-          <motion.div variants={stagger} initial="hidden" animate="show" className="md:col-span-7 space-y-7">
+          <motion.div variants={stagger} initial="hidden" animate={introFinished ? "show" : "hidden"} className="md:col-span-7 space-y-7">
             <motion.div variants={fadeUp} className="flex items-center gap-3 flex-wrap">
               <span
                 onClick={(e) => {
@@ -363,10 +367,13 @@ export default function Hero({ theme }) {
             </motion.div>
           </motion.div>
 
-          {/* ── Right col — 3D tilt photo ── */}
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="md:col-span-5 flex justify-center items-center">
+          {/* ── Right col — 3D tilt photo (aligned to headline name height) ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 40, scale: 0.96 }}
+            animate={introFinished ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 40, scale: 0.96 }}
+            transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+            className="md:col-span-5 flex justify-center items-start pt-6 lg:pt-8"
+          >
             <TiltCard>
               <div className="animate-float relative">
                 {/* Dashed spinning border */}
