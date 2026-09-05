@@ -210,8 +210,9 @@ export default function Hero({ theme, introFinished = true }) {
             </motion.div>
 
             <motion.div variants={fadeUp}>
-              <h1 className={`text-[2.9rem] leading-[0.95] font-black tracking-tight ${headingColor}`}>
-                Kami <span className="text-gradient">Likhith</span>
+              <h1 className="text-[2.9rem] leading-[0.95] font-black tracking-tight">
+                <span className="text-black dark:text-white">Kami</span>{' '}
+                <span className="text-[var(--accent)] text-gradient">Likhith</span>
               </h1>
             </motion.div>
 
@@ -303,9 +304,10 @@ export default function Hero({ theme, introFinished = true }) {
             </motion.div>
 
             <motion.div variants={fadeUp}>
-              <p className={`text-xs font-bold uppercase tracking-[0.22em] mb-3 ${bodyColor}`}>Hello, I'm</p>
-              <h1 className={`text-6xl lg:text-[5.5rem] font-black tracking-tight leading-[0.9] ${headingColor}`}>
-                Kami<br /><span className="text-gradient">Likhith</span>
+              <p className={`text-xs font-bold uppercase tracking-[0.22em] mb-3 ${bodyColor}`}>Portfolio &bull; 2026</p>
+              <h1 className="text-6xl lg:text-[5.5rem] font-black tracking-tight leading-[0.9]">
+                <span className="text-black dark:text-white">Kami</span><br />
+                <span className="text-[var(--accent)] text-gradient">Likhith</span>
               </h1>
             </motion.div>
 

@@ -7,7 +7,7 @@ import Projects from './components/Projects';
 import Support from './components/Support';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import PageLoader from './components/PageLoader';
+import AppleHelloIntro from './components/AppleHelloIntro';
 import { Analytics } from '@vercel/analytics/react';
 
 // Code-split heavy interactive overlays & modals
@@ -122,7 +122,7 @@ export default function App() {
 
   return (
     <div className="overflow-x-hidden bg-[#FAF9F6] text-zinc-900 dark:bg-[#0B0B0C] dark:text-zinc-100 transition-colors duration-300 selection:bg-[var(--accent)] selection:text-white">
-      <PageLoader theme={theme} onComplete={() => setIntroFinished(true)} />
+      <AppleHelloIntro theme={theme} onComplete={() => setIntroFinished(true)} />
       <Navbar theme={theme} onToggleTheme={toggleTheme} introFinished={introFinished} />
       <main>
         <Hero theme={theme} introFinished={introFinished} />

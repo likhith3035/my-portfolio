@@ -232,7 +232,9 @@ export default function CommandPalette({
           sound.success();
           setCopyToast(true);
           setTimeout(() => setCopyToast(false), 2400);
-        } catch {}
+        } catch (e) {
+          // ignore clipboard error
+        }
         onClose();
       },
     },

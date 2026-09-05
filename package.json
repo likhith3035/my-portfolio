@@ -11,10 +11,15 @@
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
+    "hersheytext": "^2.0.0",
+    "motion": "^13.2.0",
+    "potrace": "^2.1.8",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-fast-marquee": "^1.6.5"
+    "react-fast-marquee": "^1.6.5",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

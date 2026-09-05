@@ -129,7 +129,9 @@ class SoundManager {
       droneMid.stop(now + duration + 0.5);
 
       this.activeWarpNodes = { noiseSource, noiseGain, droneSub, droneMid, droneGain };
-    } catch (e) {}
+    } catch (e) {
+      // Audio playback may fail if blocked by browser
+    }
   }
 
   // Smoothly stop active whoosh sound if skipped or unmounted
@@ -144,7 +146,9 @@ class SoundManager {
         this.activeWarpNodes.droneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
       }
       this.activeWarpNodes = null;
-    } catch (e) {}
+    } catch (e) {
+      // Audio context cleanup failure ignored
+    }
   }
 
   // Silenced no-ops for all other sound calls
