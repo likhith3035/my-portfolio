@@ -19,9 +19,10 @@
 - **Tools & Environments**: Antigravity IDE, Cursor, Git, Vercel, Netlify
 
 ## Featured Projects
+- [CampusIQ](https://learnonva.vercel.app/): AI-powered student analytics and success platform for KPMG in India Hackathon by Team LEARNOVA. Features non-linear Student Success Scoring ($S^3$), K-Means ($k=4$) behavioral clustering, and closed-loop WhatsApp interventions.
 - [StudentHub](https://gensync-78.vercel.app/): Campus super-app uniting notes sharing, internship pipelines, and Sarvam AI voice assistant. Finalist at HackPrix Season 3 (built in 36 hours).
 - [Secure Vault](https://github.com/likhith3035/secure-vault-folder-encryption): Desktop folder security suite featuring AES-256-CBC encryption, filename obfuscation, and automated Gmail API OTP verification.
-- [LiveTalk](https://livetalkbylikki.netlify.app/): Anonymous real-time WebRTC P2P chat platform with a lightweight mobile-first UI.
+- [Incog Talkk](https://incogtalkk.netlify.app/): Anonymous real-time WebRTC P2P chat platform with a lightweight mobile-first UI.
 - [Hostel Portal](https://nbkristhostelportal.netlify.app/): Institutional room allocation and maintenance platform with real-time Firestore synchronization.
 
 ## Accolades & Hackathons

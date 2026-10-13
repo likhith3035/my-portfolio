@@ -33,9 +33,11 @@ Welcome to the **Vibe Coder** experience. This isn't just a portfolio; it's a st
 
 ## 📂 Featured Projects in this Portfolio
 
-1.  **Secure Vault:** AES-256 folder encryption tool with file obfuscation.
-2.  **Livetalk:** WebRTC-powered anonymous real-time chat platform.
-3.  **Hostel Portal:** Firebase-powered hostel management system with real-time sync.
+1.  **CampusIQ:** AI-powered student analytics & success platform (KPMG in India Hackathon submission).
+2.  **StudentHub:** Campus PWA super-app (National Finalist at HackPrix Season 3).
+3.  **Secure Vault:** AES-256 folder encryption tool with file obfuscation.
+4.  **Incog Talkk:** WebRTC-powered anonymous real-time chat platform.
+5.  **Hostel Portal:** Firebase-powered hostel management system with real-time sync.
 
 ## 💻 Local Development Setup
 

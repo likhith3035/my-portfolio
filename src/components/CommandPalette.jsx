@@ -304,6 +304,20 @@ export default function CommandPalette({
 
     // ── PROJECTS & CODE WORKS ──
     {
+      id: 'proj-campusiq',
+      group: 'Projects',
+      category: 'Project',
+      categoryColor: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30',
+      title: 'CampusIQ — AI Student Analytics & Success Platform',
+      desc: '🏆 KPMG India Hackathon · Prescriptive Decision Intelligence, K-Means clustering, XAI & Closed-Loop Interventions',
+      keywords: ['campusiq', 'campus iq', 'smart campus', 'kpmg', 'learnova', 'student analytics', 'k-means', 'kmeans', 'xai', 'shap', 'whatsapp', 'decision intelligence', 'nextjs', 'recharts', 'scikit-learn'],
+      icon: <span className="text-base">📈</span>,
+      action: () => {
+        onClose();
+        scrollToSection('projects');
+      },
+    },
+    {
       id: 'proj-studenthub',
       group: 'Projects',
       category: 'Project',
@@ -332,13 +346,13 @@ export default function CommandPalette({
       },
     },
     {
-      id: 'proj-livetalk',
+      id: 'proj-incog-talkk',
       group: 'Projects',
       category: 'Project',
       categoryColor: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
-      title: 'LiveTalk — P2P Anonymous Real-Time Chat',
+      title: 'Incog Talkk — P2P Anonymous Real-Time Chat',
       desc: 'WebRTC peer-to-peer real-time communication platform with zero server logs',
-      keywords: ['livetalk', 'webrtc', 'chat', 'realtime', 'anonymous', 'p2p', 'websockets', 'messaging', 'communication'],
+      keywords: ['incog talkk', 'incog', 'talkk', 'incogtalkk', 'livetalk', 'webrtc', 'chat', 'realtime', 'anonymous', 'p2p', 'websockets', 'messaging', 'communication'],
       icon: <span className="text-base">💬</span>,
       action: () => {
         onClose();

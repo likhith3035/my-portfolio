@@ -21,7 +21,7 @@ export default function ScrollToTop() {
           whileHover={{ scale: 1.1, y: -2 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-24 right-5 z-[88] w-11 h-11 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,0.2)] flex items-center justify-center transition-colors"
+          className="fixed bottom-36 right-4 md:bottom-24 md:right-5 z-[88] w-11 h-11 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,0.2)] flex items-center justify-center transition-colors"
           aria-label="Back to top"
         >
           <FaArrowUp size={13} />

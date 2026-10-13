@@ -28,12 +28,22 @@ const KB = [
   {
     keywords: ['project', 'built', 'portfolio', 'made', 'app', 'codebase', 'develop'], weight: 2,
     answers: [
-      "My 5 key projects:\n🎓 StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n🔒 Secure Vault — AES-256 folder encryption (Python)\n💬 LiveTalk — WebRTC-powered anonymous chat\n🤖 Dept. AI Bot — RAG chatbot (LangChain/Flask)\n🏢 Hostel Portal — Firebase room allocation system",
+      "My key projects:\n📈 CampusIQ — AI student analytics & success platform (Next.js 14 + scikit-learn)\n🎓 StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n🔒 Secure Vault — AES-256 folder encryption (Python)\n💬 Incog Talkk — WebRTC-powered anonymous chat\n🤖 Dept. AI Bot — RAG chatbot (LangChain/Flask)\n🏢 Hostel Portal — Firebase room allocation system",
+    ],
+    followUps: [
+      { label: '📈 CampusIQ Analytics', q: 'Tell me about CampusIQ' },
+      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' },
+      { label: '🔒 Secure Vault', q: 'Tell me about Secure Vault project' }
+    ]
+  },
+  {
+    keywords: ['campusiq', 'campus iq', 'smart campus', 'kpmg', 'learnova', 'analytics', 'student success', 'k-means', 'kmeans', 'xai'], weight: 3,
+    answers: [
+      "CampusIQ is an AI-powered student analytics and success platform engineered for the KPMG in India Hackathon by Team LEARNOVA (NBKRIST). It features non-linear Student Success Scoring (S³), unsupervised K-Means (k=4) behavioral clustering, Explainable AI (SHAP waterfall), and closed-loop WhatsApp interventions.\nLive Demo: https://learnonva.vercel.app/\nRepo: https://github.com/likhith3035/smart-campus",
     ],
     followUps: [
       { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' },
-      { label: '🔒 Secure Vault', q: 'Tell me about Secure Vault project' },
-      { label: '💬 LiveTalk Chat', q: 'Tell me about LiveTalk project' }
+      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' }
     ]
   },
   {
@@ -43,7 +53,7 @@ const KB = [
     ],
     followUps: [
       { label: '🏆 SRM AP Hackathon', q: 'Tell me about the SRM AP hackathon' },
-      { label: '💬 LiveTalk Chat', q: 'Tell me about LiveTalk project' }
+      { label: '💬 Incog Talkk Chat', q: 'Tell me about Incog Talkk project' }
     ]
   },
   {
@@ -67,9 +77,9 @@ const KB = [
     ]
   },
   {
-    keywords: ['livetalk', 'chat', 'webrtc', 'realtime', 'p2p'], weight: 3,
+    keywords: ['incog', 'talkk', 'incogtalkk', 'livetalk', 'chat', 'webrtc', 'realtime', 'p2p'], weight: 3,
     answers: [
-      "LiveTalk is an anonymous real-time WebRTC P2P chat platform with a mobile-first UI. Built with vanilla HTML, CSS, and JS.\nLive Demo: https://livetalkbylikki.netlify.app/\nRepo: https://github.com/likhith3035/livetalkbylikki",
+      "Incog Talkk is an anonymous real-time WebRTC P2P chat platform with a mobile-first UI. Built with vanilla HTML, CSS, and JS.\nLive Demo: https://incogtalkk.netlify.app/\nRepo: https://github.com/likhith3035/livetalkbylikki",
     ],
     followUps: [
       { label: '🏢 Hostel Portal', q: 'Tell me about Hostel Portal' },
@@ -82,7 +92,7 @@ const KB = [
       "Hostel Portal manages room allocation, mess menus, and student services for NBKR. Built with React and Firebase for instant real-time data sync.\nLive Demo: https://nbkristhostelportal.netlify.app/\nRepo: https://github.com/likhith3035/hostel-portal-2",
     ],
     followUps: [
-      { label: '💬 LiveTalk Chat', q: 'Tell me about LiveTalk project' },
+      { label: '💬 Incog Talkk Chat', q: 'Tell me about Incog Talkk project' },
       { label: '🛠️ Tech Stack', q: 'What is your tech stack?' }
     ]
   },
@@ -199,7 +209,7 @@ const KB = [
   {
     keywords: ['hello', 'hi', 'hey', 'hola', 'sup', 'yo', 'greetings'], weight: 1,
     answers: [
-      "Hey there! 👋 I'm Likhith's AI assistant. Ask me about his projects (StudentHub, Secure Vault, LiveTalk), tech stack, experience, or contact info!",
+      "Hey there! 👋 I'm Likhith's AI assistant. Ask me about his projects (CampusIQ, StudentHub, Secure Vault, Incog Talkk), tech stack, experience, or contact info!",
       "Hello! 😊 I can tell you about Likhith's skills, hackathons (HackPrix/SRM AP), or education. What would you like to know?",
     ],
     followUps: [
@@ -278,7 +288,7 @@ function getBotReply(input) {
   
   const fallbacks = [
     "Try asking about Likhith's projects, skills, AI tools, or experience! 😊",
-    "I know a lot about Likhith's tech stack, projects (StudentHub, Secure Vault, LiveTalk, Hostel Portal), and hackathons. What do you want to know? 🤔",
+    "I know a lot about Likhith's tech stack, projects (CampusIQ, StudentHub, Secure Vault, Incog Talkk, Hostel Portal), and hackathons. What do you want to know? 🤔",
     "Ask me about projects, credentials, or how to get in touch!",
   ];
   
@@ -366,7 +376,7 @@ export default function ChatBot() {
         onClick={() => setOpen(v => !v)}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.94 }}
-        className="fixed bottom-5 right-5 z-[90] w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex items-center justify-center text-xl transition-colors duration-200"
+        className="fixed bottom-20 right-4 md:bottom-5 md:right-5 z-[90] w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_32px_rgba(0,0,0,0.25)] flex items-center justify-center text-xl transition-colors duration-200"
         aria-label={open ? 'Close chat' : 'Open chat'}
       >
         <AnimatePresence mode="wait" initial={false}>

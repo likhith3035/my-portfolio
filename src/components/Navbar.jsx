@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useSpring, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { FaSun, FaMoon, FaTimes, FaSearch, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { HiMenuAlt3, HiArrowRight } from 'react-icons/hi';
 import { sound } from '../utils/sound';
+import { triggerLiquidTransition } from '../utils/liquidTransition';
+import LiquidGlassNav from './LiquidGlassNav';
 
 const NAV_LINKS = [
   { href: '#home',       label: 'Home',       index: '01', sub: 'Overview & Intro' },
@@ -10,6 +12,61 @@ const NAV_LINKS = [
   { href: '#experience', label: 'Experience', index: '03', sub: 'Career Milestones' },
   { href: '#projects',   label: 'Projects',   index: '04', sub: 'Selected Works' },
 ];
+
+// Physical Liquid Glass Spring Dynamics
+const LIQUID_PILL_SPRING = {
+  type: 'spring',
+  stiffness: 360,
+  damping: 30,
+  mass: 0.8,
+};
+
+// OriginOS 7 Ultra-Sense Spring Dynamics & Motion Engine
+const ORIGIN_SPRING = {
+  type: 'spring',
+  stiffness: 380,
+  damping: 32,
+  mass: 0.8,
+};
+
+const ORIGIN_CONTAINER_VARIANTS = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.045,
+      delayChildren: 0.05,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.025,
+      staggerDirection: -1,
+    },
+  },
+};
+
+const ORIGIN_ITEM_VARIANTS = {
+  hidden: { opacity: 0, x: -16, y: -4, filter: 'blur(6px)' },
+  show: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      type: 'spring',
+      stiffness: 380,
+      damping: 28,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: -10,
+    filter: 'blur(4px)',
+    transition: { duration: 0.15, ease: 'easeOut' },
+  },
+};
 
 export default function Navbar({ theme = 'light', onToggleTheme, introFinished = true }) {
   const isDark = theme === 'dark';
@@ -25,6 +82,14 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('#home');
+  const [prevSection, setPrevSection] = useState('#home');
+  const [navDirection, setNavDirection] = useState(1);
+  const [isPillMoving, setIsPillMoving] = useState(false);
+
+  // OriginOS Dynamic Touch Drag Values (zero React state re-renders)
+  const dragY = useMotionValue(0);
+  const dragHandleWidth = useTransform(dragY, [-80, -20, 0, 20, 80], [54, 40, 36, 40, 54]);
+  const dragHandleOpacity = useTransform(dragY, [-60, 0, 60], [0.95, 0.45, 0.95]);
 
   /* Shadow & glass shift on scroll with passive listener */
   useEffect(() => {
@@ -54,13 +119,63 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
     };
   }, [mobileOpen]);
 
-  /* Active section tracker */
+  // Navigation lock ref to prevent IntersectionObserver from overwriting active tab during smooth scroll
+  const isNavigatingRef = useRef(false);
+  const navLockTimeoutRef = useRef(null);
+
+  /* Unified section navigation handler with fluid directional detection */
+  const handleSelectSection = (href, dir) => {
+    sound.click();
+    isNavigatingRef.current = true;
+    clearTimeout(navLockTimeoutRef.current);
+    navLockTimeoutRef.current = setTimeout(() => {
+      isNavigatingRef.current = false;
+    }, 950);
+
+    const currentIndex = NAV_LINKS.findIndex(l => l.href === activeSection);
+    const targetIndex = NAV_LINKS.findIndex(l => l.href === href);
+    const resolvedDir = dir !== undefined ? dir : (targetIndex > currentIndex ? 1 : -1);
+
+    setNavDirection(resolvedDir);
+    setIsPillMoving(true);
+    setPrevSection(activeSection);
+    setActiveSection(href);
+
+    // Perform fluid liquid transition between sections
+    triggerLiquidTransition(activeSection, href, resolvedDir);
+
+    setTimeout(() => {
+      setIsPillMoving(false);
+    }, 650);
+  };
+
+  /* Active section tracker with fluid directional detection */
   useEffect(() => {
     const ids = NAV_LINKS.map(l => l.href.slice(1));
     const observer = new IntersectionObserver(
       entries => {
+        // Skip updating active section if user just initiated click/tap/drag navigation
+        if (isNavigatingRef.current) return;
+
         entries.forEach(e => {
-          if (e.isIntersecting) setActiveSection('#' + e.target.id);
+          if (e.isIntersecting) {
+            const newHref = '#' + e.target.id;
+            setActiveSection(current => {
+              if (current !== newHref) {
+                const curIdx = NAV_LINKS.findIndex(l => l.href === current);
+                const nextIdx = NAV_LINKS.findIndex(l => l.href === newHref);
+                if (curIdx !== -1 && nextIdx !== -1) {
+                  const dir = nextIdx > curIdx ? 1 : -1;
+                  setNavDirection(dir);
+                  setIsPillMoving(true);
+                  setPrevSection(current);
+                  setTimeout(() => setIsPillMoving(false), 550);
+                }
+                return newHref;
+              }
+              return current;
+            });
+          }
         });
       },
       { rootMargin: '-25% 0px -55% 0px' }
@@ -69,24 +184,26 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(navLockTimeoutRef.current);
+    };
   }, []);
 
   const scrollTo = (e, href) => {
     e.preventDefault();
-    sound.click();
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    handleSelectSection(href);
   };
 
   // Harmonious theme-aware styles with smooth property transitions (no transition-all)
   const navContainerStyle = isDark
     ? scrolled
-      ? 'bg-[#0c0c0e]/92 border-white/12 text-white shadow-[0_16px_40px_rgba(0,0,0,0.55),0_0_20px_rgba(230,126,34,0.06)]'
-      : 'bg-black/40 border-white/10 text-white shadow-[0_8px_30px_rgba(0,0,0,0.25)]'
+      ? 'bg-[#0c0c0e]/82 border-white/15 text-white shadow-[0_16px_40px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.2)]'
+      : 'bg-black/45 border-white/12 text-white shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.15)]'
     : scrolled
-      ? 'bg-white/92 border-zinc-200/90 text-zinc-900 shadow-[0_16px_40px_rgba(0,0,0,0.08),0_0_20px_rgba(230,126,34,0.04)]'
-      : 'bg-white/80 border-zinc-200/80 text-zinc-900 shadow-[0_8px_30px_rgba(0,0,0,0.04)]';
+      ? 'bg-white/88 border-zinc-200/90 text-zinc-900 shadow-[0_16px_40px_rgba(0,0,0,0.07),inset_0_1px_1.5px_rgba(255,255,255,0.9)]'
+      : 'bg-white/78 border-zinc-200/80 text-zinc-900 shadow-[0_8px_32px_rgba(0,0,0,0.04),inset_0_1px_1.5px_rgba(255,255,255,0.85)]';
 
   return (
     <>
@@ -123,36 +240,17 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
             </span>
           </a>
 
-          {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map(link => {
-              const isActive = activeSection === link.href;
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={e => scrollTo(e, link.href)}
-                    className={`relative px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors duration-200 select-none block ${
-                      isActive
-                        ? 'text-[var(--accent)]'
-                        : isDark
-                          ? 'text-zinc-400 hover:text-white'
-                          : 'text-zinc-600 hover:text-zinc-950'
-                    }`}
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="activeNavPill"
-                        transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-                        className="absolute inset-0 rounded-full z-[-1] bg-[var(--accent)]/12 dark:bg-[var(--accent)]/15 border border-[var(--accent)]/25"
-                      />
-                    )}
-                    {link.label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+          {/* Desktop Liquid Glass Navigation with Horizontal Drag & Fluid Stretch */}
+          <div className="hidden md:block">
+            <LiquidGlassNav
+              navLinks={NAV_LINKS}
+              activeSection={activeSection}
+              onSelectSection={handleSelectSection}
+              isDark={isDark}
+              isMobile={false}
+              introFinished={introFinished}
+            />
+          </div>
 
           {/* Right controls */}
           <div className="flex items-center gap-1.5">
@@ -221,9 +319,11 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
               }}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               className={`md:hidden w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 active:scale-90 ${
-                isDark
-                  ? 'text-zinc-400 hover:text-white hover:bg-white/10'
-                  : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+                mobileOpen
+                  ? 'bg-[var(--accent)]/15 text-[var(--accent)] ring-1 ring-[var(--accent)]/30'
+                  : isDark
+                    ? 'text-zinc-400 hover:text-white hover:bg-white/10'
+                    : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
               }`}
             >
               <AnimatePresence mode="popLayout" initial={false}>
@@ -232,7 +332,7 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
                   initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
                   animate={{ rotate: 0, opacity: 1, scale: 1 }}
                   exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
-                  transition={{ duration: 0.16, ease: 'easeOut' }}
+                  transition={{ type: 'spring', stiffness: 450, damping: 28 }}
                 >
                   {mobileOpen ? <FaTimes size={15} /> : <HiMenuAlt3 size={19} />}
                 </motion.span>
@@ -242,78 +342,164 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
         </div>
       </motion.nav>
 
-      {/* ── Mobile Executive Minimalist Island Menu ── */}
+      {/* ── OriginOS 7 Atomic Island Navigation Menu ── */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Dark Studio Backdrop */}
+            {/* Studio Frosted Glass Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
               onClick={() => {
                 sound.click();
                 setMobileOpen(false);
               }}
-              className="fixed inset-0 bg-black/70 backdrop-blur-md z-40 md:hidden"
+              className="fixed inset-0 bg-black/25 dark:bg-black/75 backdrop-blur-md z-40 md:hidden"
             />
 
-            {/* Architectural Floating Island */}
+            {/* OriginOS 7 Atomic Island with Touch Drag & Elastic Slide-to-Dismiss */}
             <motion.div
-              initial={{ opacity: 0, y: -12, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-              style={{ willChange: 'transform, opacity' }}
-              className="fixed top-[4.5rem] left-4 right-4 max-w-sm mx-auto z-50 md:hidden rounded-2xl overflow-hidden bg-zinc-950/95 dark:bg-[#0c0c0e]/95 backdrop-blur-2xl border border-zinc-800/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6),0_0_1px_1px_rgba(255,255,255,0.06)] flex flex-col text-white"
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0.16, bottom: 0.28 }}
+              style={{ y: dragY, willChange: 'transform, opacity, filter' }}
+              onDragEnd={(_, info) => {
+                // Swipe up to dismiss or pull down firmly
+                if (info.offset.y < -45 || info.velocity.y < -260) {
+                  sound.click();
+                  setMobileOpen(false);
+                } else if (info.offset.y > 85 || info.velocity.y > 450) {
+                  sound.click();
+                  setMobileOpen(false);
+                }
+              }}
+              initial={{ opacity: 0, y: -24, scale: 0.94, filter: 'blur(12px)' }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -18, scale: 0.95, filter: 'blur(10px)' }}
+              transition={ORIGIN_SPRING}
+              className={`fixed top-[4.2rem] sm:top-[4.8rem] left-4 right-4 max-w-sm mx-auto z-50 md:hidden rounded-3xl overflow-hidden backdrop-blur-3xl backdrop-saturate-150 border flex flex-col select-none transition-colors duration-200 ${
+                isDark
+                  ? 'bg-[#0c0c0e]/95 text-white border-white/12 shadow-[0_28px_65px_-12px_rgba(0,0,0,0.7),0_0_1px_1px_rgba(255,255,255,0.08)_inset]'
+                  : 'bg-white/96 text-zinc-900 border-zinc-200/90 shadow-[0_28px_65px_-12px_rgba(0,0,0,0.14),0_0_1px_1px_rgba(255,255,255,0.8)_inset]'
+              }`}
             >
-              {/* Header Bar */}
-              <div className="flex items-center justify-between px-5 py-3.5 border-b border-zinc-800/70 bg-white/[0.02]">
+              {/* Specular Top Glint Line */}
+              <div className="absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/40 dark:via-white/20 to-transparent pointer-events-none" />
+
+              {/* Ambient Glow Accent */}
+              <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-20 bg-[var(--accent)]/15 rounded-full blur-2xl pointer-events-none" />
+
+              {/* Dynamic OriginOS 7 Pill Handle (Elastic Touch Indicator) */}
+              <div className="pt-2.5 pb-1 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing select-none touch-none">
+                <motion.div
+                  style={{ width: dragHandleWidth, opacity: dragHandleOpacity }}
+                  className={`h-1.5 rounded-full transition-colors duration-150 ${
+                    isDark ? 'bg-white/30' : 'bg-zinc-400/60'
+                  }`}
+                />
+                <span className={`text-[8.5px] font-mono tracking-widest uppercase mt-1 select-none font-semibold ${
+                  isDark ? 'text-zinc-500' : 'text-zinc-400'
+                }`}>
+                  Slide to dismiss
+                </span>
+              </div>
+
+              {/* Status & Profile Header */}
+              <div className={`flex items-center justify-between px-5 py-2.5 border-b transition-colors ${
+                isDark ? 'border-white/10 bg-white/[0.02]' : 'border-zinc-200/80 bg-black/[0.01]'
+              }`}>
                 <div className="flex items-center gap-2.5">
                   <div className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-black border border-white/20 shrink-0">
                     <img src="/favicon-96x96.png" alt="Kami Likhith" className="w-full h-full object-cover" />
                   </div>
-                  <span className="text-xs font-mono font-bold tracking-wider text-zinc-300 uppercase">
+                  <span className={`text-xs font-mono font-bold tracking-wider uppercase ${isDark ? 'text-zinc-200' : 'text-zinc-800'}`}>
                     Kami Likhith
                   </span>
                 </div>
 
                 <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-400 font-semibold">
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-500 dark:text-emerald-400 font-semibold">
                     Available
                   </span>
                 </div>
               </div>
 
-              {/* Navigation Items (Clean Architectural Index) */}
-              <nav className="p-2 space-y-1">
-                {NAV_LINKS.map((link, i) => {
+              {/* Navigation Items (OriginOS Staggered Kinetic Index) */}
+              <motion.nav
+                variants={ORIGIN_CONTAINER_VARIANTS}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                className="p-2 space-y-1"
+              >
+                {NAV_LINKS.map((link) => {
                   const isActive = activeSection === link.href;
                   return (
                     <motion.a
                       key={link.href}
                       href={link.href}
+                      variants={ORIGIN_ITEM_VARIANTS}
+                      whileTap={{ scale: 0.98, x: 2 }}
                       onClick={e => scrollTo(e, link.href)}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.02 + i * 0.03, ease: [0.16, 1, 0.3, 1] }}
-                      className={`group flex items-center justify-between px-3.5 py-3 rounded-xl transition-all duration-200 select-none ${
+                      className={`group relative flex items-center justify-between px-3.5 py-3 rounded-2xl transition-all duration-200 select-none overflow-hidden ${
                         isActive
-                          ? 'bg-white/[0.08] text-white border border-white/10'
-                          : 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
+                          ? isDark
+                            ? 'text-white'
+                            : 'text-zinc-950 font-semibold'
+                          : isDark
+                            ? 'text-zinc-400 hover:text-white hover:bg-white/[0.04]'
+                            : 'text-zinc-600 hover:text-zinc-950 hover:bg-black/[0.04]'
                       }`}
                     >
-                      <div className="flex items-center gap-3">
+                      {/* OriginOS Liquid Glass Magnetic Pill */}
+                      {isActive && (
+                        <motion.div
+                          layoutId="originActiveTab"
+                          animate={{
+                            scaleY: isPillMoving ? 1.08 : 1,
+                          }}
+                          transition={LIQUID_PILL_SPRING}
+                          className={`absolute inset-0 rounded-2xl z-0 overflow-hidden backdrop-blur-xl transition-colors duration-200 ${
+                            isDark
+                              ? 'bg-white/[0.14] border border-white/25 shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_4px_16px_rgba(0,0,0,0.3)]'
+                              : 'bg-zinc-900/[0.08] border border-zinc-900/15 shadow-[inset_0_1px_1.5px_rgba(255,255,255,0.9),0_4px_16px_rgba(0,0,0,0.06)]'
+                          }`}
+                        >
+                          {/* Ambient Liquid Internal Gradient */}
+                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/15 via-transparent to-black/10 dark:from-white/10 dark:to-transparent pointer-events-none" />
+
+                          {/* Specular Top Rim Glint */}
+                          <div className="absolute inset-x-2 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 dark:via-white/30 to-transparent pointer-events-none" />
+
+                          {/* Moving Glass Specular Sheen */}
+                          <motion.div
+                            key={`mobile-specular-${activeSection}`}
+                            initial={{ x: '-100%', opacity: 0 }}
+                            animate={{ x: '160%', opacity: [0, 0.6, 0] }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                            className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 dark:via-white/25 to-transparent skew-x-12 pointer-events-none"
+                          />
+                        </motion.div>
+                      )}
+
+                      <div className="relative z-10 flex items-center gap-3">
                         <span className={`font-mono text-[10px] tracking-wider transition-colors ${
-                          isActive ? 'text-[#E67E22] font-bold' : 'text-zinc-600 group-hover:text-zinc-400'
+                          isActive
+                            ? 'text-[var(--accent)] font-bold'
+                            : isDark
+                              ? 'text-zinc-600 group-hover:text-zinc-400'
+                              : 'text-zinc-400 group-hover:text-zinc-600'
                         }`}>
                           {link.index}
                         </span>
                         <div className="flex flex-col text-left">
-                          <span className={`text-sm font-medium tracking-tight transition-colors ${
-                            isActive ? 'text-white font-semibold' : 'text-zinc-300 group-hover:text-white'
+                          <span className={`text-sm tracking-tight transition-colors ${
+                            isActive
+                              ? isDark ? 'text-white font-bold' : 'text-zinc-950 font-bold'
+                              : isDark ? 'text-zinc-300 group-hover:text-white' : 'text-zinc-700 group-hover:text-zinc-950'
                           }`}>
                             {link.label}
                           </span>
@@ -323,45 +509,60 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
                         </div>
                       </div>
 
-                      <div className="flex items-center">
+                      <div className="relative z-10 flex items-center">
                         {isActive ? (
-                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]" />
+                          <motion.span
+                            layoutId="originActiveIndicatorDot"
+                            className="w-2 h-2 rounded-full bg-[var(--accent)] shadow-[0_0_10px_var(--accent)]"
+                          />
                         ) : (
-                          <HiArrowRight className="text-zinc-600 group-hover:text-zinc-300 group-hover:translate-x-0.5 transition-all text-xs" />
+                          <HiArrowRight className={`text-xs transition-transform duration-200 group-hover:translate-x-1 ${
+                            isDark ? 'text-zinc-600 group-hover:text-zinc-300' : 'text-zinc-400 group-hover:text-zinc-700'
+                          }`} />
                         )}
                       </div>
                     </motion.a>
                   );
                 })}
-              </nav>
-
+              </motion.nav>
 
               {/* Bottom Actions & Social Drawer */}
-              <div className="p-3.5 border-t border-zinc-800/70 bg-white/[0.01] flex flex-col gap-3">
+              <motion.div
+                variants={ORIGIN_ITEM_VARIANTS}
+                className={`p-3.5 border-t transition-colors flex flex-col gap-3 ${
+                  isDark ? 'border-white/10 bg-white/[0.01]' : 'border-zinc-200/80 bg-black/[0.01]'
+                }`}
+              >
                 <button
                   onClick={() => {
                     sound.click();
                     setMobileOpen(false);
                     window.__openContactModal?.();
                   }}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-zinc-950 hover:bg-[var(--accent)] hover:text-white font-semibold text-xs transition-all duration-200 shadow-md shadow-white/5 active:scale-[0.98]"
+                  className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-xs transition-all duration-200 shadow-md active:scale-[0.98] ${
+                    isDark
+                      ? 'bg-white text-zinc-950 hover:bg-[var(--accent)] hover:text-white shadow-white/5'
+                      : 'bg-zinc-950 text-white hover:bg-[var(--accent)] hover:text-white shadow-black/10'
+                  }`}
                 >
                   <span>Initiate Contact</span>
                   <HiArrowRight size={13} />
                 </button>
 
-                <div className="flex items-center justify-between px-1 pt-1 text-zinc-400">
+                <div className="flex items-center justify-between px-1 pt-0.5">
                   <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">
                     NETWORK
                   </span>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <a
                       href="https://github.com/likhith3035"
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => sound.click()}
                       aria-label="GitHub"
-                      className="text-zinc-400 hover:text-white transition-colors p-1"
+                      className={`transition-colors p-1.5 rounded-lg ${
+                        isDark ? 'text-zinc-400 hover:text-white hover:bg-white/5' : 'text-zinc-600 hover:text-zinc-950 hover:bg-black/5'
+                      }`}
                     >
                       <FaGithub size={15} />
                     </a>
@@ -371,7 +572,9 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
                       rel="noreferrer"
                       onClick={() => sound.click()}
                       aria-label="LinkedIn"
-                      className="text-zinc-400 hover:text-white transition-colors p-1"
+                      className={`transition-colors p-1.5 rounded-lg ${
+                        isDark ? 'text-zinc-400 hover:text-white hover:bg-white/5' : 'text-zinc-600 hover:text-zinc-950 hover:bg-black/5'
+                      }`}
                     >
                       <FaLinkedin size={15} />
                     </a>
@@ -381,17 +584,43 @@ export default function Navbar({ theme = 'light', onToggleTheme, introFinished =
                       rel="noreferrer"
                       onClick={() => sound.click()}
                       aria-label="Instagram"
-                      className="text-zinc-400 hover:text-white transition-colors p-1"
+                      className={`transition-colors p-1.5 rounded-lg ${
+                        isDark ? 'text-zinc-400 hover:text-white hover:bg-white/5' : 'text-zinc-600 hover:text-zinc-950 hover:bg-black/5'
+                      }`}
                     >
                       <FaInstagram size={15} />
                     </a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      {/* ── OriginOS 7 Mobile Liquid Glass Floating Dock ── */}
+      <motion.div
+        initial={{ y: 60, opacity: 0, x: '-50%' }}
+        animate={
+          introFinished && !mobileOpen
+            ? { y: 0, opacity: 1, scale: 1, x: '-50%' }
+            : { y: 60, opacity: 0, scale: 0.92, x: '-50%' }
+        }
+        transition={{ type: 'spring', stiffness: 360, damping: 28 }}
+        style={{ left: '50%' }}
+        className="fixed bottom-4 z-40 md:hidden select-none pointer-events-auto"
+      >
+        <div className="rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.45),0_0_1px_1px_rgba(255,255,255,0.18)]">
+          <LiquidGlassNav
+            navLinks={NAV_LINKS}
+            activeSection={activeSection}
+            onSelectSection={handleSelectSection}
+            isDark={isDark}
+            isMobile={true}
+            introFinished={introFinished}
+          />
+        </div>
+      </motion.div>
     </>
   );
 }

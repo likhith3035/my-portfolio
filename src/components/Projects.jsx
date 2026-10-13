@@ -25,11 +25,58 @@ import {
   FaGraduationCap,
   FaComments,
   FaBuilding,
+  FaChartLine,
 } from 'react-icons/fa';
 import GlintCard from './GlintCard';
 
 /* ─── Projects Data ─── */
 const PROJECTS = [
+  {
+    id: 'campusiq',
+    title: 'CampusIQ',
+    tagline: 'AI Student Analytics & Success Platform',
+    icon: <FaChartLine className="text-indigo-500" size={24} />,
+    badge: 'KPMG India Hackathon · Team LEARNOVA',
+    colorTheme: {
+      from: 'from-indigo-600/15',
+      via: 'via-blue-500/8',
+      to: 'to-transparent',
+      border: 'border-indigo-500/30 hover:border-indigo-500/60',
+      pill: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30',
+      accent: '#6366f1',
+      glow: 'rgba(99, 102, 241, 0.28)',
+    },
+    shortDesc: 'Prescriptive student analytics and decision intelligence platform converting multi-silo collegiate data into non-linear risk predictions (S³) and closed-loop WhatsApp interventions.',
+    impactMetrics: [
+      { label: 'Clustering', val: 'K-Means (k=4)' },
+      { label: 'Risk Model', val: 'S³ Non-Linear' },
+      { label: 'Hackathon', val: 'KPMG India Track' },
+    ],
+    features: [
+      'Engineered for KPMG in India Hackathon by Team LEARNOVA (NBKRIST) for proactive academic retention.',
+      'Student Success Score (S³) using non-linear sigmoidal attendance detention gates & exponential backlog damping.',
+      'Unsupervised K-Means clustering (k=4) 4-quadrant behavioral matrix: Scholar, Practical Builder, Consistent All-Rounder, and Multi-Risk.',
+      'Explainable AI (XAI) SHAP-style waterfall decomposition breaking down positive boosters and penalty drags.',
+      'Prescriptive closed-loop interventions with 1-click WhatsApp & mentor alert dispatching and SheetJS Excel ingestion.',
+    ],
+    architecture: {
+      type: 'Prescriptive Decision Intelligence Pipeline',
+      diagram: [
+        'Collegiate Data Silos ──▶ Universal CSV/Excel Ingestion (SheetJS)',
+        '                                      │',
+        '                                      ▼',
+        'Mathematical Scoring (S³) ──▶ K-Means (k=4) Clustering & XAI Waterfall',
+        '                                      │',
+        '                                      ▼',
+        'Executive Cockpit / Triage ──▶ 1-Click WhatsApp Closed-Loop Dispatch',
+      ],
+    },
+    stack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Recharts', 'scikit-learn', 'SheetJS', 'Lucide React'],
+    link: 'https://github.com/likhith3035/smart-campus',
+    liveLink: 'https://learnonva.vercel.app/',
+    featured: true,
+    categories: ['Web', 'AI'],
+  },
   {
     id: 'studenthub',
     title: 'StudentHub',
@@ -117,8 +164,8 @@ const PROJECTS = [
     categories: ['Security'],
   },
   {
-    id: 'livetalk',
-    title: 'LiveTalk',
+    id: 'incog-talkk',
+    title: 'Incog Talkk',
     tagline: 'P2P Anonymous Real-Time Chat',
     icon: <FaComments className="text-emerald-500" size={24} />,
     badge: 'WebSockets · Instant P2P',
@@ -153,7 +200,7 @@ const PROJECTS = [
     },
     stack: ['JavaScript', 'HTML5', 'CSS3', 'WebSockets', 'Netlify CI/CD'],
     link: 'https://github.com/likhith3035/livetalkbylikki',
-    liveLink: 'https://livetalkbylikki.netlify.app/',
+    liveLink: 'https://incogtalkk.netlify.app/',
     featured: false,
     categories: ['Web', 'Mobile'],
   },
