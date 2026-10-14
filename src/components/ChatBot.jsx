@@ -99,7 +99,7 @@ const KB = [
   {
     keywords: ['education', 'college', 'study', 'degree', 'btech', 'nbkrist', 'school', 'cgpa', 'grades'], weight: 2,
     answers: [
-      "📚 Education Details:\n• B.Tech in AI & Data Science — NBKRIST (N.B.K.R. Institute of Science and Technology), Vidyanagar (2023–Present)\n• Intermediate MPC — Vamsi Junior College, Srikalahasti (2021–2023)\n• SSC — RPBS ZP High School, Srikalahasti (2020)\n\nLikhith maintains excellent academic grades and combines it with practical building skills!",
+      "📚 Education Details:\n• B.Tech in AI & Data Science — NBKRIST (N.B.K.R. Institute of Science and Technology), Vidyanagar (2023–Present) · CGPA: 7.5 / 10\n• Intermediate MPC — Vamsi Junior College, Srikalahasti (2021–2023)\n• SSC — RPBS ZP High School, Srikalahasti (2020)\n\nLikhith maintains a strong 7.5 CGPA and combines rigorous academics with active hackathon and system building!",
     ],
     followUps: [
       { label: '💼 Internship', q: 'Tell me about your experience' },

@@ -1,33 +1,21 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  FaGithub,
-  FaExternalLinkAlt,
   FaCode,
   FaServer,
   FaShieldAlt,
   FaTools,
-  FaChevronDown,
   FaRobot,
-  FaLock,
-  FaCopy,
-  FaCheck,
-  FaLayerGroup,
-  FaLaptopCode,
-  FaDatabase,
-  FaBolt,
-  FaFire,
-  FaCheckCircle,
-  FaCube,
-  FaEye,
-  FaKey,
-  FaLinkedin,
   FaGraduationCap,
+  FaLock,
   FaComments,
   FaBuilding,
   FaChartLine,
 } from 'react-icons/fa';
 import GlintCard from './GlintCard';
+import FlagshipShowcase from './FlagshipShowcase';
+import ProjectBentoCard from './ProjectBentoCard';
+import ProjectScreenshotModal from './ProjectScreenshotModal';
 
 /* ─── Projects Data ─── */
 const PROJECTS = [
@@ -76,6 +64,93 @@ const PROJECTS = [
     liveLink: 'https://learnonva.vercel.app/',
     featured: true,
     categories: ['Web', 'AI'],
+    coverImage: '/projects/campusiq/institutional-command-center.png',
+    screenshots: [
+      {
+        src: '/projects/campusiq/hero-landing.png',
+        title: 'CampusIQ Landing Hero & KPMG Hackathon Track',
+        category: 'Overview & Branding',
+        desc: 'Flagship landing interface engineered for KPMG in India Hackathon by Team LEARNOVA, presenting proactive decision intelligence.',
+      },
+      {
+        src: '/projects/campusiq/institutional-command-center.png',
+        title: 'Institutional Command Center & Debarment Watchlist',
+        category: 'Executive & Governance',
+        desc: 'Campus-wide health index (64.6/100), statutory non-linear debarment monitoring (<75% attendance), and cross-department matrix.',
+      },
+      {
+        src: '/projects/campusiq/kmeans-archetype-matrix.png',
+        title: '4-Quadrant K-Means (k=4) Behavioral Archetype Matrix',
+        category: 'AI & Machine Learning',
+        desc: 'Unsupervised clustering plotting students across Academic CGPA vs Placement Readiness with automated risk quadrant labeling.',
+      },
+      {
+        src: '/projects/campusiq/prescriptive-interventions.png',
+        title: 'Prescriptive Interventions & Action Tracker',
+        category: 'Interventions & Actions',
+        desc: 'Closed-loop decision intelligence transforming predictive signals into urgent parent alerts, remedial tutoring, and fast-track bootcamps.',
+      },
+      {
+        src: '/projects/campusiq/faculty-triage-workspace.png',
+        title: 'Faculty & Department Cohort Triage Workspace',
+        category: 'Interventions & Actions',
+        desc: 'Comprehensive student triage roster with S³ composite scores, risk flags (ACAD, PLACE, LMS), and individual profile drill-downs.',
+      },
+      {
+        src: '/projects/campusiq/evaluator-scenarios-simulation.png',
+        title: '1-Click Academic Scenarios (Judge Simulation Mode)',
+        category: 'AI & Machine Learning',
+        desc: 'Dynamic simulator built for KPMG evaluators to test real-time S³ score recomputation across Baseline, Mid-Term Crisis, and Placement Surge.',
+      },
+      {
+        src: '/projects/campusiq/s3-mathematical-methodology.png',
+        title: 'Student Success Score (S³) Mathematical Methodology',
+        category: 'AI & Machine Learning',
+        desc: 'Detailed formulation note on indicator normalization, non-linear attendance debarment penalties, and exponential backlog damping.',
+      },
+      {
+        src: '/projects/campusiq/executive-governance-dossier.png',
+        title: "Executive Dean's Governance Dossier (Board Brief PDF)",
+        category: 'Executive & Governance',
+        desc: 'Confidential Board of Governance summary with automated institutional quality assurance scorecards and 1-click PDF export.',
+      },
+      {
+        src: '/projects/campusiq/student-success-overview.png',
+        title: 'Student Success Overview & KPI Metrics',
+        category: 'Executive & Governance',
+        desc: 'High-level cockpit showing 1,250 analyzed profiles, 14.2% academic risk proportion, attendance trends, and score distributions.',
+      },
+      {
+        src: '/projects/campusiq/white-label-institution-profile.png',
+        title: 'White-Label College & Authority Profile (NBKRIST Preset)',
+        category: 'Executive & Governance',
+        desc: 'Multi-tenant authority settings with presets for NBKRIST, BytexL, and Apex Tech, supporting custom accreditation norms and signatures.',
+      },
+      {
+        src: '/projects/campusiq/data-ingestion-mapper.png',
+        title: 'Flexible Multi-Format Data Ingestion & Schema Mapper',
+        category: 'Architecture & Ingest',
+        desc: 'Flexible ingestion pipeline handling raw CSV paste, drag-and-drop spreadsheets (SheetJS), and automated AI column matching.',
+      },
+      {
+        src: '/projects/campusiq/about-problem-solution.png',
+        title: 'The Traditional Problem vs CampusIQ Breakthrough',
+        category: 'Overview & Branding',
+        desc: 'Contrasting traditional rear-view disconnected dashboards with CampusIQ forward-looking prescriptive decision intelligence.',
+      },
+      {
+        src: '/projects/campusiq/workflow-mobile-preview.png',
+        title: 'End-to-End Workflow & Verified Mobile Web Cockpit',
+        category: 'Architecture & Ingest',
+        desc: '4-step institutional data workflow paired with the verified responsive mobile web cockpit deployed at learnonva.vercel.app.',
+      },
+      {
+        src: '/projects/campusiq/platform-architecture-guide.png',
+        title: 'Every Platform Innovation Deconstructed',
+        category: 'Architecture & Ingest',
+        desc: 'Interactive architecture directory covering all 17 platform capabilities across 7 collegiate silos and statutory gates.',
+      },
+    ],
   },
   {
     id: 'studenthub',
@@ -121,6 +196,7 @@ const PROJECTS = [
     linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-activity-7475955719209500672-yWf1?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
     featured: true,
     categories: ['Web', 'AI', 'Mobile'],
+    coverImage: '/projects/studenthub-cover.jpg',
   },
   {
     id: 'secure-vault',
@@ -162,6 +238,7 @@ const PROJECTS = [
     link: 'https://github.com/likhith3035/secure-vault-folder-encryption',
     featured: false,
     categories: ['Security'],
+    coverImage: '/projects/securevault-cover.jpg',
   },
   {
     id: 'incog-talkk',
@@ -203,6 +280,7 @@ const PROJECTS = [
     liveLink: 'https://incogtalkk.netlify.app/',
     featured: false,
     categories: ['Web', 'Mobile'],
+    coverImage: '/projects/incogtalkk-cover.jpg',
   },
   {
     id: 'dept-ai',
@@ -246,6 +324,7 @@ const PROJECTS = [
     link: 'https://github.com/likhith3035',
     featured: false,
     categories: ['AI'],
+    coverImage: '/projects/deptai-cover.jpg',
   },
   {
     id: 'hostel-portal',
@@ -287,6 +366,7 @@ const PROJECTS = [
     liveLink: 'https://nbkristhostelportal.netlify.app/',
     featured: false,
     categories: ['Web'],
+    coverImage: '/projects/hostelportal-cover.jpg',
   },
 ];
 
@@ -324,299 +404,10 @@ const SKILL_CATEGORIES = [
   },
 ];
 
-/* ─── Project Bento Card ─── */
-function ProjectCard({ project, index }) {
-  const [open, setOpen] = useState(project.featured);
-  const [activeTab, setActiveTab] = useState('features'); // 'features' | 'architecture' | 'stack'
-  const [copiedTag, setCopiedTag] = useState(null);
-
-  const copyChip = (tag, e) => {
-    e.stopPropagation();
-    navigator.clipboard.writeText(tag);
-    setCopiedTag(tag);
-    setTimeout(() => setCopiedTag(null), 1400);
-  };
-
-  return (
-    <GlintCard
-      layout
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, delay: index * 0.06 }}
-      glintColor={project.colorTheme.accent || 'var(--accent)'}
-      className={`group relative overflow-hidden rounded-3xl border bg-gradient-to-br transition-all duration-300 ${
-        project.colorTheme.border
-      } ${project.colorTheme.from} ${project.colorTheme.via} ${
-        project.featured ? 'lg:col-span-2' : ''
-      } bg-white dark:bg-[#101014] shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.4)]`}
-    >
-      {/* Background ambient lighting */}
-      <div
-        className="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-40 transition-opacity group-hover:opacity-70"
-        style={{ background: project.colorTheme.glow }}
-      />
-
-      {/* Card Header & Summary (Clickable to Toggle) */}
-      <div
-        onClick={() => setOpen((prev) => !prev)}
-        className="cursor-pointer p-6 sm:p-7 select-none relative z-10"
-      >
-        {/* Top meta strip */}
-        <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider border shadow-xs ${project.colorTheme.pill}`}
-            >
-              {project.badge}
-            </span>
-            {project.liveLink && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Live Demo
-              </span>
-            )}
-          </div>
-
-          {/* Quick Action Links (Don't trigger accordion) */}
-          <div
-            className="flex items-center gap-2"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {project.liveLink && (
-              <a
-                href={project.liveLink}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E67E22] hover:bg-[#d35400] text-white text-[11px] font-black transition-all shadow-[0_4px_14px_rgba(230,126,34,0.35)] hover:scale-105 cursor-pointer"
-                title="Launch Live App"
-              >
-                <span>Live App</span>
-                <FaExternalLinkAlt size={9} />
-              </a>
-            )}
-            {project.linkedin && (
-              <a
-                href={project.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-[#0A66C2]/10 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white border border-[#0A66C2]/30 flex items-center justify-center text-xs transition-all shadow-xs cursor-pointer"
-                title="View Hackathon Announcement on LinkedIn"
-              >
-                <FaLinkedin size={12} />
-              </a>
-            )}
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noreferrer"
-              className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-[#E67E22] hover:border-[#E67E22]/30 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-xs transition-all shadow-sm cursor-pointer"
-              title="View GitHub Repository"
-            >
-              <FaGithub size={12} />
-            </a>
-          </div>
-        </div>
-
-        {/* Title, Icon & Tagline */}
-        <div className="flex items-start gap-4">
-          <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-700/80 shadow-md flex items-center justify-center text-2xl sm:text-3xl flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-            {project.icon}
-          </div>
-
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight leading-tight group-hover:text-[var(--accent)] transition-colors">
-                {project.title}
-              </h3>
-              <motion.div
-                animate={{ rotate: open ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="text-zinc-400 dark:text-zinc-500 text-xs w-6 h-6 rounded-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-800"
-              >
-                <FaChevronDown size={10} />
-              </motion.div>
-            </div>
-            <p className="text-xs font-bold text-zinc-500 dark:text-zinc-400 mt-0.5">
-              {project.tagline}
-            </p>
-          </div>
-        </div>
-
-        {/* Short description */}
-        <p className="mt-3.5 text-sm text-zinc-600 dark:text-zinc-300 font-medium leading-relaxed">
-          {project.shortDesc}
-        </p>
-
-        {/* Impact metric pills preview */}
-        <div className="mt-4 grid grid-cols-3 gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
-          {project.impactMetrics.map((m, i) => (
-            <div
-              key={i}
-              className="bg-zinc-50/80 dark:bg-zinc-900/60 border border-zinc-200/50 dark:border-zinc-800/60 rounded-xl p-2 text-center"
-            >
-              <div className="text-[10px] uppercase tracking-wider font-black text-zinc-400 dark:text-zinc-500">
-                {m.label}
-              </div>
-              <div className="text-xs font-black text-zinc-900 dark:text-white mt-0.5 truncate">
-                {m.val}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Accordion Expandable Details */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/40"
-          >
-            <div className="p-6 sm:p-7 space-y-5">
-              {/* Internal Tab Navigation */}
-              <div className="flex items-center gap-1.5 p-1 bg-zinc-200/60 dark:bg-zinc-900 rounded-xl max-w-max border border-zinc-200 dark:border-zinc-800">
-                {[
-                  { id: 'features', label: '✨ Highlights' },
-                  { id: 'architecture', label: '⚙️ Architecture' },
-                  { id: 'stack', label: '🛠️ Stack Chips' },
-                ].map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => setActiveTab(t.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-wide transition-all cursor-pointer ${
-                      activeTab === t.id
-                        ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs'
-                        : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
-                    }`}
-                  >
-                    {t.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Tab 1: Key Features */}
-              {activeTab === 'features' && (
-                <motion.ul
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-2.5"
-                >
-                  {project.features.map((b, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 font-medium leading-relaxed"
-                    >
-                      <FaCheckCircle
-                        className="text-[#E67E22] flex-shrink-0 mt-0.5"
-                        size={13}
-                      />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </motion.ul>
-              )}
-
-              {/* Tab 2: Architecture Workflow */}
-              {activeTab === 'architecture' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-2"
-                >
-                  <div className="flex items-center justify-between text-[11px] font-bold text-zinc-400">
-                    <span className="flex items-center gap-1.5">
-                      <FaLayerGroup className="text-[#E67E22]" /> Pattern:{' '}
-                      <strong className="text-zinc-700 dark:text-zinc-200">
-                        {project.architecture.type}
-                      </strong>
-                    </span>
-                    <span>System Workflow</span>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-[#0d0d11] text-zinc-300 font-mono text-[11px] leading-relaxed overflow-x-auto border border-zinc-800 shadow-inner">
-                    {project.architecture.diagram.map((line, i) => (
-                      <div key={i} className="whitespace-pre">
-                        {line}
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Tab 3: Copyable Tech Stack */}
-              {activeTab === 'stack' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-2"
-                >
-                  <p className="text-[11px] font-black uppercase tracking-wider text-zinc-400">
-                    Click any tool to copy to clipboard:
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.stack.map((s) => (
-                      <button
-                        key={s}
-                        onClick={(e) => copyChip(s, e)}
-                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
-                          copiedTag === s
-                            ? 'bg-emerald-500 text-white border-emerald-600 shadow-sm'
-                            : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-[var(--accent)] hover:text-[var(--accent)]'
-                        }`}
-                      >
-                        {copiedTag === s ? (
-                          <>
-                            <FaCheck size={10} /> Copied!
-                          </>
-                        ) : (
-                          <>
-                            <FaCube size={10} className="text-[var(--accent)]" /> {s}
-                          </>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Bottom Action CTAs */}
-              <div
-                className="flex items-center gap-3 pt-3 border-t border-zinc-200/60 dark:border-zinc-800/80 flex-wrap"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {project.liveLink && (
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn-primary text-xs px-5 py-2.5 gap-2 shadow-[0_4px_16px_rgba(230,126,34,0.3)]"
-                  >
-                    <FaExternalLinkAlt size={10} /> Launch Live App ↗
-                  </a>
-                )}
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary text-xs px-5 py-2.5 gap-2"
-                >
-                  <FaGithub size={12} /> View Code on GitHub
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </GlintCard>
-  );
-}
-
 /* ─── Main Projects Section ─── */
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
+
   const filters = [
     { label: 'All', count: PROJECTS.length },
     { label: 'Web', count: PROJECTS.filter((p) => p.categories.includes('Web')).length },
@@ -630,32 +421,67 @@ export default function Projects() {
       ? PROJECTS
       : PROJECTS.filter((p) => p.categories.includes(activeFilter));
 
+  const campusIqProject = PROJECTS.find((p) => p.id === 'campusiq');
+  const showFlagship =
+    campusIqProject &&
+    (activeFilter === 'All' || campusIqProject.categories.includes(activeFilter));
+
+  const bentoProjects = showFlagship
+    ? filteredProjects.filter((p) => p.id !== 'campusiq')
+    : filteredProjects;
+
+  const [galleryModal, setGalleryModal] = useState({
+    isOpen: false,
+    project: null,
+    currentIndex: 0,
+  });
+
+  const handleOpenGallery = (project, index = 0) => {
+    setGalleryModal({
+      isOpen: true,
+      project,
+      currentIndex: index,
+    });
+  };
+
+  const handleCloseGallery = () => {
+    setGalleryModal((prev) => ({ ...prev, isOpen: false }));
+  };
+
+  const handleSelectIndex = (indexOrFn) => {
+    setGalleryModal((prev) => ({
+      ...prev,
+      currentIndex:
+        typeof indexOrFn === 'function' ? indexOrFn(prev.currentIndex) : indexOrFn,
+    }));
+  };
+
   return (
     <section
       id="projects"
       className="py-20 md:py-32 bg-white dark:bg-[#0B0B0C] border-t border-zinc-100 dark:border-zinc-900 transition-colors duration-300 relative overflow-hidden"
     >
-      {/* Subtle background ambient mesh */}
+      {/* Background ambient lighting mesh */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -right-40 w-96 h-96 bg-[var(--accent)]/5 dark:bg-[var(--accent)]/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 -left-40 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 -right-40 w-96 h-96 bg-[var(--accent)]/5 dark:bg-[var(--accent)]/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 -left-40 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container-md space-y-24 relative z-10">
-        {/* ─── Header & Category Filter Tabs ─── */}
-        <div className="space-y-8 text-center">
+      <div className="container-md space-y-20 relative z-10">
+        {/* ─── Section Header & Category Filter Tabs ─── */}
+        <div className="space-y-6 text-center max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
-            className="space-y-2"
+            className="space-y-3"
           >
-            <p className="section-label">Featured Works & Systems</p>
-            <h2 className="section-heading">Projects</h2>
-            <div className="w-12 h-1 bg-[var(--accent)] rounded-full mx-auto mt-3" />
-            <p className="text-sm md:text-base text-zinc-500 dark:text-zinc-400 font-medium max-w-xl mx-auto pt-1">
-              Production-ready web applications, AI-powered systems, and cryptographic security tools built from concept to live deployment.
+            <p className="section-label">Engineered Systems · Production Portfolio</p>
+            <h2 className="section-heading">Featured Projects & Architecture</h2>
+            <div className="w-12 h-1 bg-[var(--accent)] rounded-full mx-auto" />
+            <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed pt-1">
+              From KPMG Hackathon prescriptive decision intelligence and PWA campus super-apps to military-grade AES-256 folder cryptography and real-time P2P WebSockets.
             </p>
           </motion.div>
 
@@ -665,7 +491,7 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex items-center gap-1.5 justify-center flex-wrap bg-zinc-100/80 dark:bg-zinc-900/70 p-1.5 rounded-full border border-zinc-200/80 dark:border-zinc-800 max-w-max mx-auto shadow-xs"
+            className="flex items-center gap-1.5 justify-center flex-wrap bg-zinc-100/90 dark:bg-zinc-900/80 p-1.5 rounded-full border border-zinc-200/80 dark:border-zinc-800 max-w-max mx-auto shadow-xs"
           >
             {filters.map((f) => (
               <button
@@ -701,17 +527,47 @@ export default function Projects() {
           </motion.div>
         </div>
 
-        {/* ─── Projects Bento Grid ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-7">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, idx) => (
-              <ProjectCard key={project.id} project={project} index={idx} />
-            ))}
-          </AnimatePresence>
+        {/* ─── Apple / Linear Style Flagship Spotlight (CampusIQ) ─── */}
+        {showFlagship && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-400 px-2">
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-ping" />
+                <span>Flagship Production Spotlight</span>
+              </span>
+              <span>KPMG India Track Winner Architecture</span>
+            </div>
+            <FlagshipShowcase
+              project={campusIqProject}
+              onOpenGallery={handleOpenGallery}
+            />
+          </div>
+        )}
+
+        {/* ─── Bento Grid for Additional Projects ─── */}
+        <div className="space-y-6">
+          {showFlagship && bentoProjects.length > 0 && (
+            <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-400 px-2 pt-4">
+              <span>Additional Engineered Systems</span>
+              <span>{bentoProjects.length} Projects</span>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+            <AnimatePresence mode="popLayout">
+              {bentoProjects.map((project, idx) => (
+                <ProjectBentoCard
+                  key={project.id}
+                  project={project}
+                  index={idx}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* ─── Technical Skills Visualizer ─── */}
-        <div className="space-y-10">
+        {/* ─── Technical Skillset Visualizer ─── */}
+        <div className="space-y-10 pt-10 border-t border-zinc-100 dark:border-zinc-900">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -723,7 +579,7 @@ export default function Projects() {
             <h3 className="text-2xl md:text-3xl font-black text-zinc-900 dark:text-white uppercase tracking-tight">
               Technical Skillset
             </h3>
-            <div className="w-10 h-1 bg-[#E67E22] rounded-full mx-auto mt-3" />
+            <div className="w-10 h-1 bg-[#E67E22] rounded-full mx-auto mt-2" />
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
@@ -769,6 +625,15 @@ export default function Projects() {
           </div>
         </div>
       </div>
+
+      {/* Interactive Fullscreen Screenshot Lightbox Modal */}
+      <ProjectScreenshotModal
+        isOpen={galleryModal.isOpen}
+        onClose={handleCloseGallery}
+        project={galleryModal.project}
+        currentIndex={galleryModal.currentIndex}
+        onSelectIndex={handleSelectIndex}
+      />
     </section>
   );
 }

@@ -27,7 +27,7 @@ const EDUCATION = [
     degree: 'B.Tech AI & Data Science',
     school: 'NBKRIST',
     period: '2023 – 2027',
-    grade: 'CGPA: 7.0 / 10',
+    grade: 'CGPA: 7.5 / 10',
     detail: 'Specializing in Artificial Intelligence & Data Science. Active hackathon engineer, cybersecurity enthusiast, and builder.',
     icon: <FaGraduationCap size={18} />,
     color: '#E67E22',
@@ -390,7 +390,7 @@ export default function About() {
             </div>
 
             <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between">
-              <span className="text-xs font-black text-zinc-700 dark:text-zinc-300">CGPA: 7.0 / 10</span>
+              <span className="text-xs font-black text-zinc-700 dark:text-zinc-300">CGPA: 7.5 / 10</span>
               <span className="text-[11px] font-extrabold text-[var(--accent)]">Junior Year</span>
             </div>
           </GlintCard>
