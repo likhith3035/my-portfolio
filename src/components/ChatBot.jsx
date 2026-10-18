@@ -28,12 +28,22 @@ const KB = [
   {
     keywords: ['project', 'built', 'portfolio', 'made', 'app', 'codebase', 'develop'], weight: 2,
     answers: [
-      "My key projects:\n📈 CampusIQ — AI student analytics & success platform (Next.js 14 + scikit-learn)\n🎓 StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n🔒 Secure Vault — AES-256 folder encryption (Python)\n💬 Incog Talkk — WebRTC-powered anonymous chat\n🤖 Dept. AI Bot — RAG chatbot (LangChain/Flask)\n🏢 Hostel Portal — Firebase room allocation system",
+      "My key projects:\n🏥 SV Care Diagnostics — Clinical pathology & real-time lab platform (Next.js 14 + WhatsApp API)\n📈 CampusIQ — AI student analytics & success platform (Next.js 14 + scikit-learn)\n🎓 StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n🔒 Secure Vault — AES-256 folder encryption (Python)\n💬 Incog Talkk — WebRTC-powered anonymous chat\n🤖 Dept. AI Bot — RAG chatbot (LangChain/Flask)\n🏢 Hostel Portal — Firebase room allocation system",
+    ],
+    followUps: [
+      { label: '🏥 SV Care Diagnostics', q: 'Tell me about SV Care Diagnostics' },
+      { label: '📈 CampusIQ Analytics', q: 'Tell me about CampusIQ' },
+      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' }
+    ]
+  },
+  {
+    keywords: ['svcare', 'sv care', 'diagnostics', 'lab', 'laboratory', 'pathology', 'blood test', 'health', 'clinic'], weight: 3,
+    answers: [
+      "SV Care Health Diagnostics is a real-time production clinical laboratory platform engineered for an ISO 9001:2015 certified diagnostic center in Srikalahasti. It features a 100+ medical test catalogue, automated ₹0-fee home sample collection booking, doctor prescription photo quoting via WhatsApp API, and bilingual English/Telugu accessibility! 🏥🩸\nLive App: https://svcarehealthdiagnostics.vercel.app/\nRepo: https://github.com/likhith3035/svcare",
     ],
     followUps: [
       { label: '📈 CampusIQ Analytics', q: 'Tell me about CampusIQ' },
-      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' },
-      { label: '🔒 Secure Vault', q: 'Tell me about Secure Vault project' }
+      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' }
     ]
   },
   {

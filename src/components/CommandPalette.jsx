@@ -332,6 +332,20 @@ export default function CommandPalette({
       },
     },
     {
+      id: 'proj-svcare',
+      group: 'Projects',
+      category: 'Project',
+      categoryColor: 'bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30',
+      title: 'SV Care Diagnostics — Real-Time Lab Platform',
+      desc: '🏥 Production Client Project · ISO 9001:2015 lab with 100+ tests, ₹0 home collection & WhatsApp dispatch',
+      keywords: ['svcare', 'sv care', 'diagnostics', 'laboratory', 'pathology', 'blood test', 'lab', 'client', 'health', 'whatsapp', 'srikalahasti', 'production', 'nextjs', 'typescript'],
+      icon: <span className="text-base">🏥</span>,
+      action: () => {
+        onClose();
+        scrollToSection('projects');
+      },
+    },
+    {
       id: 'proj-secure-vault',
       group: 'Projects',
       category: 'Project',

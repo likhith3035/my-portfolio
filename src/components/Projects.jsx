@@ -11,6 +11,7 @@ import {
   FaComments,
   FaBuilding,
   FaChartLine,
+  FaClinicMedical,
 } from 'react-icons/fa';
 import GlintCard from './GlintCard';
 import FlagshipShowcase from './FlagshipShowcase';
@@ -197,6 +198,55 @@ const PROJECTS = [
     featured: true,
     categories: ['Web', 'AI', 'Mobile'],
     coverImage: '/projects/studenthub-cover.jpg',
+  },
+  {
+    id: 'svcare',
+    title: 'SV Care Diagnostics',
+    tagline: 'Real-Time Clinical Pathology & Home Lab Platform',
+    icon: <FaClinicMedical className="text-teal-500" size={24} />,
+    badge: 'Production Client · ISO 9001:2015',
+    colorTheme: {
+      from: 'from-teal-500/15',
+      via: 'via-emerald-500/8',
+      to: 'to-transparent',
+      border: 'border-teal-500/30 hover:border-teal-500/60',
+      pill: 'bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30',
+      accent: '#14b8a6',
+      glow: 'rgba(20, 184, 166, 0.28)',
+    },
+    shortDesc: 'Production diagnostic lab web application engineered for an ISO 9001:2015 medical laboratory. Features 100+ blood test catalogue, zero-fee doorstep sample pickup, WhatsApp prescription quoting, and bilingual accessibility.',
+    impactMetrics: [
+      { label: 'Catalogue', val: '100+ Tests' },
+      { label: 'Turnaround', val: 'Same-Day' },
+      { label: 'Accreditation', val: 'ISO 9001:2015' },
+    ],
+    features: [
+      'Engineered and deployed production diagnostic platform for SV Care Health Diagnostics (Srikalahasti, AP).',
+      'Dynamic 100+ medical test catalogue with instant search and transparent MRP discount pricing (CBC, FBS, HbA1c, Thyroid, Lipid Profile).',
+      'Instant WhatsApp closed-loop integration: snap doctor prescription photo for automated quotes & same-day report delivery.',
+      'Doorstep phlebotomy booking pipeline with zero collection fee across city regions.',
+      'Bilingual patient experience with instant 1-tap Telugu (తెలుగు) & English localization.',
+      'Production-grade MedicalLaboratory JSON-LD structured data and Local SEO optimization.',
+    ],
+    architecture: {
+      type: 'Production Client Diagnostic Architecture',
+      diagram: [
+        'Patient / Clinic Walk-in ──▶ Next.js 14 Responsive Web Cockpit',
+        '              │',
+        '              ├──▶ Doctor Prescription Slip Photo Stream',
+        '              │          │',
+        '              │          ▼',
+        '              │     WhatsApp Business API Quoting & Dispatch',
+        '              │',
+        '              └──▶ Phlebotomist Dispatch & Same-Day WhatsApp Report Delivery',
+      ],
+    },
+    stack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'WhatsApp Business API', 'JSON-LD Schema', 'Vercel'],
+    link: 'https://github.com/likhith3035/svcare',
+    liveLink: 'https://svcarehealthdiagnostics.vercel.app/',
+    featured: true,
+    categories: ['Web', 'Mobile'],
+    coverImage: '/projects/svcare-cover.jpg',
   },
   {
     id: 'secure-vault',
