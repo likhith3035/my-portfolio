@@ -191,7 +191,9 @@ export default function LiquidGlassNav({
   const handlePointerDown = (e) => {
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
-    } catch (err) {}
+    } catch {
+      /* ignore pointer capture failure */
+    }
 
     dragRef.current = {
       isDown: true,
@@ -244,7 +246,9 @@ export default function LiquidGlassNav({
       if (e.currentTarget?.hasPointerCapture?.(e.pointerId)) {
         e.currentTarget.releasePointerCapture(e.pointerId);
       }
-    } catch (err) {}
+    } catch {
+      /* ignore pointer capture failure */
+    }
 
     const wasDragging = dragRef.current.isDragging;
     dragRef.current.isDown = false;

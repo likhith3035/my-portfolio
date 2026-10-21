@@ -409,22 +409,6 @@ export default function Hero({ theme, introFinished = true }) {
                     <div className={`text-[9px] font-semibold ${badgeSub}`}>for work</div>
                   </div>
                 </motion.div>
-
-                {/* ── IEEE badge — bottom-right ── */}
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.2, duration: 0.6 }}
-                  className={`absolute -bottom-5 -right-5 px-4 py-3 rounded-2xl border shadow-lg z-20 backdrop-blur-md ${badgeBg}`}>
-                  <div className={`text-xs font-black ${badgeText}`}>🏆 IEEE 2nd Prize</div>
-                  <div className={`text-[10px] font-semibold ${badgeSub}`}>TECHTATVA 2K25</div>
-                </motion.div>
-
-                {/* ── NBKRIST badge — bottom-left ── */}
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.4, duration: 0.6 }}
-                  className={`absolute -bottom-5 -left-5 px-4 py-3 rounded-2xl border shadow-lg z-20 backdrop-blur-md ${badgeBg}`}>
-                  <div className={`text-xs font-black ${badgeText}`}>🎓 NBKRIST</div>
-                  <div className={`text-[10px] font-semibold ${badgeSub}`}>AI & Data Science</div>
-                </motion.div>
               </div>
             </TiltCard>
           </motion.div>
