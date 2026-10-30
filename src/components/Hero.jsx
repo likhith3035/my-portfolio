@@ -75,6 +75,39 @@ function TiltCard({ children }) {
   );
 }
 
+/* ─── Magnetic CTA wrapper (Framer Motion springs, 60fps zero-react-render) ─── */
+function MagneticCTA({ children }) {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
+  const sy = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x: sx, y: sy }}
+      onMouseMove={(e) => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const distCenter = {
+          x: e.clientX - (rect.left + rect.width / 2),
+          y: e.clientY - (rect.top + rect.height / 2),
+        };
+        x.set(distCenter.x * 0.22);
+        y.set(distCenter.y * 0.22);
+      }}
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
+      className="inline-block"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 const STATS = [
   { raw: '5', suffix: '+', label: 'Projects' },
   { raw: '2', suffix: 'nd', label: 'IEEE Prize' },
@@ -123,21 +156,21 @@ export default function Hero({ theme, introFinished = true }) {
     <section id="home"
       className={`relative min-h-[100dvh] flex flex-col justify-center pt-24 md:pt-28 overflow-hidden transition-colors duration-300 ${sectionBg}`}>
 
-      {/* ── Ambient blobs — theme aware ── */}
+      {/* ── Ambient blobs — calibrated single-accent hierarchy ── */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className={`absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full blur-[100px] transition-opacity duration-500 ${isDark ? 'opacity-[0.09] bg-[#E67E22]' : 'opacity-[0.12] bg-[#E67E22]'}`} />
-        <div className={`absolute top-1/2 -left-40 w-96 h-96 rounded-full blur-[80px] transition-opacity duration-500 ${isDark ? 'opacity-[0.07] bg-[#A855F7]' : 'opacity-[0.06] bg-[#A855F7]'}`} />
-        <div className={`absolute -bottom-24 right-1/3 w-72 h-72 rounded-full blur-[70px] transition-opacity duration-500 ${isDark ? 'opacity-[0.05] bg-[#14B8A6]' : 'opacity-[0.05] bg-[#14B8A6]'}`} />
+        <div className={`absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full blur-[110px] transition-opacity duration-500 ${isDark ? 'opacity-[0.11] bg-[var(--accent)]' : 'opacity-[0.13] bg-[var(--accent)]'}`} />
+        <div className={`absolute top-1/2 -left-40 w-96 h-96 rounded-full blur-[90px] transition-opacity duration-500 ${isDark ? 'opacity-[0.03] bg-zinc-500' : 'opacity-[0.04] bg-zinc-400'}`} />
+        <div className={`absolute -bottom-24 right-1/3 w-72 h-72 rounded-full blur-[80px] transition-opacity duration-500 ${isDark ? 'opacity-[0.04] bg-[var(--accent)]' : 'opacity-[0.05] bg-[var(--accent)]'}`} />
         {/* Grid dot pattern */}
-        <div className={`absolute inset-0 transition-opacity duration-500 ${isDark ? 'opacity-[0.04]' : 'opacity-[0.06]'}`}
-          style={{ backgroundImage: 'radial-gradient(rgba(230,126,34,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className={`absolute inset-0 transition-opacity duration-500 ${isDark ? 'opacity-[0.03]' : 'opacity-[0.05]'}`}
+          style={{ backgroundImage: 'radial-gradient(rgba(var(--accent-rgb, 230,126,34), 0.7) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         {/* Animated floating dots */}
-        {[...Array(6)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <motion.div key={i}
             className="absolute w-1.5 h-1.5 rounded-full"
-            style={{ left: `${12 + i * 15}%`, top: `${18 + (i % 3) * 22}%`, background: i % 2 === 0 ? '#E67E22' : '#A855F7', opacity: isDark ? 0.35 : 0.2 }}
-            animate={{ y: [0, -14, 0], opacity: isDark ? [0.15, 0.4, 0.15] : [0.1, 0.25, 0.1] }}
-            transition={{ duration: 3 + i * 0.5, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }} />
+            style={{ left: `${15 + i * 18}%`, top: `${20 + (i % 3) * 20}%`, background: 'var(--accent)', opacity: isDark ? 0.25 : 0.15 }}
+            animate={{ y: [0, -12, 0], opacity: isDark ? [0.12, 0.3, 0.12] : [0.08, 0.2, 0.08] }}
+            transition={{ duration: 3.5 + i * 0.6, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }} />
         ))}
       </div>
 
@@ -238,17 +271,17 @@ export default function Hero({ theme, introFinished = true }) {
 
             <motion.div variants={fadeUp} className="flex flex-col gap-2.5 px-2">
               <button onClick={() => { sound.click(); window.__openContactModal?.(); }}
-                className="btn-primary w-full py-4 shadow-[0_8px_24px_rgba(230,126,34,0.35)] inline-flex items-center justify-center gap-2 font-bold">
+                className="btn-primary w-full py-4 shadow-[0_8px_24px_rgba(var(--accent-rgb,230,126,34),0.35)] inline-flex items-center justify-center gap-2 font-bold active:scale-[0.98] transition-transform">
                 <span>Get in touch</span>
                 <HiArrowRight size={14} />
               </button>
               <div className="grid grid-cols-2 gap-2.5">
                 <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer" onClick={() => sound.click()}
-                  className={`inline-flex items-center justify-center gap-2 border font-bold rounded-full px-5 py-3.5 text-sm active:scale-95 transition-all ${secondaryBtn}`}>
+                  className={`inline-flex items-center justify-center gap-2 border font-bold rounded-full px-5 py-3.5 text-sm active:scale-[0.98] transition-all ${secondaryBtn}`}>
                   <FaGithub size={13} /> GitHub
                 </a>
                 <button onClick={(e) => { e.preventDefault(); sound.click(); window.__openResumeModal?.(); }}
-                  className={`inline-flex items-center justify-center gap-2 bg-transparent border font-bold rounded-full px-5 py-3.5 text-sm active:scale-95 transition-all cursor-pointer ${ghostBtn}`}>
+                  className={`inline-flex items-center justify-center gap-2 bg-transparent border font-bold rounded-full px-5 py-3.5 text-sm active:scale-[0.98] transition-all cursor-pointer ${ghostBtn}`}>
                   <FaDownload size={11} /> Resume
                 </button>
               </div>
@@ -333,19 +366,25 @@ export default function Hero({ theme, introFinished = true }) {
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-3">
-              <button onClick={() => { sound.click(); window.__openContactModal?.(); }}
-                className="btn-primary px-8 py-4 text-base shadow-[0_8px_32px_rgba(230,126,34,0.4)] hover:shadow-[0_12px_40px_rgba(230,126,34,0.5)] inline-flex items-center gap-2">
-                <span>Get in touch</span>
-                <HiArrowRight size={15} />
-              </button>
-              <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer" onClick={() => sound.click()}
-                className={`inline-flex items-center gap-2 border font-bold rounded-full px-8 py-4 text-base active:scale-95 transition-all ${secondaryBtn}`}>
-                <FaGithub /> GitHub
-              </a>
-              <button onClick={(e) => { e.preventDefault(); sound.click(); window.__openResumeModal?.(); }}
-                className={`inline-flex items-center gap-2 bg-transparent border font-bold rounded-full px-8 py-4 text-base active:scale-95 transition-all cursor-pointer ${ghostBtn}`}>
-                <FaDownload size={13} /> Resume
-              </button>
+              <MagneticCTA>
+                <button onClick={() => { sound.click(); window.__openContactModal?.(); }}
+                  className="btn-primary px-8 py-4 text-base shadow-[0_8px_32px_rgba(var(--accent-rgb,230,126,34),0.35)] hover:shadow-[0_12px_40px_rgba(var(--accent-rgb,230,126,34),0.45)] inline-flex items-center gap-2 active:scale-[0.98] transition-transform">
+                  <span>Get in touch</span>
+                  <HiArrowRight size={15} />
+                </button>
+              </MagneticCTA>
+              <MagneticCTA>
+                <a href="https://github.com/likhith3035" target="_blank" rel="noreferrer" onClick={() => sound.click()}
+                  className={`inline-flex items-center gap-2 border font-bold rounded-full px-8 py-4 text-base active:scale-[0.98] transition-all ${secondaryBtn}`}>
+                  <FaGithub /> GitHub
+                </a>
+              </MagneticCTA>
+              <MagneticCTA>
+                <button onClick={(e) => { e.preventDefault(); sound.click(); window.__openResumeModal?.(); }}
+                  className={`inline-flex items-center gap-2 bg-transparent border font-bold rounded-full px-8 py-4 text-base active:scale-[0.98] transition-all cursor-pointer ${ghostBtn}`}>
+                  <FaDownload size={13} /> Resume
+                </button>
+              </MagneticCTA>
               <CopyEmailPill />
             </motion.div>
 
