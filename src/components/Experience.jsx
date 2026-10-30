@@ -39,7 +39,7 @@ const BULLETS = [
 
 const SUPRAJA_CREDENTIAL = {
   id: 'supraja-internship',
-  emoji: '🛡️',
+  icon: <FaShieldAlt size={24} className="text-[#E67E22]" />,
   title: 'Cybersecurity Intern — Supraja Technologies',
   org: 'Supraja Technologies · Vijayawada, India',
   standing: '2-Month On-Site Internship (Jun – Jul 2025)',
@@ -145,7 +145,7 @@ function AchievementGlintCard({ a, i }) {
 
   return (
     <GlintCard
-      className={`border ${a.border} bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl p-6 md:p-7 flex flex-col justify-between shadow-lg`}
+      className={`border ${a.border} bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl p-6 md:p-7 flex flex-col justify-between shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_12px_36px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.4)]`}
       onMouseEnter={() => {
         if (a.pop) {
           setShowConfetti(true);
@@ -347,7 +347,7 @@ export default function Experience() {
             </h3>
             <div className="w-12 h-1 bg-[#E67E22] rounded-full mx-auto mt-2" />
             <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">
-              Hover the 🏆 trophy card for an interactive celebration effect
+              Hover the trophy card for an interactive celebration effect
             </p>
           </motion.div>
 

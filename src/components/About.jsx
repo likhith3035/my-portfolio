@@ -159,7 +159,7 @@ export default function About() {
           
           {/* ── Bento Tile 1: Main Narrative & Core Bio (Span 7) ── */}
           <GlintCard
-            className="col-span-12 lg:col-span-7 p-7 sm:p-9 border border-zinc-200/80 dark:border-zinc-800 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-lg flex flex-col justify-between"
+            className="col-span-12 lg:col-span-7 p-7 sm:p-9 border border-zinc-200/80 dark:border-white/10 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_40px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.4)] flex flex-col justify-between"
           >
             <div className="space-y-5">
               <div className="flex items-center gap-3">
@@ -211,7 +211,7 @@ export default function About() {
 
           {/* ── Bento Tile 2: Interactive Floating Tech Stack (Span 5) ── */}
           <GlintCard
-            className="col-span-12 lg:col-span-5 p-7 sm:p-8 border border-zinc-200/80 dark:border-zinc-800 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-lg flex flex-col justify-between"
+            className="col-span-12 lg:col-span-5 p-7 sm:p-8 border border-zinc-200/80 dark:border-white/10 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_40px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.4)] flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -243,7 +243,7 @@ export default function About() {
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-grab active:cursor-grabbing border shadow-xs select-none ${
                       copiedTech === t.name
                         ? 'bg-emerald-500 text-white border-emerald-600 shadow-md'
-                        : 'bg-zinc-100/90 dark:bg-zinc-900/80 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 hover:border-[var(--accent)] hover:text-[var(--accent)]'
+                        : 'bg-zinc-100/90 dark:bg-zinc-900/80 border-zinc-200 dark:border-white/10 text-zinc-800 dark:text-zinc-200 hover:border-[var(--accent)] hover:text-[var(--accent)]'
                     }`}
                   >
                     {copiedTech === t.name ? (
@@ -269,7 +269,7 @@ export default function About() {
                   e.preventDefault();
                   window.__openResumeModal?.();
                 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white text-xs font-black transition-all active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white text-xs font-black transition-all active:scale-[0.98] cursor-pointer"
               >
                 <FaDownload size={11} /> View Resume
               </button>
@@ -278,7 +278,7 @@ export default function About() {
 
           {/* ── Bento Tile 3: Live Learning & Equalizer Pill (Span 4) ── */}
           <GlintCard
-            className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 sm:p-7 border border-zinc-200/80 dark:border-zinc-800 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-lg flex flex-col justify-between"
+            className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 sm:p-7 border border-zinc-200/80 dark:border-white/10 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_40px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.4)] flex flex-col justify-between"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -322,7 +322,7 @@ export default function About() {
 
           {/* ── Bento Tile 4: Live Location & Timezone Clock (Span 4) ── */}
           <GlintCard
-            className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 sm:p-7 border border-zinc-200/80 dark:border-zinc-800 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-lg flex flex-col justify-between"
+            className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 sm:p-7 border border-zinc-200/80 dark:border-white/10 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_40px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.4)] flex flex-col justify-between"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -363,7 +363,7 @@ export default function About() {
 
           {/* ── Bento Tile 5: Education Overview Card (Span 4) ── */}
           <GlintCard
-            className="col-span-12 lg:col-span-4 p-6 sm:p-7 border border-zinc-200/80 dark:border-zinc-800 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-lg flex flex-col justify-between"
+            className="col-span-12 lg:col-span-4 p-6 sm:p-7 border border-zinc-200/80 dark:border-white/10 bg-white/80 dark:bg-[#121216]/80 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_16px_40px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_20px_50px_rgba(0,0,0,0.4)] flex flex-col justify-between"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -416,10 +416,10 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 onClick={() => setOpenEdu(openEdu === i ? null : i)}
-                className={`p-5 sm:p-6 rounded-3xl border transition-all duration-300 cursor-pointer ${
+                className={`p-5 sm:p-6 rounded-3xl border transition-all duration-300 cursor-pointer active:scale-[0.98] ${
                   openEdu === i
-                    ? 'border-[var(--accent)] bg-zinc-50/90 dark:bg-zinc-900/90 shadow-lg scale-[1.02]'
-                    : 'border-zinc-200/80 dark:border-zinc-800 bg-white/60 dark:bg-[#121216]/60 hover:border-zinc-300 dark:hover:border-zinc-700'
+                    ? 'border-[var(--accent)] bg-zinc-50/90 dark:bg-[#15151a] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_12px_36px_rgba(var(--accent-rgb,230,126,34),0.12)] scale-[1.01]'
+                    : 'border-zinc-200/80 dark:border-white/10 bg-white/60 dark:bg-[#121216]/60 hover:border-zinc-300 dark:hover:border-white/20'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-3">
