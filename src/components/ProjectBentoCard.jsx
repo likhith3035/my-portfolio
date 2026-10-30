@@ -39,7 +39,7 @@ export default function ProjectBentoCard({ project, index }) {
       glintColor={project.colorTheme.accent || 'var(--accent)'}
       className={`group relative overflow-hidden rounded-3xl border bg-gradient-to-br transition-all duration-300 ${
         project.colorTheme.border
-      } ${project.colorTheme.from} ${project.colorTheme.via} bg-white dark:bg-[#101014] shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.4)] flex flex-col justify-between`}
+      } ${project.colorTheme.from} ${project.colorTheme.via} bg-white dark:bg-[#101014] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_12px_40px_rgba(0,0,0,0.4)] flex flex-col justify-between`}
     >
       {/* Background ambient lighting */}
       <div
