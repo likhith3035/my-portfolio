@@ -11,39 +11,39 @@ const KB = [
       "Hey! I'm Likhith — a software engineer, cybersecurity researcher, and AI developer specializing in React, Python, Firebase, Supabase, and RAG architectures.",
     ],
     followUps: [
-      { label: '🛠️ View Tech Stack', q: 'What is your tech stack?' },
-      { label: '🏆 See Hackathons', q: 'Tell me about your hackathon achievements' }
+      { label: 'Tech Stack', q: 'What is your tech stack?' },
+      { label: 'Hackathons', q: 'Tell me about your hackathon achievements' }
     ]
   },
   {
     keywords: ['skill', 'tech', 'stack', 'language', 'know', 'frontend', 'backend', 'framework'], weight: 2,
     answers: [
-      "🛠️ My full stack:\n💻 Languages: C, C++, Python, Java, JavaScript, HTML, CSS\n🌐 Frontend: React, Vite, Tailwind CSS, Framer Motion\n🔧 Backend: Firebase, Supabase, Node.js\n🤖 AI Tools: Ollama, Cursor, Antigravity IDE\n🔐 Security: Metasploit, AES-256, Ethical Hacking\n🚀 Deploy: Netlify, Vercel",
+      "My full stack:\n• Languages: C, C++, Python, Java, JavaScript, HTML, CSS\n• Frontend: React, Vite, Tailwind CSS, Framer Motion\n• Backend: Firebase, Supabase, Node.js\n• AI Tools: Ollama, Cursor, Antigravity IDE\n• Security: Metasploit, AES-256, Ethical Hacking\n• Deploy: Netlify, Vercel",
     ],
     followUps: [
-      { label: '🚀 Key Projects', q: 'What projects did you build?' },
-      { label: '💼 Cybersecurity', q: 'Tell me about your cybersecurity passion' }
+      { label: 'Key Projects', q: 'What projects did you build?' },
+      { label: 'Cybersecurity', q: 'Tell me about your cybersecurity passion' }
     ]
   },
   {
     keywords: ['project', 'built', 'portfolio', 'made', 'app', 'codebase', 'develop'], weight: 2,
     answers: [
-      "My key projects:\n🏥 SV Care Diagnostics — Clinical pathology & real-time lab platform (Next.js 14 + WhatsApp API)\n📈 CampusIQ — AI student analytics & success platform (Next.js 14 + scikit-learn)\n🎓 StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n🔒 Secure Vault — AES-256 folder encryption (Python)\n💬 Incog Talkk — WebRTC-powered anonymous chat\n🤖 Dept. AI Bot — RAG chatbot (LangChain/Flask)\n🏢 Hostel Portal — Firebase room allocation system",
+      "Key projects in my portfolio:\n• SV Care Diagnostics — Clinical pathology & real-time lab platform (Next.js 14 + WhatsApp API)\n• CampusIQ — AI student analytics & success platform (Next.js 14 + scikit-learn)\n• StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n• Secure Vault — AES-256 folder encryption (Python)\n• Incog Talkk — WebRTC-powered anonymous chat\n• Dept. AI Bot — RAG chatbot (LangChain/Flask)\n• Hostel Portal — Firebase room allocation system",
     ],
     followUps: [
-      { label: '🏥 SV Care Diagnostics', q: 'Tell me about SV Care Diagnostics' },
-      { label: '📈 CampusIQ Analytics', q: 'Tell me about CampusIQ' },
-      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' }
+      { label: 'SV Care Diagnostics', q: 'Tell me about SV Care Diagnostics' },
+      { label: 'CampusIQ Analytics', q: 'Tell me about CampusIQ' },
+      { label: 'StudentHub PWA', q: 'Tell me about StudentHub' }
     ]
   },
   {
     keywords: ['svcare', 'sv care', 'diagnostics', 'lab', 'laboratory', 'pathology', 'blood test', 'health', 'clinic'], weight: 3,
     answers: [
-      "SV Care Health Diagnostics is a real-time production clinical laboratory platform engineered for an ISO 9001:2015 certified diagnostic center in Srikalahasti. It features a 100+ medical test catalogue, automated ₹0-fee home sample collection booking, doctor prescription photo quoting via WhatsApp API, and bilingual English/Telugu accessibility! 🏥🩸\nLive App: https://svcarehealthdiagnostics.vercel.app/\nRepo: https://github.com/likhith3035/svcare",
+      "SV Care Health Diagnostics is a real-time production clinical laboratory platform engineered for an ISO 9001:2015 certified diagnostic center in Srikalahasti. It features a 100+ medical test catalogue, automated home sample collection booking, doctor prescription photo quoting via WhatsApp API, and bilingual English/Telugu accessibility.\nLive App: https://svcarehealthdiagnostics.vercel.app/\nRepo: https://github.com/likhith3035/svcare",
     ],
     followUps: [
-      { label: '📈 CampusIQ Analytics', q: 'Tell me about CampusIQ' },
-      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' }
+      { label: 'CampusIQ Analytics', q: 'Tell me about CampusIQ' },
+      { label: 'StudentHub PWA', q: 'Tell me about StudentHub' }
     ]
   },
   {
@@ -52,48 +52,48 @@ const KB = [
       "CampusIQ is an AI-powered student analytics and success platform engineered for the KPMG in India Hackathon by Team LEARNOVA (NBKRIST). It features non-linear Student Success Scoring (S³), unsupervised K-Means (k=4) behavioral clustering, Explainable AI (SHAP waterfall), and closed-loop WhatsApp interventions.\nLive Demo: https://learnonva.vercel.app/\nRepo: https://github.com/likhith3035/smart-campus",
     ],
     followUps: [
-      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' },
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' }
+      { label: 'StudentHub PWA', q: 'Tell me about StudentHub' },
+      { label: 'Tech Stack', q: 'What is your tech stack?' }
     ]
   },
   {
     keywords: ['studenthub', 'campus', 'hackprix', 'gensync', 'hackathon'], weight: 3,
     answers: [
-      "StudentHub is an all-in-one PWA super-app for college students (notes sharing, internships tracker, project collaborations, and an AI assistant integrated with Sarvam AI). Built in 36 hours at HackPrix! 🎓\nLink: https://gensync-78.vercel.app/\nLinkedIn Post: https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/",
+      "StudentHub is an all-in-one PWA super-app for college students (notes sharing, internships tracker, project collaborations, and an AI assistant integrated with Sarvam AI). Built in 36 hours at HackPrix!\nLink: https://gensync-78.vercel.app/\nLinkedIn Post: https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/",
     ],
     followUps: [
-      { label: '🏆 SRM AP Hackathon', q: 'Tell me about the SRM AP hackathon' },
-      { label: '💬 Incog Talkk Chat', q: 'Tell me about Incog Talkk project' }
+      { label: 'SRM AP Hackathon', q: 'Tell me about the SRM AP hackathon' },
+      { label: 'Incog Talkk Chat', q: 'Tell me about Incog Talkk project' }
     ]
   },
   {
     keywords: ['schrodinger', 'schrödinger', 'cat', 'srmap', 'srm', 'university'], weight: 3,
     answers: [
-      "We won 1st Place at SRM AP University's 'Mission Schrödinger's Cat' hackathon! It was a fantastic experience showcasing our GenSync platform. 🏆\nLinkedIn Post: https://www.linkedin.com/posts/likhith-kami_hackathon-firsthackathon-srmap-ugcPost-7444771007883776000-H4JA/",
+      "We achieved 1st Place recognition at SRM AP University's 'Mission Schrödinger's Cat' hackathon! It was a great experience validating our GenSync platform.\nLinkedIn Post: https://www.linkedin.com/posts/likhith-kami_hackathon-firsthackathon-srmap-ugcPost-7444771007883776000-H4JA/",
     ],
     followUps: [
-      { label: '🎓 StudentHub PWA', q: 'Tell me about StudentHub' },
-      { label: '💼 Internship', q: 'Tell me about your experience' }
+      { label: 'StudentHub PWA', q: 'Tell me about StudentHub' },
+      { label: 'Internship', q: 'Tell me about your experience' }
     ]
   },
   {
     keywords: ['secure', 'vault', 'encrypt', 'aes', 'folder'], weight: 3,
     answers: [
-      "Secure Vault encrypts entire folders using AES-256 with filename obfuscation. Gmail API is used to securely deliver verification keys. Military-grade directory protection! 🛡️\nRepo: https://github.com/likhith3035/secure-vault-folder-encryption",
+      "Secure Vault encrypts entire directories using AES-256 with filename obfuscation. The Gmail API is leveraged to securely deliver verification keys with military-grade directory protection.\nRepo: https://github.com/likhith3035/secure-vault-folder-encryption",
     ],
     followUps: [
-      { label: '🔐 Cybersecurity', q: 'Tell me about your cybersecurity passion' },
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' }
+      { label: 'Cybersecurity', q: 'Tell me about your cybersecurity passion' },
+      { label: 'Tech Stack', q: 'What is your tech stack?' }
     ]
   },
   {
     keywords: ['incog', 'talkk', 'incogtalkk', 'livetalk', 'chat', 'webrtc', 'realtime', 'p2p'], weight: 3,
     answers: [
-      "Incog Talkk is an anonymous real-time WebRTC P2P chat platform with a mobile-first UI. Built with vanilla HTML, CSS, and JS.\nLive Demo: https://incogtalkk.netlify.app/\nRepo: https://github.com/likhith3035/livetalkbylikki",
+      "Incog Talkk is an anonymous real-time WebRTC P2P chat platform with a mobile-first UI. Built with vanilla HTML, CSS, and modern JS.\nLive Demo: https://incogtalkk.netlify.app/\nRepo: https://github.com/likhith3035/livetalkbylikki",
     ],
     followUps: [
-      { label: '🏢 Hostel Portal', q: 'Tell me about Hostel Portal' },
-      { label: '📞 Contact Likhith', q: 'How can I contact you?' }
+      { label: 'Hostel Portal', q: 'Tell me about Hostel Portal' },
+      { label: 'Contact Kami', q: 'How can I contact you?' }
     ]
   },
   {
@@ -102,77 +102,77 @@ const KB = [
       "Hostel Portal manages room allocation, mess menus, and student services for NBKR. Built with React and Firebase for instant real-time data sync.\nLive Demo: https://nbkristhostelportal.netlify.app/\nRepo: https://github.com/likhith3035/hostel-portal-2",
     ],
     followUps: [
-      { label: '💬 Incog Talkk Chat', q: 'Tell me about Incog Talkk project' },
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' }
+      { label: 'Incog Talkk Chat', q: 'Tell me about Incog Talkk project' },
+      { label: 'Tech Stack', q: 'What is your tech stack?' }
     ]
   },
   {
     keywords: ['education', 'college', 'study', 'degree', 'btech', 'nbkrist', 'school', 'cgpa', 'grades'], weight: 2,
     answers: [
-      "📚 Education Details:\n• B.Tech in AI & Data Science — NBKRIST (N.B.K.R. Institute of Science and Technology), Vidyanagar (2023–Present) · CGPA: 7.5 / 10\n• Intermediate MPC — Vamsi Junior College, Srikalahasti (2021–2023)\n• SSC — RPBS ZP High School, Srikalahasti (2020)\n\nLikhith maintains a strong 7.5 CGPA and combines rigorous academics with active hackathon and system building!",
+      "Education Details:\n• B.Tech in AI & Data Science — NBKRIST (N.B.K.R. Institute of Science and Technology), Vidyanagar (2023–Present) · CGPA: 7.5 / 10\n• Intermediate MPC — Vamsi Junior College, Srikalahasti (2021–2023)\n• SSC — RPBS ZP High School, Srikalahasti (2020)\n\nI combine rigorous engineering academics with active hackathon competitions and real-world system architecture.",
     ],
     followUps: [
-      { label: '💼 Internship', q: 'Tell me about your experience' },
-      { label: '🏆 Achievements', q: 'Tell me about your hackathon achievements' }
+      { label: 'Internship', q: 'Tell me about your experience' },
+      { label: 'Achievements', q: 'Tell me about your hackathon achievements' }
     ]
   },
   {
     keywords: ['experience', 'intern', 'job', 'supraja', 'internship', 'work'], weight: 3,
     answers: [
-      "Worked as a Cybersecurity Intern at Supraja Technologies (June–July 2025). Gained hands-on experience using Metasploit for penetration testing, vulnerability assessments, and network scanning. 🔒",
+      "Worked as a Cybersecurity Intern at Supraja Technologies (June–July 2025). Conducted hands-on penetration testing with Metasploit, vulnerability assessments, and network security auditing.",
     ],
     followUps: [
-      { label: '🔐 Cybersecurity', q: 'Tell me about your cybersecurity passion' },
-      { label: '📞 Contact Info', q: 'How can I contact you?' }
+      { label: 'Cybersecurity', q: 'Tell me about your cybersecurity passion' },
+      { label: 'Contact Info', q: 'How can I contact you?' }
     ]
   },
   {
     keywords: ['contact', 'email', 'phone', 'reach', 'hire', 'connect', 'message', 'address', 'whatsapp'], weight: 2,
     answers: [
-      "Let's connect! 📞\n📧 kamilikhith@gmail.com\n📱 +91 8885426155\n💼 linkedin.com/in/likhith-kami\n\nFeel free to send a message directly using the 'Send Message' contact form on this website!",
+      "Direct Contact Channels:\n• Email: kamilikhith@gmail.com\n• Phone: +91 8885426155\n• LinkedIn: linkedin.com/in/likhith-kami\n\nYou can also transmit a direct message using the contact modal form on this website.",
     ],
     followUps: [
-      { label: '💼 LinkedIn Profile', q: 'Show me your linkedin' },
-      { label: '📸 Instagram', q: 'Show me your instagram' }
+      { label: 'LinkedIn Profile', q: 'Show me your linkedin' },
+      { label: 'Instagram', q: 'Show me your instagram' }
     ]
   },
   {
     keywords: ['github', 'code', 'repo', 'source', 'repositories'], weight: 2,
     answers: [
-      "Check out my repositories and open-source contributions at:\n💻 github.com/likhith3035 🚀",
+      "Check out my open repositories and code at:\ngithub.com/likhith3035",
     ],
     followUps: [
-      { label: '🚀 Key Projects', q: 'What projects did you build?' },
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' }
+      { label: 'Key Projects', q: 'What projects did you build?' },
+      { label: 'Tech Stack', q: 'What is your tech stack?' }
     ]
   },
   {
     keywords: ['social', 'instagram', 'linkedin', 'insta', 'twitter'], weight: 2,
     answers: [
-      "Connect with me on socials:\n💼 LinkedIn: linkedin.com/in/likhith-kami\n📸 Instagram: @lucky__likhith\n💻 GitHub: github.com/likhith3035",
+      "Connect with me:\n• LinkedIn: linkedin.com/in/likhith-kami\n• Instagram: @lucky__likhith\n• GitHub: github.com/likhith3035",
     ],
     followUps: [
-      { label: '📧 Contact Email', q: 'How can I contact you?' },
-      { label: '🚀 Key Projects', q: 'What projects did you build?' }
+      { label: 'Contact Email', q: 'How can I contact you?' },
+      { label: 'Key Projects', q: 'What projects did you build?' }
     ]
   },
   {
     keywords: ['cyber', 'security', 'hack', 'metasploit', 'penetration', 'ethical', 'exploit'], weight: 3,
     answers: [
-      "Cybersecurity is a core passion! I specialize in penetration testing with Metasploit, folder encryption tools (AES-256), and did a 2-month internship at Supraja Technologies focusing on ethical hacking. 🛡️",
+      "Cybersecurity is a core focus! I specialize in vulnerability scanning and penetration testing with Metasploit, folder cryptographic protection (AES-256), and completed an on-site internship at Supraja Technologies.",
     ],
     followUps: [
-      { label: '🔒 Secure Vault Project', q: 'Tell me about Secure Vault' },
-      { label: '💼 Cybersecurity Internship', q: 'Tell me about your internship' }
+      { label: 'Secure Vault', q: 'Tell me about Secure Vault' },
+      { label: 'Internship', q: 'Tell me about your internship' }
     ]
   },
   {
     keywords: ['ai', 'artificial', 'intelligence', 'llm', 'sarvam', 'rag', 'ollama', 'cursor', 'antigravity'], weight: 2,
     answers: [
-      "I love utilizing advanced AI models. I build web applications using Sarvam AI, deploy local LLMs using Ollama, write code with Cursor and Antigravity IDE, and study AI & Data Science at NBKRIST! 🤖",
+      "I engineer with modern AI architectures: integrating multilingual voice models with Sarvam AI, deploying local LLMs with Ollama, development using Cursor and Antigravity IDE, and researching AI & Data Science at NBKRIST.",
     ],
     followUps: [
-      { label: 'AI & Engineering Tools', q: 'What tools and AI workflows do you use?' },
+      { label: 'Engineering Tools', q: 'What tools and AI workflows do you use?' },
       { label: 'Key Projects', q: 'Tell me about your key projects' }
     ]
   },
@@ -189,81 +189,81 @@ const KB = [
   {
     keywords: ['location', 'live', 'resident', 'srikalahasti', 'andhra', 'india'], weight: 2,
     answers: [
-      "I live in Srikalahasti, Andhra Pradesh, India. 📍",
+      "I am based in Srikalahasti, Andhra Pradesh, India (IST / UTC +05:30).",
     ],
     followUps: [
-      { label: '📧 Contact Email', q: 'How can I contact you?' },
-      { label: '🎓 College Info', q: 'Where do you study?' }
+      { label: 'Contact Email', q: 'How can I contact you?' },
+      { label: 'College Info', q: 'Where do you study?' }
     ]
   },
   {
     keywords: ['freelance', 'available', 'contract', 'remote', 'hire me'], weight: 2,
     answers: [
-      "Yes! I am available for full stack development, cybersecurity auditing, and AI/RAG integrations on a freelance or internship basis. Email me at kamilikhith@gmail.com! 📧",
+      "Yes! I am open to full-stack engineering, cybersecurity auditing, and AI/RAG integrations on a freelance, contract, or internship basis. Reach out at kamilikhith@gmail.com.",
     ],
     followUps: [
-      { label: '📧 Send Email', q: 'How can I contact you?' },
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' }
+      { label: 'Send Email', q: 'How can I contact you?' },
+      { label: 'Tech Stack', q: 'What is your tech stack?' }
     ]
   },
   {
     keywords: ['coffee', 'support', 'sponsor', 'donate', 'buy'], weight: 2,
     answers: [
-      "Thank you! You can support my work by starring my projects on GitHub or reaching out to collaborate! ☕",
+      "Thank you! You can support my work by starring my repositories on GitHub or reaching out to collaborate.",
     ],
     followUps: [
-      { label: '💻 GitHub Profile', q: 'Show me your github' },
-      { label: '📧 Reach Out', q: 'How can I contact you?' }
+      { label: 'GitHub Profile', q: 'Show me your github' },
+      { label: 'Reach Out', q: 'How can I contact you?' }
     ]
   },
   {
     keywords: ['hello', 'hi', 'hey', 'hola', 'sup', 'yo', 'greetings'], weight: 1,
     answers: [
-      "Hey there! 👋 I'm Likhith's AI assistant. Ask me about his projects (CampusIQ, StudentHub, Secure Vault, Incog Talkk), tech stack, experience, or contact info!",
-      "Hello! 😊 I can tell you about Likhith's skills, hackathons (HackPrix/SRM AP), or education. What would you like to know?",
+      "Hello! I am Likhith's portfolio copilot. Ask me about projects (CampusIQ, StudentHub, Secure Vault, Incog Talkk), technical stack, experience, or contact information.",
+      "Greetings! I can share details regarding Likhith's skills, hackathons (HackPrix/SRM AP), and architecture. What would you like to explore?",
     ],
     followUps: [
-      { label: '🚀 Projects', q: 'What projects did you build?' },
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' },
-      { label: '📞 Contact', q: 'How can I contact you?' }
+      { label: 'Projects', q: 'What projects did you build?' },
+      { label: 'Tech Stack', q: 'What is your tech stack?' },
+      { label: 'Contact', q: 'How can I contact you?' }
     ]
   },
   {
     keywords: ['thank', 'thanks', 'bye', 'awesome', 'cool', 'great', 'good'], weight: 1,
     answers: [
-      "Glad I could help! Feel free to reach out to Likhith anytime. 🎉",
-      "You're welcome! Let me know if you have any other questions. 🚀",
+      "Glad I could assist! Feel free to connect with Likhith directly at any time.",
+      "You're welcome! Feel free to ask if there are any other architecture or project questions.",
     ],
     followUps: [
-      { label: '📧 Contact Likhith', q: 'How can I contact you?' },
-      { label: '🚀 View Projects', q: 'What projects did you build?' }
+      { label: 'Contact Likhith', q: 'How can I contact you?' },
+      { label: 'View Projects', q: 'What projects did you build?' }
     ]
   },
   {
     keywords: ['age', 'old', 'birthday', 'born'], weight: 2,
     answers: [
-      "I am currently a B.Tech student in college (2023-Present batch), focusing on AI, Data Science, and Cybersecurity! 🎓",
+      "I am currently in my university junior year (2023–2027 batch), focusing on AI, Data Science, and Cybersecurity.",
     ],
     followUps: [
-      { label: '🎓 College Info', q: 'Where do you study?' },
-      { label: '🏆 Hackathons', q: 'Tell me about your hackathon achievements' }
+      { label: 'College Info', q: 'Where do you study?' },
+      { label: 'Hackathons', q: 'Tell me about your hackathon achievements' }
     ]
   },
   {
     keywords: ['bot', 'ai', 'assistant', 'system', 'who are you', 'developer'], weight: 2,
     answers: [
-      "I am a custom portfolio AI assistant developed to answer questions about Kami Likhith's skills, projects, and background. 🤖",
+      "I am an engineered portfolio assistant designed to answer technical inquiries regarding Kami Likhith's architecture, projects, and credentials.",
     ],
     followUps: [
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' },
-      { label: '🚀 Key Projects', q: 'What projects did you build?' }
+      { label: 'Tech Stack', q: 'What is your tech stack?' },
+      { label: 'Key Projects', q: 'What projects did you build?' }
     ]
   },
 ];
 
 function getBotReply(input) {
   const lower = input.toLowerCase().trim();
-  if (!lower) return { text: "Ask me anything about Likhith! 😊", followUps: [] };
+  if (!lower) return { text: "Ask me anything regarding Likhith's technical work and projects.", followUps: [] };
   
   let best = null, bestScore = 0;
   for (const entry of KB) {
@@ -297,17 +297,17 @@ function getBotReply(input) {
   }
   
   const fallbacks = [
-    "Try asking about Likhith's projects, skills, AI tools, or experience! 😊",
-    "I know a lot about Likhith's tech stack, projects (CampusIQ, StudentHub, Secure Vault, Incog Talkk, Hostel Portal), and hackathons. What do you want to know? 🤔",
-    "Ask me about projects, credentials, or how to get in touch!",
+    "Feel free to ask about Likhith's projects, technical stack, AI tools, or cybersecurity background.",
+    "I have in-depth knowledge regarding CampusIQ, StudentHub, SV Care Diagnostics, Secure Vault, and hackathon milestones. Which would you like to explore?",
+    "Ask me about projects, credentials, or how to get in touch directly.",
   ];
   
   return {
     text: fallbacks[Math.floor(Math.random() * fallbacks.length)],
     followUps: [
-      { label: '🚀 Projects', q: 'What projects did you build?' },
-      { label: '🛠️ Tech Stack', q: 'What is your tech stack?' },
-      { label: '📞 Contact', q: 'How can I contact you?' }
+      { label: 'Projects', q: 'What projects did you build?' },
+      { label: 'Tech Stack', q: 'What is your tech stack?' },
+      { label: 'Contact', q: 'How can I contact you?' }
     ]
   };
 }
@@ -331,11 +331,11 @@ export default function ChatBot() {
   const [messages, setMessages] = useState([
     {
       from: 'bot',
-      text: "Hey! 👋 I'm Likhith's portfolio assistant. Ask me anything — skills, projects, or how to reach him!",
+      text: "Hello! I am Kami Likhith's portfolio copilot. Ask me about architecture, projects, full-stack systems, or how to connect.",
       followUps: [
-        { label: '🚀 Projects', q: 'What projects did you build?' },
-        { label: '🛠️ Tech Stack', q: 'What is your tech stack?' },
-        { label: '💼 Experience', q: 'Tell me about your experience' }
+        { label: 'Projects', q: 'What projects did you build?' },
+        { label: 'Tech Stack', q: 'What is your tech stack?' },
+        { label: 'Experience', q: 'Tell me about your experience' }
       ]
     },
   ]);
@@ -422,7 +422,7 @@ export default function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="fixed z-[89] bg-white dark:bg-[#111113] border border-zinc-200/60 dark:border-zinc-800 rounded-2xl shadow-[0_24px_64px_rgba(0,0,0,0.18)] dark:shadow-[0_24px_64px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden transition-colors duration-300
+            className="fixed z-[89] bg-white/95 dark:bg-[#0e0e12]/92 backdrop-blur-2xl border border-zinc-200/80 dark:border-white/10 rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_24px_64px_rgba(0,0,0,0.55)] flex flex-col overflow-hidden transition-colors duration-300
               /* mobile: full width strip above FAB */
               bottom-24 left-3 right-3
               /* sm+: fixed right panel */
@@ -431,27 +431,27 @@ export default function ChatBot() {
               max-h-[70vh] sm:max-h-[520px]"
           >
             {/* Header */}
-            <div className="flex items-center gap-3 px-4 py-3.5 bg-zinc-900 dark:bg-[#0d0d0f] border-b border-zinc-800 flex-shrink-0">
-              <div className="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center flex-shrink-0">
+            <div className="flex items-center gap-3 px-4 py-3.5 bg-zinc-900/95 dark:bg-white/[0.03] border-b border-zinc-800 dark:border-white/10 flex-shrink-0 backdrop-blur-md">
+              <div className="w-9 h-9 rounded-full bg-zinc-800 dark:bg-white/10 border border-zinc-700 dark:border-white/10 flex items-center justify-center flex-shrink-0">
                 <FaRobot className="text-[#E67E22]" size={15} />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="font-extrabold text-white text-sm leading-tight">AI Assistant</h4>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse" />
-                  <p className="text-[10px] text-zinc-400 font-semibold">Online · Powered by Guided Knowledge Base</p>
+                  <p className="text-[10px] text-zinc-400 font-semibold">Online · Guided Technical Assistant</p>
                 </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="w-7 h-7 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-colors flex-shrink-0"
+                className="w-7 h-7 rounded-full bg-zinc-800 dark:bg-white/10 hover:bg-zinc-700 dark:hover:bg-white/20 flex items-center justify-center text-zinc-400 hover:text-white transition-all active:scale-95 flex-shrink-0"
               >
                 <FaTimes size={11} />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50/60 dark:bg-[#0a0a0c]">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50/60 dark:bg-[#0a0a0c]/80">
               {messages.map((msg, i) => {
                 const isLastBot = msg.from === 'bot' && i === messages.length - 1;
                 return (
@@ -471,7 +471,7 @@ export default function ChatBot() {
                         className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl text-sm font-medium whitespace-pre-line leading-relaxed shadow-sm ${
                           msg.from === 'user'
                             ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-br-sm'
-                            : 'bg-white dark:bg-[#1a1a1e] text-zinc-800 dark:text-zinc-200 border border-zinc-100 dark:border-zinc-800 rounded-bl-sm'
+                            : 'bg-white dark:bg-[#18181c] text-zinc-800 dark:text-zinc-200 border border-zinc-200/60 dark:border-white/5 rounded-bl-sm'
                         }`}
                       >
                         {msg.from === 'bot' ? formatText(msg.text) : msg.text}
@@ -490,7 +490,7 @@ export default function ChatBot() {
                           <button
                             key={idx}
                             onClick={() => send(chip.q)}
-                            className="bg-white dark:bg-[#1a1a1e] hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 text-[11px] font-bold px-3 py-1.5 rounded-full border border-zinc-200/60 dark:border-zinc-800/80 shadow-sm transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+                            className="bg-white dark:bg-[#18181c] hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 text-[11px] font-bold px-3 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/10 shadow-sm transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
                           >
                             {chip.label}
                           </button>
@@ -506,7 +506,7 @@ export default function ChatBot() {
                   <div className="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0">
                     <FaRobot size={9} className="text-[#E67E22]" />
                   </div>
-                  <div className="bg-white dark:bg-[#1a1a1e] border border-zinc-100 dark:border-zinc-800 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1.5 shadow-sm">
+                  <div className="bg-white dark:bg-[#18181c] border border-zinc-200/60 dark:border-white/5 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1.5 shadow-sm">
                     {[0, 150, 300].map(delay => (
                       <span
                         key={delay}
@@ -521,7 +521,7 @@ export default function ChatBot() {
             </div>
 
             {/* Input */}
-            <div className="flex items-center gap-2 p-3 border-t border-zinc-100 dark:border-zinc-800/60 bg-white dark:bg-[#111113] flex-shrink-0">
+            <div className="flex items-center gap-2 p-3 border-t border-zinc-200/80 dark:border-white/10 bg-white/95 dark:bg-[#0e0e12]/95 backdrop-blur-md flex-shrink-0">
               <input
                 ref={inputRef}
                 type="text"
@@ -529,13 +529,13 @@ export default function ChatBot() {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && !e.shiftKey && send()}
                 placeholder="Ask anything..."
-                className="flex-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 rounded-full px-4 py-2.5 text-sm font-medium outline-none focus:ring-2 focus:ring-[#E67E22]/30 transition-all"
+                className="flex-1 bg-zinc-100 dark:bg-white/[0.05] text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 rounded-full px-4 py-2.5 text-sm font-medium outline-none focus:ring-2 focus:ring-[#E67E22]/30 transition-all border border-transparent dark:border-white/5"
               />
               <motion.button
                 onClick={() => send()}
                 whileHover={{ scale: 1.07 }}
                 whileTap={{ scale: 0.93 }}
-                className="w-10 h-10 rounded-full bg-[#E67E22] text-white flex items-center justify-center flex-shrink-0 shadow-sm hover:bg-[#d35400] transition-colors"
+                className="w-10 h-10 rounded-full bg-[#E67E22] text-white flex items-center justify-center flex-shrink-0 shadow-[0_4px_16px_rgba(230,126,34,0.35)] hover:bg-[#d35400] transition-all cursor-pointer"
               >
                 <FaPaperPlane size={12} />
               </motion.button>

@@ -57,26 +57,26 @@ export default function Support() {
 
             <div className="flex flex-wrap gap-3 pt-1">
               <motion.a
-                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
+                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 href="https://github.com/sponsors/likhith3035"
                 target="_blank" rel="noreferrer"
-                className="btn-primary px-7 py-4 text-white shadow-md inline-flex items-center gap-2"
+                className="btn-primary px-7 py-4 text-white shadow-[0_8px_24px_rgba(var(--accent-rgb,230,126,34),0.35)] inline-flex items-center gap-2 active:scale-[0.98] transition-transform"
               >
                 <FaHeart size={13} /> Sponsor on GitHub
               </motion.a>
               <motion.a
-                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
+                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 href="https://github.com/likhith3035"
                 target="_blank" rel="noreferrer"
-                className="btn-ghost px-6 py-4"
+                className="btn-ghost px-6 py-4 active:scale-[0.98] transition-transform"
               >
                 <FaStar size={13} /> Star Repo
               </motion.a>
               <motion.a
-                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.97 }}
+                whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 href="https://github.com/likhith3035/my-portfolio"
                 target="_blank" rel="noreferrer"
-                className="btn-ghost px-6 py-4"
+                className="btn-ghost px-6 py-4 active:scale-[0.98] transition-transform"
               >
                 <FaGithub size={13} /> View Source
               </motion.a>
@@ -98,7 +98,7 @@ export default function Support() {
             >
               {/* Decorative background blob */}
               <div className="absolute inset-0 -m-4 rounded-3xl bg-[var(--accent)]/5 blur-2xl" />
-              <div className="relative card border border-zinc-200/60 dark:border-zinc-800 overflow-hidden p-2 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_64px_rgba(0,0,0,0.5)]">
+              <div className="relative card border border-zinc-200/80 dark:border-white/10 overflow-hidden p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_24px_64px_-12px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_64px_rgba(0,0,0,0.5)]">
                 <img
                   src="/support-sculpture.png"
                   alt="Support my work"
