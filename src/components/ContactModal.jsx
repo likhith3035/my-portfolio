@@ -106,8 +106,8 @@ export default function ContactModal({ isOpen, onClose }) {
     `Hi Kami,\n\nName: ${draft.name}\nEmail: ${draft.email}\n\nMessage:\n${draft.message}`
   )}`;
 
-  const inputCls = `w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3.5 font-medium text-sm text-white
-    focus:outline-none focus:border-[var(--accent)] transition-colors placeholder:text-zinc-400`;
+  const inputCls = `w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 font-medium text-sm text-white
+    focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]/50 transition-all placeholder:text-zinc-500`;
 
   return (
     <AnimatePresence>
@@ -118,23 +118,23 @@ export default function ContactModal({ isOpen, onClose }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/75 backdrop-blur-sm z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
+          className="fixed inset-0 bg-black/75 backdrop-blur-xl z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
         >
           <motion.div
-            initial={{ y: 80, opacity: 0, scale: 0.97 }}
+            initial={{ y: 60, opacity: 0, scale: 0.96 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 60, opacity: 0, scale: 0.97 }}
-            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+            exit={{ y: 50, opacity: 0, scale: 0.97 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full sm:max-w-lg bg-[#111113] border border-zinc-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 relative shadow-[0_32px_90px_rgba(0,0,0,0.5)]"
+            className="w-full sm:max-w-lg bg-[#0e0e12]/92 backdrop-blur-2xl border border-white/10 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 relative shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_32px_90px_rgba(0,0,0,0.65)]"
           >
             {/* Drag handle – mobile */}
-            <div className="sm:hidden w-10 h-1 bg-zinc-700 rounded-full mx-auto mb-5" />
+            <div className="sm:hidden w-10 h-1 bg-white/20 rounded-full mx-auto mb-5" />
 
-            {/* Close button */}
+            {/* Close button with subtle liquid refraction */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-all active:scale-95 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]"
               aria-label="Close modal"
             >
               <FaTimes size={12} />
@@ -173,7 +173,7 @@ export default function ContactModal({ isOpen, onClose }) {
                   <motion.div
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 space-y-3"
+                    className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 space-y-3 shadow-[inset_0_1px_0_rgba(244,63,94,0.15)]"
                   >
                     <div className="flex items-start gap-3">
                       <FaExclamationTriangle className="text-rose-400 shrink-0 mt-0.5" size={15} />
@@ -186,14 +186,14 @@ export default function ContactModal({ isOpen, onClose }) {
                     <div className="pt-1 flex flex-col sm:flex-row gap-2">
                       <a
                         href={mailtoHref}
-                        className="btn-primary text-xs py-2.5 px-4 justify-center bg-rose-600 hover:bg-rose-700 shadow-none border-none"
+                        className="btn-primary text-xs py-2.5 px-4 justify-center bg-rose-600 hover:bg-rose-700 shadow-none border-none active:scale-[0.98] transition-transform"
                       >
                         <FaEnvelope size={11} /> Send via Mail Client (Zero Loss)
                       </a>
                       <button
                         type="button"
                         onClick={() => setStatus('idle')}
-                        className="btn-secondary text-xs py-2.5 px-4 justify-center"
+                        className="btn-secondary text-xs py-2.5 px-4 justify-center active:scale-[0.98] transition-transform"
                       >
                         <FaRedo size={10} /> Try Again
                       </button>
@@ -253,9 +253,10 @@ export default function ContactModal({ isOpen, onClose }) {
                   <motion.button
                     type="submit"
                     disabled={loading}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="btn-primary w-full py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed"
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                    className="btn-primary w-full py-4 text-base disabled:opacity-60 disabled:cursor-not-allowed shadow-[0_8px_24px_rgba(var(--accent-rgb,230,126,34),0.35)]"
                   >
                     {loading ? (
                       <span className="flex items-center gap-2">

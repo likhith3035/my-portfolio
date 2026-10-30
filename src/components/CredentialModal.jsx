@@ -47,7 +47,7 @@ export default function CredentialModal({ isOpen, credential, onClose }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/80 backdrop-blur-xl"
           />
 
           {/* Modal Container */}
@@ -55,15 +55,15 @@ export default function CredentialModal({ isOpen, credential, onClose }) {
             initial={{ opacity: 0, scale: 0.94, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 24 }}
-            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl bg-white dark:bg-[#111113] rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-[0_32px_90px_rgba(0,0,0,0.4)] flex flex-col overflow-hidden z-10 my-auto"
+            className="relative w-full max-w-2xl bg-white/95 dark:bg-[#0e0e12]/92 backdrop-blur-2xl rounded-3xl border border-zinc-200/80 dark:border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_32px_90px_rgba(0,0,0,0.55)] flex flex-col overflow-hidden z-10 my-auto"
           >
             {/* Top decorative accent bar */}
             <div className="h-1.5 w-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-[#10b981]" />
 
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-zinc-900/30">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-100 dark:border-white/10 bg-zinc-50/70 dark:bg-white/[0.02]">
               <div className="flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-[11px] font-black tracking-wider uppercase text-emerald-600 dark:text-emerald-400">
@@ -75,7 +75,7 @@ export default function CredentialModal({ isOpen, credential, onClose }) {
                   sound.click();
                   onClose();
                 }}
-                className="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800 hover:bg-rose-500 hover:text-white text-zinc-500 dark:text-zinc-400 flex items-center justify-center text-xs transition-colors"
+                className="w-8 h-8 rounded-full bg-zinc-200/80 dark:bg-white/10 hover:bg-rose-500 hover:text-white text-zinc-500 dark:text-zinc-300 flex items-center justify-center text-xs transition-all active:scale-95"
                 title="Close (Esc)"
               >
                 <FaTimes size={12} />
@@ -91,9 +91,15 @@ export default function CredentialModal({ isOpen, credential, onClose }) {
                   <FaAward size={260} />
                 </div>
 
-                {/* Badge Icon */}
-                <div className="relative mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 border border-amber-500/30 flex items-center justify-center shadow-inner">
-                  <span className="text-3xl select-none">{credential.emoji || '🏆'}</span>
+                {/* Badge Icon (Vectorized - Anti-Emoji) */}
+                <div className="relative mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 border border-amber-500/30 flex items-center justify-center shadow-inner text-amber-500 dark:text-amber-400">
+                  {credential.id === 'supraja-internship' ? (
+                    <FaAward size={28} />
+                  ) : credential.icon ? (
+                    credential.icon
+                  ) : (
+                    <FaAward size={28} />
+                  )}
                   <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] shadow-sm">
                     <FaCheckCircle />
                   </div>
