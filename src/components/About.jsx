@@ -18,8 +18,11 @@ import {
   FaCube,
   FaExternalLinkAlt,
   FaLayerGroup,
+  FaPenNib,
+  FaStamp,
 } from 'react-icons/fa';
 import GlintCard from './GlintCard';
+import { sound } from '../utils/sound';
 
 /* ─── Education Data ─── */
 const EDUCATION = [
@@ -465,6 +468,47 @@ export default function About() {
               </motion.div>
             ))}
           </div>
+
+          {/* Author Calligraphy & Guestbook Interactive Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="p-6 sm:p-7 rounded-3xl border border-zinc-200/80 dark:border-white/10 bg-gradient-to-r from-amber-500/[0.04] via-orange-500/[0.06] to-transparent dark:from-white/[0.03] dark:to-transparent flex flex-col md:flex-row items-center justify-between gap-6"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--accent)]/15 border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] shrink-0 shadow-xs">
+                <FaPenNib size={22} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h4 className="text-base font-black text-zinc-900 dark:text-white uppercase tracking-tight">
+                    Author's Calligraphy Seal & Guestbook
+                  </h4>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/25">
+                    Interactive
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-xl font-medium">
+                  Watch the 18K fountain pen write the official signature or leave your own authenticated mark on the visitor ledger.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
+              <button
+                onClick={() => {
+                  sound.pop();
+                  window.__openSignatureModal?.();
+                }}
+                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[var(--accent)] text-white text-xs font-black uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all shadow-md cursor-pointer"
+              >
+                <FaPenNib size={12} />
+                <span>Launch Studio</span>
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
