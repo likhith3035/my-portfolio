@@ -82,6 +82,7 @@ export default function ContactModal({ isOpen, onClose }) {
 
       if (success) {
         sound.success();
+        window.__triggerConfetti?.();
         setStatus('success');
         setTimeout(() => {
           onClose();

@@ -73,6 +73,11 @@ It serves as both an interactive personal brand showcase and an engineering play
 - Interactive screenshot inspection (`ProjectScreenshotModal.jsx`) allowing deep dives into system diagrams and UI workflows without leaving the page.
 - Direct PDF resume viewing (`ResumeModal.jsx`) and official certification verification (`CredentialModal.jsx`).
 
+### ✒️ 7. 18K Fountain Pen Calligraphy Studio & Visitor Guestbook
+- Interactive vector calligraphy suite (`FountainPenSignature.jsx`) accessible from the Command Palette, Footer, and About section.
+- **Author's Seal:** Real-time 18K gold fountain pen nib with dynamic tangent tilt, micro-ink sheen, speed controls (0.75x–1.5x), and 5 archival ink palettes.
+- **Visitor Guestbook Canvas:** High-DPI pressure-simulated drawing canvas for visitors and recruiters to sign or doodle, export certified PNG plaques, and seal entries in local storage.
+
 ---
 
 ## ⌨️ Keyboard Shortcuts
