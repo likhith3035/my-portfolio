@@ -21,10 +21,12 @@ const CustomCursor = lazy(() => import('./components/CustomCursor'));
 const ResumeModal = lazy(() => import('./components/ResumeModal'));
 const CredentialModal = lazy(() => import('./components/CredentialModal'));
 const FloatingHeartsOverlay = lazy(() => import('./components/FloatingHeartsOverlay'));
+const FountainPenSignature = lazy(() => import('./components/FountainPenSignature'));
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const [signatureOpen, setSignatureOpen] = useState(false);
   const [activeCredential, setActiveCredential] = useState(null);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [matrixActive, setMatrixActive] = useState(false);
@@ -97,6 +99,7 @@ export default function App() {
   useEffect(() => {
     window.__openContactModal = () => setContactOpen(true);
     window.__openResumeModal = () => setResumeOpen(true);
+    window.__openSignatureModal = () => setSignatureOpen(true);
     window.__openCredentialModal = (cred) => setActiveCredential(cred);
     window.__openCommandPalette = () => setCommandPaletteOpen(true);
     window.__triggerMatrix = () => setMatrixActive(true);
@@ -104,6 +107,7 @@ export default function App() {
     return () => {
       delete window.__openContactModal;
       delete window.__openResumeModal;
+      delete window.__openSignatureModal;
       delete window.__openCredentialModal;
       delete window.__openCommandPalette;
       delete window.__triggerMatrix;
@@ -140,6 +144,7 @@ export default function App() {
         <CustomCursor />
         {contactOpen && <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />}
         {resumeOpen && <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />}
+        {signatureOpen && <FountainPenSignature isOpen={signatureOpen} onClose={() => setSignatureOpen(false)} />}
         {activeCredential && (
           <CredentialModal
             isOpen={!!activeCredential}
