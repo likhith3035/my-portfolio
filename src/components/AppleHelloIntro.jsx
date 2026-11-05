@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AppleNameEffect from './AppleNameEffect';
+import { sound } from '@/utils/sound';
 
 // English + Telugu, Hindi, Tamil, Kannada, Kerala (Malayalam) only
 const GREETINGS = [
@@ -15,13 +16,19 @@ const GREETINGS = [
 export default function AppleHelloIntro({ theme = 'light', onComplete }) {
   const isDark = theme === 'dark';
   const [greetingIndex, setGreetingIndex] = useState(0);
-  const [showSubtitle, setShowSubtitle] = useState(false);
+  const [counter, setCounter] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const completedRef = useRef(false);
 
   const finishIntro = useCallback(() => {
     if (isExiting || isDone) return;
     setIsExiting(true);
+    try {
+      sound.introLaunch();
+    } catch {
+      // ignore
+    }
     try {
       sessionStorage.setItem('portfolio_intro_seen', 'true');
     } catch {
@@ -41,14 +48,23 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     return () => clearInterval(greetingTimer);
   }, []);
 
-  // Handle handwriting animation completion
-  const handleAnimationComplete = () => {
-    setShowSubtitle(true);
-    // Display completed signature for 1.4s before smoothly transitioning to portfolio
+  // Update progress counter synced to the drawing
+  const handleProgress = useCallback((progress) => {
+    const val = Math.min(100, Math.floor(progress * 100));
+    setCounter(val);
+  }, []);
+
+  // Handle animation completion
+  const handleAnimationComplete = useCallback(() => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    setCounter(100);
+
+    // Hold finished intro for 1.1s so visitor can appreciate it, then transition
     setTimeout(() => {
       finishIntro();
-    }, 1400);
-  };
+    }, 1100);
+  }, [finishIntro]);
 
   // Keyboard shortcut (Space, Enter, Escape) to skip instantly
   useEffect(() => {
@@ -62,7 +78,7 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [finishIntro]);
 
-  // Safety fallback timeout: ensure intro never hangs
+  // Safety fallback timeout
   useEffect(() => {
     const safetyTimer = setTimeout(() => {
       finishIntro();
@@ -70,40 +86,38 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     return () => clearTimeout(safetyTimer);
   }, [finishIntro]);
 
-  // Reveal subtitle towards the end of handwriting
-  useEffect(() => {
-    const subtitleTimer = setTimeout(() => {
-      setShowSubtitle(true);
-    }, 3200);
-    return () => clearTimeout(subtitleTimer);
-  }, []);
-
   if (isDone) return null;
 
   return (
     <AnimatePresence>
       {!isDone && (
         <motion.div
-          key="apple-name-intro-overlay"
+          key="executive-name-intro-overlay"
           initial={{ opacity: 1 }}
           animate={
             isExiting
-              ? { opacity: 0, scale: 1.02, filter: 'blur(8px)' }
+              ? { opacity: 0, scale: 1.03, filter: 'blur(10px)' }
               : { opacity: 1, scale: 1, filter: 'blur(0px)' }
           }
-          exit={{ opacity: 0, scale: 1.02, filter: 'blur(8px)' }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          exit={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           onClick={finishIntro}
           className={`fixed inset-0 z-[99999] overflow-hidden cursor-pointer select-none transition-colors duration-500 ${
             isDark ? 'bg-[#070709] text-[#F6F5EE]' : 'bg-[#FAF9F6] text-zinc-950'
           }`}
-          style={{ willChange: 'opacity, transform, filter' }}>
-          {/* Decoupled Center Viewport Container */}
-            isDark ? 'bg-[#0B0B0C] text-white' : 'bg-[#FAF9F6] text-zinc-900'
-          }`}
           style={{ willChange: 'opacity, transform, filter' }}
         >
-          {/* Top Bar (Clean Right-Aligned Skip Button, Top-Left Name & Year Removed) */}
+          {/* ── Background Subtle Micro Grid ── */}
+          <div
+            className="absolute inset-0 opacity-[0.025] pointer-events-none"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
+              backgroundSize: '40px 40px',
+            }}
+          />
+
+          {/* ── Top Bar (Clean Right-Aligned Skip Button, Top-Left Name & Year Removed) ── */}
           <div className="absolute top-0 inset-x-0 p-6 sm:p-10 md:p-12 flex items-center justify-end text-xs font-mono tracking-wider z-20 pointer-events-none">
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -122,42 +136,16 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
             </motion.div>
           </div>
 
-          {/* Centerpiece: Apple Cursive Handwriting Effect of "kami likhith" */}
+          {/* ── Center Stage: Absolute Dead Center (X=50%, Y=50%) ── */}
           <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-10 z-10 pointer-events-none">
-            <div className="w-full max-w-5xl flex items-center justify-center pointer-events-auto">
-            {/* Soft ambient aura around name */}
-            <div className="relative flex items-center justify-center mb-6 sm:mb-8">
-              <div className="absolute -inset-16 rounded-full bg-[var(--accent)] opacity-10 blur-3xl pointer-events-none" />
-
-              {/* Authentic Apple-style cursive handwriting effect of "kami likhith" */}
+            <div className="w-full max-w-5xl flex items-center justify-center">
               <AppleNameEffect
-                durationScale={0.95}
-                strokeWidth={4.4}
-                className="w-[90vw] max-w-xl sm:max-w-2xl md:max-w-3xl h-auto drop-shadow-md"
+                isDark={isDark}
+                duration={2.5}
+                className="w-full"
+                onProgress={handleProgress}
                 onAnimationComplete={handleAnimationComplete}
               />
-            </div>
-
-            {/* Apple-style Subtitle */}
-            <motion.div
-              initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
-              animate={
-                showSubtitle
-                  ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                  : { opacity: 0, y: 12, filter: 'blur(4px)' }
-              }
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-2 text-center"
-            >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] backdrop-blur-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                <span className={`text-xs sm:text-sm font-mono tracking-[0.22em] uppercase font-bold ${
-                  isDark ? 'text-zinc-400' : 'text-zinc-500'
-                }`}>
-                  SOFTWARE ENGINEER &middot; AI RESEARCHER &middot; FULL STACK
-                </span>
-              </div>
-            </motion.div>
             </div>
           </div>
 
