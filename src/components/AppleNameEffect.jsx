@@ -10,7 +10,7 @@ export function AppleNameEffect({
   onProgress,
   onAnimationComplete,
 }) {
-  const [focusStage, setFocusStage] = useState(0); // 0: void, 1: focus pull, 2: settle
+  const [focusStage, setFocusStage] = useState(0); // 0: void, 1: focus pull, 2: sheen sweep, 3: settled
   const completedRef = useRef(false);
 
   useEffect(() => {
@@ -36,6 +36,9 @@ export function AppleNameEffect({
       }
       if (progress >= 0.65 && focusStage < 2) {
         setFocusStage(2);
+      }
+      if (progress >= 0.85 && focusStage < 3) {
+        setFocusStage(3);
       }
 
       if (progress < 1) {
@@ -132,6 +135,24 @@ export function AppleNameEffect({
               </motion.span>
             ))}
           </div>
+
+          {/* Liquid Light Sheen Sweep Across the Assembled Name */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            initial={{ x: '-100%', opacity: 0 }}
+            animate={
+              focusStage >= 2
+                ? { x: '200%', opacity: [0, 0.85, 0] }
+                : { x: '-100%', opacity: 0 }
+            }
+            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+            style={{
+              background: isDark
+                ? 'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.6) 45%, rgba(251, 191, 36, 0.8) 50%, transparent 75%)'
+                : 'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.8) 45%, rgba(245, 158, 11, 0.4) 50%, transparent 75%)',
+              mixBlendMode: isDark ? 'overlay' : 'soft-light',
+            }}
+          />
         </div>
       </motion.div>
     </div>
