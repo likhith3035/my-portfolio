@@ -89,15 +89,47 @@ export function AppleNameEffect({
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        <div className="relative flex items-center justify-center flex-wrap gap-x-6 text-4xl sm:text-6xl md:text-7xl font-extralight uppercase py-2">
+        <div className="relative flex items-center justify-center flex-wrap gap-x-5 sm:gap-x-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-[0.34em] sm:tracking-[0.42em] uppercase pl-[0.34em] sm:pl-[0.42em] overflow-hidden py-2">
           <div className="flex items-center text-white">
             {firstName.map((char, i) => (
-              <span key={`k-${i}`} className="inline-block">{char}</span>
+              <motion.span
+                key={`k-${i}`}
+                className="inline-block transform-gpu"
+                initial={{ opacity: 0, y: 35, filter: 'blur(16px)' }}
+                animate={
+                  focusStage >= 1
+                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                    : { opacity: 0, y: 35, filter: 'blur(16px)' }
+                }
+                transition={{
+                  duration: 0.9,
+                  delay: 0.25 + i * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {char}
+              </motion.span>
             ))}
           </div>
           <div className="flex items-center text-amber-400">
             {lastName.map((char, i) => (
-              <span key={`l-${i}`} className="inline-block">{char}</span>
+              <motion.span
+                key={`l-${i}`}
+                className="inline-block transform-gpu"
+                initial={{ opacity: 0, y: 35, filter: 'blur(16px)' }}
+                animate={
+                  focusStage >= 1
+                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                    : { opacity: 0, y: 35, filter: 'blur(16px)' }
+                }
+                transition={{
+                  duration: 0.9,
+                  delay: 0.55 + i * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {char}
+              </motion.span>
             ))}
           </div>
         </div>
