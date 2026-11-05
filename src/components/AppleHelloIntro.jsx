@@ -2,6 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AppleNameEffect from './AppleNameEffect';
 
+// English + Telugu, Hindi, Tamil, Kannada, Kerala (Malayalam) only
+const GREETINGS = [
+  { code: 'EN', text: 'Hello' },
+  { code: 'TE', text: 'నమస్కారం' },
+  { code: 'HI', text: 'नमस्ते' },
+  { code: 'TA', text: 'வணக்கம்' },
+  { code: 'KN', text: 'ನಮಸ್ಕಾರ' },
+  { code: 'ML', text: 'നമസ്കാരം' },
+];
+
 export default function AppleHelloIntro({ theme = 'light', onComplete }) {
   const isDark = theme === 'dark';
   const [showSubtitle, setShowSubtitle] = useState(false);
