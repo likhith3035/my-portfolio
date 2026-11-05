@@ -14,6 +14,7 @@ const GREETINGS = [
 
 export default function AppleHelloIntro({ theme = 'light', onComplete }) {
   const isDark = theme === 'dark';
+  const [greetingIndex, setGreetingIndex] = useState(0);
   const [showSubtitle, setShowSubtitle] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -31,6 +32,14 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
       if (onComplete) onComplete();
     }, 550);
   }, [isExiting, isDone, onComplete]);
+
+  // Multilingual greetings cycling in bottom-left corner
+  useEffect(() => {
+    const greetingTimer = setInterval(() => {
+      setGreetingIndex((prev) => (prev + 1) % GREETINGS.length);
+    }, 600);
+    return () => clearInterval(greetingTimer);
+  }, []);
 
   // Handle handwriting animation completion
   const handleAnimationComplete = () => {
@@ -152,21 +161,36 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
             </div>
           </div>
 
-          {/* Bottom hint: subtle skip pill */}
-          <div className="w-full flex items-center justify-center text-center">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.75 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
-              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-[11px] font-mono tracking-wider transition-all hover:scale-105 ${
-                isDark
-                  ? 'border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:border-white/20'
-                  : 'border-black/10 bg-black/5 text-zinc-500 hover:text-black hover:border-black/20'
-              }`}
-            >
-              <span>Click anywhere or press Enter to skip</span>
-              <span className="text-[var(--accent)] font-bold">&rarr;</span>
-            </motion.div>
+          {/* ── Bottom Bar ── */}
+          <div className="absolute bottom-0 inset-x-0 p-6 sm:p-10 md:p-12 flex items-end justify-between font-mono z-20 pointer-events-none">
+            {/* Bottom-Left: Regional Greetings (English, Telugu, Hindi, Tamil, Kannada, Kerala/Malayalam) */}
+            <div className="flex items-center gap-3">
+              <span
+                className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                  isDark
+                    ? 'border-white/10 text-amber-400 bg-amber-400/[0.05]'
+                    : 'border-amber-600/20 text-amber-700 bg-amber-500/[0.08] font-semibold'
+                }`}
+              >
+                {GREETINGS[greetingIndex].code}
+              </span>
+              <div className="min-h-[26px] flex items-center overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={greetingIndex}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.22, ease: 'easeOut' }}
+                    className={`text-sm sm:text-base font-normal tracking-wide ${
+                      isDark ? 'text-zinc-300' : 'text-zinc-900 font-medium'
+                    }`}
+                  >
+                    {GREETINGS[greetingIndex].text}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
         </motion.div>
       )}
