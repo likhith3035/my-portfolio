@@ -121,8 +121,8 @@ portfolio/
 │   ├── assets/                 # Brand assets and graphics
 │   ├── components/             # 28+ Modular React UI components & modals
 │   │   ├── About.jsx               # Bio, timeline, education & interactive tech pills
-│   │   ├── AppleHelloIntro.jsx     # SVG handwriting entrance animation
-│   │   ├── AppleNameEffect.jsx     # Vector stroke signature effect
+│   │   ├── AppleHelloIntro.jsx     # Cinematic preloader with regional Indian greetings
+│   │   ├── AppleNameEffect.jsx     # Optical rack-focus lens blur reveal for Kami Likhith
 │   │   ├── ChatBot.jsx             # AI recruiter chatbot assistant
 │   │   ├── CommandPalette.jsx      # Cmd+K Spotlight search & action launcher
 │   │   ├── ConfettiOverlay.jsx     # Canvas confetti celebration trigger
@@ -220,6 +220,21 @@ Visit `http://localhost:5173` in your browser.
 | `npm run lint` | Runs ESLint 9 to validate code quality and check for lint errors across components. |
 
 ---
+
+
+---
+
+## 🎬 Cinematic Rack-Focus Name Intro
+
+The portfolio launches with a film-grade **optical rack-focus title card** centered on **`KAMI LIKHITH`**:
+
+- **Optical Camera Focus Pull:** Smoothly resolves from high-aperture optical lens blur ($32\text{px}$) to sub-pixel clarity at exact screen dead center ($X=50\%, Y=50\%$).
+- **Sub-Pixel Optical Centering:** Letter-spacing compensation (`pl-[0.34em] sm:pl-[0.42em]`) counteracts CSS tracking bias for mathematical horizontal and vertical symmetry.
+- **Metallic Liquid Sheen:** A diagonal light sweep reflects across the assembled typography once focus resolves.
+- **Expanding Laser Horizon:** An ultra-thin anamorphic horizon line with radiant diamond core bead.
+- **Regional Indian Greetings:** Bottom-left rolling ticker cycling through **English (`Hello`), Telugu (`నమస్కారం`), Hindi (`नमस्ते`), Tamil (`வணக்கம்`), Kannada (`ನಮಸ್ಕಾರ`), and Malayalam/Kerala (`നമസ്കാരം`)**.
+- **Dual-Tone Luxury Contrast:** Deep `#070709` OLED obsidian in Dark Mode; crisp `#09090B` Obsidian Carbon on `#FAF9F6` luxury linen in Bright Mode.
+- **Instant Skip Controls:** Tap anywhere, or press `ESC`, `Space`, or `Enter` to seamlessly transition to the main interface.
 
 ## ⚡ Performance & Mobile Optimizations
 
