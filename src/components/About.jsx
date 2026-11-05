@@ -8,8 +8,6 @@ import {
   FaCloud,
   FaFire,
   FaGraduationCap,
-  FaBookOpen,
-  FaSchool,
   FaMapMarkerAlt,
   FaClock,
   FaSun,
@@ -18,42 +16,9 @@ import {
   FaCube,
   FaExternalLinkAlt,
   FaLayerGroup,
-  FaPenNib,
-  FaStamp,
 } from 'react-icons/fa';
 import GlintCard from './GlintCard';
-import { sound } from '../utils/sound';
-
-/* ─── Education Data ─── */
-const EDUCATION = [
-  {
-    degree: 'B.Tech AI & Data Science',
-    school: 'NBKRIST',
-    period: '2023 – 2027',
-    grade: 'CGPA: 7.5 / 10',
-    detail: 'Specializing in Artificial Intelligence & Data Science. Active hackathon engineer, cybersecurity enthusiast, and builder.',
-    icon: <FaGraduationCap size={18} />,
-    color: '#E67E22',
-  },
-  {
-    degree: 'Intermediate (MPC)',
-    school: 'Vamsi Junior College',
-    period: '2021 – 2023',
-    grade: 'Score: 756 / 1000',
-    detail: 'Mathematics, Physics & Chemistry stream. Developed strong analytical and algorithmic fundamentals.',
-    icon: <FaBookOpen size={16} />,
-    color: '#A855F7',
-  },
-  {
-    degree: 'SSC Board',
-    school: 'RPBS ZP High School',
-    period: '2020',
-    grade: 'Score: 564 / 600',
-    detail: 'Completed secondary education with distinguished performance in science and mathematics.',
-    icon: <FaSchool size={16} />,
-    color: '#14B8A6',
-  },
-];
+import { EDUCATION } from '../data/education';
 
 /* ─── Interactive Draggable Tech Stack ─── */
 const INTERACTIVE_TECH = [
@@ -74,7 +39,7 @@ const INTERACTIVE_TECH = [
 const CURRENTLY_LEARNING = [
   'LangGraph & Multi-Agent RAG',
   'Next.js 15 App Router',
-  'System Architecture & Scaling',
+  'Distributed Systems & Backend Scaling',
   'Vector DBs (Pinecone / Chroma)',
   'Rust Systems Programming',
 ];
@@ -149,11 +114,11 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center space-y-2"
         >
-          <p className="section-label">Identity & Architecture</p>
+          <p className="section-label">Identity & Background</p>
           <h2 className="section-heading">About Me</h2>
           <div className="w-12 h-1 bg-[var(--accent)] rounded-full mx-auto mt-3" />
           <p className="text-sm md:text-base text-zinc-500 dark:text-zinc-400 font-medium max-w-xl mx-auto pt-1">
-            Bridging artificial intelligence, full-stack architecture, and ethical cybersecurity to build impactful digital experiences.
+            Software engineer and AI undergraduate at NBKRIST. I build practical web apps, experiment with local AI models, and practice ethical cybersecurity.
           </p>
         </motion.div>
 
@@ -168,7 +133,7 @@ export default function About() {
               <div className="flex items-center gap-3">
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/30">
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-                  AI & Full-Stack Engineer
+                  AI & Full-Stack Developer
                 </span>
                 <span className="text-xs font-bold text-zinc-400 dark:text-zinc-500">
                   Based in India
@@ -176,7 +141,7 @@ export default function About() {
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight leading-snug">
-                Engineering intelligent systems, robust backends, and fluid user interfaces.
+                Focused on building fast web apps, clean APIs, and thoughtful interfaces.
               </h3>
 
               <div className="space-y-3.5 text-sm sm:text-base text-zinc-600 dark:text-zinc-300 font-medium leading-relaxed">
@@ -185,7 +150,7 @@ export default function About() {
                   <span className="text-[var(--accent)] font-bold">Artificial Intelligence & Data Science</span> at NBKRIST.
                 </p>
                 <p>
-                  My expertise bridges building end-to-end full-stack applications (React, Vite, Supabase), engineering context-aware RAG AI pipelines with LangChain, and conducting ethical security testing using Metasploit.
+                  I focus on practical engineering: building responsive web applications with React and Next.js, building document-grounded AI tools with Python and LangChain, and exploring network security fundamentals.
                 </p>
               </div>
             </div>
@@ -388,7 +353,7 @@ export default function About() {
               </div>
 
               <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed">
-                Specializing in ML architectures, algorithmic complexity, network security, and real-time distributed web systems.
+                Studying machine learning, data structures, network security, and modern web application development.
               </p>
             </div>
 
@@ -468,47 +433,6 @@ export default function About() {
               </motion.div>
             ))}
           </div>
-
-          {/* Author Calligraphy & Guestbook Interactive Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="p-6 sm:p-7 rounded-3xl border border-zinc-200/80 dark:border-white/10 bg-gradient-to-r from-amber-500/[0.04] via-orange-500/[0.06] to-transparent dark:from-white/[0.03] dark:to-transparent flex flex-col md:flex-row items-center justify-between gap-6"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[var(--accent)]/15 border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] shrink-0 shadow-xs">
-                <FaPenNib size={22} />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h4 className="text-base font-black text-zinc-900 dark:text-white uppercase tracking-tight">
-                    Author's Calligraphy Seal & Guestbook
-                  </h4>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/25">
-                    Interactive
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-xl font-medium">
-                  Watch the 18K fountain pen write the official signature or leave your own authenticated mark on the visitor ledger.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 shrink-0 w-full md:w-auto">
-              <button
-                onClick={() => {
-                  sound.pop();
-                  window.__openSignatureModal?.();
-                }}
-                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[var(--accent)] text-white text-xs font-black uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all shadow-md cursor-pointer"
-              >
-                <FaPenNib size={12} />
-                <span>Launch Studio</span>
-              </button>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

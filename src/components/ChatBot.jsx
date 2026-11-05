@@ -7,8 +7,8 @@ const KB = [
   {
     keywords: ['who', 'name', 'about', 'yourself', 'introduce', 'likhith', 'kami'], weight: 2,
     answers: [
-      "I'm Kami Likhith — a B.Tech AI & Data Science student at NBKRIST. I engineer modern web systems, deploy local AI agents, and conduct cybersecurity research.",
-      "Hey! I'm Likhith — a software engineer, cybersecurity researcher, and AI developer specializing in React, Python, Firebase, Supabase, and RAG architectures.",
+      "I'm Kami Likhith — a B.Tech AI & Data Science student at NBKRIST. I build web applications with React and Next.js, experiment with local AI models, and practice ethical hacking.",
+      "Hey! I'm Likhith — a developer and AI undergraduate specializing in React, Next.js, Python, Supabase, and applied AI tools.",
     ],
     followUps: [
       { label: 'Tech Stack', q: 'What is your tech stack?' },
@@ -28,7 +28,7 @@ const KB = [
   {
     keywords: ['project', 'built', 'portfolio', 'made', 'app', 'codebase', 'develop'], weight: 2,
     answers: [
-      "Key projects in my portfolio:\n• SV Care Diagnostics — Clinical pathology & real-time lab platform (Next.js 14 + WhatsApp API)\n• CampusIQ — AI student analytics & success platform (Next.js 14 + scikit-learn)\n• StudentHub — campus PWA super-app (Supabase + Sarvam AI)\n• Secure Vault — AES-256 folder encryption (Python)\n• Incog Talkk — WebRTC-powered anonymous chat\n• Dept. AI Bot — RAG chatbot (LangChain/Flask)\n• Hostel Portal — Firebase room allocation system",
+      "Key projects in my portfolio:\n• SV Care Diagnostics — Clinical pathology & real-time lab platform (Next.js 14 + WhatsApp API)\n• CampusIQ — AI student analytics & success platform (Next.js 14 + scikit-learn)\n• StudentHub — campus collaboration PWA (Supabase + Sarvam AI)\n• Secure Vault — AES-256 folder encryption (Python)\n• Incog Talkk — WebRTC-powered anonymous chat\n• Dept. AI Bot — RAG chatbot (LangChain/Flask)\n• Hostel Portal — Firebase room allocation system",
     ],
     followUps: [
       { label: 'SV Care Diagnostics', q: 'Tell me about SV Care Diagnostics' },
@@ -59,7 +59,7 @@ const KB = [
   {
     keywords: ['studenthub', 'campus', 'hackprix', 'gensync', 'hackathon'], weight: 3,
     answers: [
-      "StudentHub is an all-in-one PWA super-app for college students (notes sharing, internships tracker, project collaborations, and an AI assistant integrated with Sarvam AI). Built in 36 hours at HackPrix!\nLink: https://gensync-78.vercel.app/\nLinkedIn Post: https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/",
+      "StudentHub is an all-in-one campus PWA for college students (notes sharing, internships tracker, project collaborations, and an AI assistant integrated with Sarvam AI). Built in 36 hours at HackPrix!\nLink: https://gensync-78.vercel.app/\nLinkedIn Post: https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-ugcPost-7475955717812772864-xrhe/",
     ],
     followUps: [
       { label: 'SRM AP Hackathon', q: 'Tell me about the SRM AP hackathon' },
@@ -79,7 +79,7 @@ const KB = [
   {
     keywords: ['secure', 'vault', 'encrypt', 'aes', 'folder'], weight: 3,
     answers: [
-      "Secure Vault encrypts entire directories using AES-256 with filename obfuscation. The Gmail API is leveraged to securely deliver verification keys with military-grade directory protection.\nRepo: https://github.com/likhith3035/secure-vault-folder-encryption",
+      "Secure Vault encrypts entire directories using AES-256 with filename obfuscation. The Gmail API is leveraged to securely deliver verification keys with solid desktop-level directory security.\nRepo: https://github.com/likhith3035/secure-vault-folder-encryption",
     ],
     followUps: [
       { label: 'Cybersecurity', q: 'Tell me about your cybersecurity passion' },
@@ -109,7 +109,7 @@ const KB = [
   {
     keywords: ['education', 'college', 'study', 'degree', 'btech', 'nbkrist', 'school', 'cgpa', 'grades'], weight: 2,
     answers: [
-      "Education Details:\n• B.Tech in AI & Data Science — NBKRIST (N.B.K.R. Institute of Science and Technology), Vidyanagar (2023–Present) · CGPA: 7.5 / 10\n• Intermediate MPC — Vamsi Junior College, Srikalahasti (2021–2023)\n• SSC — RPBS ZP High School, Srikalahasti (2020)\n\nI combine rigorous engineering academics with active hackathon competitions and real-world system architecture.",
+      "Education Details:\n• B.Tech in AI & Data Science — NBKRIST, Vidyanagar (2023–Present) · CGPA: 7.5 / 10\n• Intermediate MPC — Vamsi Junior College, Srikalahasti (2021–2023)\n• SSC — RPBS ZP High School, Srikalahasti (2020)\n\nI combine focused coursework with competitive hackathons and building practical applications.",
     ],
     followUps: [
       { label: 'Internship', q: 'Tell me about your experience' },
@@ -169,7 +169,7 @@ const KB = [
   {
     keywords: ['ai', 'artificial', 'intelligence', 'llm', 'sarvam', 'rag', 'ollama', 'cursor', 'antigravity'], weight: 2,
     answers: [
-      "I engineer with modern AI architectures: integrating multilingual voice models with Sarvam AI, deploying local LLMs with Ollama, development using Cursor and Antigravity IDE, and researching AI & Data Science at NBKRIST.",
+      "I work with modern AI tools: integrating voice models with Sarvam AI, experimenting with local models via Ollama, and building retrieval-augmented pipelines with LangChain.",
     ],
     followUps: [
       { label: 'Engineering Tools', q: 'What tools and AI workflows do you use?' },
@@ -179,7 +179,7 @@ const KB = [
   {
     keywords: ['engineering', 'philosophy', 'workflow', 'approach'], weight: 2,
     answers: [
-      "My development philosophy focuses on rapid, high-leverage execution: combining robust software architecture and security foundations with state-of-the-art developer tooling to ship verified, production-grade applications.",
+      "My approach centers on rapid prototyping and practical execution: building responsive frontends, integrating reliable APIs and database services, and writing clean, maintainable code.",
     ],
     followUps: [
       { label: 'AI Tools', q: 'Which AI tools do you use?' },
@@ -219,8 +219,8 @@ const KB = [
   {
     keywords: ['hello', 'hi', 'hey', 'hola', 'sup', 'yo', 'greetings'], weight: 1,
     answers: [
-      "Hello! I am Likhith's portfolio copilot. Ask me about projects (CampusIQ, StudentHub, Secure Vault, Incog Talkk), technical stack, experience, or contact information.",
-      "Greetings! I can share details regarding Likhith's skills, hackathons (HackPrix/SRM AP), and architecture. What would you like to explore?",
+      "Hello! I am Likhith's portfolio copilot. Ask me about his projects, technical stack, experience, or contact information.",
+      "Hi there! I can share details regarding Likhith's skills, hackathons (HackPrix/SRM AP), and projects. What would you like to explore?",
     ],
     followUps: [
       { label: 'Projects', q: 'What projects did you build?' },
@@ -231,8 +231,8 @@ const KB = [
   {
     keywords: ['thank', 'thanks', 'bye', 'awesome', 'cool', 'great', 'good'], weight: 1,
     answers: [
-      "Glad I could assist! Feel free to connect with Likhith directly at any time.",
-      "You're welcome! Feel free to ask if there are any other architecture or project questions.",
+      "Glad I could help! Feel free to connect with Likhith directly.",
+      "You're welcome! Let me know if you have any questions about Likhith's projects or experience.",
     ],
     followUps: [
       { label: 'Contact Likhith', q: 'How can I contact you?' },
@@ -252,7 +252,7 @@ const KB = [
   {
     keywords: ['bot', 'ai', 'assistant', 'system', 'who are you', 'developer'], weight: 2,
     answers: [
-      "I am an engineered portfolio assistant designed to answer technical inquiries regarding Kami Likhith's architecture, projects, and credentials.",
+      "I am Kami Likhith's portfolio assistant. I can answer questions about his projects, skills, education, and hackathons.",
     ],
     followUps: [
       { label: 'Tech Stack', q: 'What is your tech stack?' },
@@ -331,7 +331,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState([
     {
       from: 'bot',
-      text: "Hello! I am Kami Likhith's portfolio copilot. Ask me about architecture, projects, full-stack systems, or how to connect.",
+      text: "Hello! I am Kami Likhith's portfolio copilot. Ask me about his projects, skills, hackathon wins, or how to get in touch.",
       followUps: [
         { label: 'Projects', q: 'What projects did you build?' },
         { label: 'Tech Stack', q: 'What is your tech stack?' },

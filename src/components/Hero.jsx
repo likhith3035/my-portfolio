@@ -256,7 +256,7 @@ export default function Hero({ theme, introFinished = true }) {
             </motion.div>
 
             <motion.p variants={fadeUp} className={`text-sm font-medium leading-relaxed px-2 ${bodyColor}`}>
-              B.Tech AI & Data Science @ NBKRIST · Building secure, intelligent web systems and RAG-powered AI applications.
+              B.Tech AI & Data Science @ NBKRIST · Building responsive web apps, experimenting with machine learning, and exploring cybersecurity.
             </motion.p>
 
             {/* Tech pills */}
@@ -351,7 +351,7 @@ export default function Hero({ theme, introFinished = true }) {
             </motion.div>
 
             <motion.p variants={fadeUp} className={`text-lg font-medium max-w-lg leading-relaxed ${bodyColor}`}>
-              Creating scalable websites, full-stack applications, AI automations, and well-crafted digital experiences from idea to deployment.
+              Building responsive web applications, experimenting with AI tools, and exploring cybersecurity fundamentals from idea to deployment.
             </motion.p>
 
             {/* Tech pills — desktop */}

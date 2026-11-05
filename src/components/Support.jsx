@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaHeart, FaStar, FaCode, FaRocket } from 'react-icons/fa';
 
 const PERKS = [
-  { icon: <FaCode className="text-[var(--accent)]" size={13} />, text: '100% open source & public architecture' },
-  { icon: <FaRocket className="text-emerald-500" size={13} />, text: 'Continuous feature delivery & security hardening' },
+  { icon: <FaCode className="text-[var(--accent)]" size={13} />, text: '100% open source code on GitHub' },
+  { icon: <FaRocket className="text-emerald-500" size={13} />, text: 'Actively maintained and updated' },
   { icon: <FaGithub className="text-purple-500" size={13} />, text: 'Modern frontend with React, Vite & Tailwind CSS' },
 ];
 

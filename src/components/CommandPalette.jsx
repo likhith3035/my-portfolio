@@ -309,8 +309,8 @@ export default function CommandPalette({
       group: 'Projects',
       category: 'Project',
       categoryColor: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30',
-      title: 'CampusIQ — AI Student Analytics & Success Platform',
-      desc: '🏆 KPMG India Hackathon · Prescriptive Decision Intelligence, K-Means clustering, XAI & Closed-Loop Interventions',
+      title: 'CampusIQ — Student Academic Retention Dashboard',
+      desc: '🏆 KPMG India Hackathon · Student academic analytics, K-Means cohort clustering & mentor alerts',
       keywords: ['campusiq', 'campus iq', 'smart campus', 'kpmg', 'learnova', 'student analytics', 'k-means', 'kmeans', 'xai', 'shap', 'whatsapp', 'decision intelligence', 'nextjs', 'recharts', 'scikit-learn'],
       icon: <span className="text-base">📈</span>,
       action: () => {
@@ -323,9 +323,9 @@ export default function CommandPalette({
       group: 'Projects',
       category: 'Project',
       categoryColor: 'bg-orange-500/15 text-[#E67E22] border-orange-500/30',
-      title: 'StudentHub — Campus PWA Super-App',
+      title: 'StudentHub — Campus Student Portal & Resource Hub',
       desc: '🏆 HackPrix Season 3 Finalist · Notes sharing, internship tracker, Sarvam AI voice assistant',
-      keywords: ['studenthub', 'gensync', 'hackprix', 'campus', 'superapp', 'pwa', 'sarvam ai', 'supabase', 'firebase', 'voice', 'notes', 'finalist'],
+      keywords: ['studenthub', 'gensync', 'hackprix', 'campus', 'pwa', 'sarvam ai', 'supabase', 'firebase', 'voice', 'notes', 'finalist'],
       icon: <span className="text-base">🎓</span>,
       action: () => {
         onClose();
@@ -337,8 +337,8 @@ export default function CommandPalette({
       group: 'Projects',
       category: 'Project',
       categoryColor: 'bg-teal-500/15 text-teal-600 dark:text-teal-400 border-teal-500/30',
-      title: 'SV Care Diagnostics — Real-Time Lab Platform',
-      desc: '🏥 Production Client Project · ISO 9001:2015 lab with 100+ tests, ₹0 home collection & WhatsApp dispatch',
+      title: 'SV Care Diagnostics — Pathology Lab Platform',
+      desc: '🏥 Live Production Client · ISO 9001:2015 lab with 100+ tests, ₹0 home collection & WhatsApp dispatch',
       keywords: ['svcare', 'sv care', 'diagnostics', 'laboratory', 'pathology', 'blood test', 'lab', 'client', 'health', 'whatsapp', 'srikalahasti', 'production', 'nextjs', 'typescript'],
       icon: <span className="text-base">🏥</span>,
       action: () => {
@@ -352,7 +352,7 @@ export default function CommandPalette({
       category: 'Project',
       categoryColor: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30',
       title: 'Secure Vault — AES-256 Folder Encryption',
-      desc: 'Military-grade folder security · Python, CustomTkinter, cryptography, Gmail API OTP key distribution',
+      desc: 'Local folder security · Python, CustomTkinter, AES-256-CBC, Gmail API OTP key distribution',
       keywords: ['secure vault', 'aes-256', 'encryption', 'cryptography', 'security', 'python', 'customtkinter', 'gmail api', 'otp', 'folder'],
       icon: <span className="text-base">🔒</span>,
       action: () => {
@@ -396,7 +396,7 @@ export default function CommandPalette({
       category: 'Frontend',
       categoryColor: 'bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
       title: 'React 19, Vite & Tailwind CSS',
-      desc: 'Single-page architecture, responsive bento grids, Framer Motion fluid animations',
+      desc: 'Single-page web apps, responsive layouts, and Framer Motion micro-interactions',
       keywords: ['react', 'react 19', 'javascript', 'frontend', 'tailwind', 'css', 'vite', 'ui', 'components', 'html', 'web'],
       icon: <FaCode className="text-cyan-400" />,
       action: () => {
@@ -409,8 +409,8 @@ export default function CommandPalette({
       group: 'Technical Skills',
       category: 'AI & Data Science',
       categoryColor: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
-      title: 'Python, AI / ML & RAG Architectures',
-      desc: 'Sarvam AI, LangChain, local LLMs (Ollama, Llama), Vector DBs & data science',
+      title: 'Python, AI / ML & Applied RAG',
+      desc: 'Sarvam AI, LangChain, local LLMs (Ollama), vector embeddings & data analysis',
       keywords: ['python', 'ai', 'ml', 'machine learning', 'data science', 'ollama', 'langchain', 'rag', 'vector', 'models', 'llm'],
       icon: <span className="text-base">🐍</span>,
       action: () => {
@@ -465,7 +465,7 @@ export default function CommandPalette({
           title: 'HackPrix Season 3 — Finalist',
           org: 'Lords Institute of Engineering & Technology, Hyderabad',
           standing: 'National Finalist (Top 10)',
-          desc: 'Engineered StudentHub — a PWA campus super-app with Firebase, Supabase, and Sarvam AI voice assistant in an intense 36-hour national hackathon sprint.',
+          desc: 'Built StudentHub — a campus resource portal with Firebase, Supabase, and Sarvam AI voice assistant in a 36-hour national hackathon sprint.',
           skills: ['Sarvam AI', 'Supabase', 'Firebase', 'Progressive Web App', 'Realtime Sync'],
           link: 'https://gensync-78.vercel.app/',
           linkedin: 'https://www.linkedin.com/posts/likhith-kami_hackprix-hackprixseason3-gensync-activity-7475955719209500672-yWf1?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEyrC1ABnYUHdqnsIRVPSFRg3luVpPC7hJo',
