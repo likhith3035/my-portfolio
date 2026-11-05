@@ -196,7 +196,7 @@ export default function ProjectBentoCard({ project, index }) {
         className="w-full px-6 py-3 border-t border-zinc-100 dark:border-zinc-800/80 bg-zinc-50/60 dark:bg-zinc-950/60 flex items-center justify-between text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer select-none"
       >
         <span className="flex items-center gap-2">
-          <span>{open ? 'Hide Deep Dive' : 'Explore Architecture & Features'}</span>
+          <span>{open ? 'Hide Deep Dive' : 'Explore Workflow & Details'}</span>
         </span>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
@@ -221,7 +221,7 @@ export default function ProjectBentoCard({ project, index }) {
               <div className="flex items-center gap-1.5 p-1 bg-zinc-200/60 dark:bg-zinc-900 rounded-xl max-w-max border border-zinc-200 dark:border-zinc-800">
                 {[
                   { id: 'features', label: '✨ Highlights' },
-                  { id: 'architecture', label: '⚙️ Architecture' },
+                  { id: 'architecture', label: '⚙️ Workflow' },
                   { id: 'stack', label: '🛠️ Stack Chips' },
                 ].map((t) => (
                   <button
