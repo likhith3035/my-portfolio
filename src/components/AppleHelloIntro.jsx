@@ -84,18 +84,23 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
           }`}
           style={{ willChange: 'opacity, transform, filter' }}
         >
-          {/* Top Status Bar: Minimalist Apple status */}
-          <div className="w-full max-w-5xl flex items-center justify-between text-xs font-mono tracking-wider">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-              <span className={`text-[11px] font-semibold uppercase tracking-[0.2em] ${isDark ? 'text-zinc-500' : 'text-zinc-400'}`}>
-                Portfolio &bull; 2026
-              </span>
-            </div>
-
-            <div className={`text-[11px] font-mono tracking-widest uppercase ${isDark ? 'text-zinc-600' : 'text-zinc-400'}`}>
-              Kami Likhith
-            </div>
+          {/* Top Bar (Clean Right-Aligned Skip Button, Top-Left Name & Year Removed) */}
+          <div className="absolute top-0 inset-x-0 p-6 sm:p-10 md:p-12 flex items-center justify-end text-xs font-mono tracking-wider z-20 pointer-events-none">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[11px] font-mono tracking-widest uppercase transition-colors pointer-events-auto ${
+                isDark
+                  ? 'border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:border-white/20'
+                  : 'border-black/10 bg-black/5 text-zinc-600 hover:text-black hover:border-black/20'
+              }`}
+            >
+              <span>Tap or press</span>
+              <kbd className="px-1.5 py-0.5 rounded bg-white/10 border border-white/20 text-[10px]">
+                ESC
+              </kbd>
+              <span>to enter &rarr;</span>
+            </motion.div>
           </div>
 
           {/* Centerpiece: Apple Cursive Handwriting Effect of "kami likhith" */}
