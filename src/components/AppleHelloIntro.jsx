@@ -47,7 +47,7 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
   useEffect(() => {
     const safetyTimer = setTimeout(() => {
       finishIntro();
-    }, 5000);
+    }, 5500);
     return () => clearTimeout(safetyTimer);
   }, [finishIntro]);
 
@@ -55,7 +55,7 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
   useEffect(() => {
     const subtitleTimer = setTimeout(() => {
       setShowSubtitle(true);
-    }, 2350);
+    }, 3200);
     return () => clearTimeout(subtitleTimer);
   }, []);
 
