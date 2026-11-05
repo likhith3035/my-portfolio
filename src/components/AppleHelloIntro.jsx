@@ -75,7 +75,11 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
           exit={{ opacity: 0, scale: 1.02, filter: 'blur(8px)' }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           onClick={finishIntro}
-          className={`fixed inset-0 z-[99999] flex flex-col items-center justify-between px-6 py-8 sm:py-12 cursor-pointer select-none transition-colors duration-300 ${
+          className={`fixed inset-0 z-[99999] overflow-hidden cursor-pointer select-none transition-colors duration-500 ${
+            isDark ? 'bg-[#070709] text-[#F6F5EE]' : 'bg-[#FAF9F6] text-zinc-950'
+          }`}
+          style={{ willChange: 'opacity, transform, filter' }}>
+          {/* Decoupled Center Viewport Container */}
             isDark ? 'bg-[#0B0B0C] text-white' : 'bg-[#FAF9F6] text-zinc-900'
           }`}
           style={{ willChange: 'opacity, transform, filter' }}
@@ -95,7 +99,8 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
           </div>
 
           {/* Centerpiece: Apple Cursive Handwriting Effect of "kami likhith" */}
-          <div className="flex flex-col items-center justify-center my-auto w-full max-w-4xl text-center px-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-10 z-10 pointer-events-none">
+            <div className="w-full max-w-5xl flex items-center justify-center pointer-events-auto">
             {/* Soft ambient aura around name */}
             <div className="relative flex items-center justify-center mb-6 sm:mb-8">
               <div className="absolute -inset-16 rounded-full bg-[var(--accent)] opacity-10 blur-3xl pointer-events-none" />
@@ -129,6 +134,7 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
                 </span>
               </div>
             </motion.div>
+            </div>
           </div>
 
           {/* Bottom hint: subtle skip pill */}
