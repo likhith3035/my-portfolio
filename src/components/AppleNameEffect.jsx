@@ -10,7 +10,7 @@ export function AppleNameEffect({
   onProgress,
   onAnimationComplete,
 }) {
-  const [focusStage, setFocusStage] = useState(0); // 0: void, 1: focus pull, 2: sheen sweep, 3: settled
+  const [stage, setStage] = useState(0); // 0: baseline expanding, 1: masked typographic rise, 2: brushed sheen sweep, 3: settled
   const completedRef = useRef(false);
 
   useEffect(() => {
@@ -18,28 +18,26 @@ export function AppleNameEffect({
     const startTime = performance.now();
     const totalDuration = duration * 1000;
 
-    // Smooth cubic bezier easing
-    const easeInOutCubic = (t) => {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    };
+    // Signature Apple quintic ease-out curve
+    const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
 
     const tick = (now) => {
       const elapsed = now - startTime;
       const progress = Math.min(1, elapsed / totalDuration);
-      const eased = easeInOutCubic(progress);
+      const eased = easeOutQuint(progress);
 
       if (onProgress) {
         onProgress(eased);
       }
 
-      if (progress >= 0.10 && focusStage < 1) {
-        setFocusStage(1);
+      if (progress >= 0.05 && stage < 1) {
+        setStage(1);
       }
-      if (progress >= 0.75 && focusStage < 2) {
-        setFocusStage(2);
+      if (progress >= 0.70 && stage < 2) {
+        setStage(2);
       }
-      if (progress >= 0.95 && focusStage < 3) {
-        setFocusStage(3);
+      if (progress >= 0.90 && stage < 3) {
+        setStage(3);
       }
 
       if (progress < 1) {
@@ -61,7 +59,7 @@ export function AppleNameEffect({
 
     animationFrameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [duration, focusStage, onProgress, onAnimationComplete]);
+  }, [duration, stage, onProgress, onAnimationComplete]);
 
   // Letters of "KAMI" and "LIKHITH"
   const firstName = 'KAMI'.split('');
@@ -69,173 +67,139 @@ export function AppleNameEffect({
 
   return (
     <div className={cn('relative w-full flex flex-col items-center justify-center select-none text-center', className)}>
-      {/* ── 1. Anamorphic Horizontal Lens Flare / Optical Backlight ── */}
-      <div className="absolute inset-x-[-25%] top-1/2 -translate-y-1/2 h-[140px] pointer-events-none overflow-visible">
-        {/* Soft radial core */}
+      {/* ── 1. Subtle Architectural Ambient Backlight ── */}
+      <div className="absolute inset-x-[-20%] top-1/2 -translate-y-1/2 h-[120px] pointer-events-none overflow-hidden">
         <div
-          className={`absolute inset-0 blur-3xl transform-gpu ${
+          className={`absolute inset-0 blur-3xl transform-gpu transition-opacity duration-1000 ${
             isDark
-              ? 'bg-gradient-to-r from-transparent via-[var(--accent)]/20 to-transparent opacity-75'
-              : 'bg-gradient-to-r from-transparent via-amber-500/12 to-transparent opacity-60'
+              ? 'bg-gradient-to-r from-transparent via-[var(--accent)]/15 to-transparent opacity-80'
+              : 'bg-gradient-to-r from-transparent via-amber-500/10 to-transparent opacity-60'
           }`}
-        />
-        {/* Razor-thin anamorphic streak across screen */}
-        <motion.div
-          className={`absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] ${
-            isDark
-              ? 'bg-gradient-to-r from-transparent via-amber-300/70 to-transparent'
-              : 'bg-gradient-to-r from-transparent via-amber-600/40 to-transparent'
-          }`}
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={
-            focusStage >= 1
-              ? { scaleX: 1, opacity: [0, 0.9, 0.45] }
-              : { scaleX: 0, opacity: 0 }
-          }
-          transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
 
-      {/* ── 2. Cinematic Title Card: Perfectly Centered Optical Camera Rack Focus ── */}
-      <motion.div
-        className="relative flex flex-col items-center justify-center z-10 w-full"
-        initial={{
-          opacity: 0,
-          filter: isDark ? 'blur(32px) brightness(1.8)' : 'blur(32px) contrast(1.4)',
-          scale: 0.92,
-        }}
-        animate={
-          focusStage >= 1
-            ? {
-                opacity: 1,
-                filter: isDark ? 'blur(0px) brightness(1.0)' : 'blur(0px) contrast(1.0)',
-                scale: 1,
-              }
-            : {
-                opacity: 0,
-                filter: isDark ? 'blur(32px) brightness(1.8)' : 'blur(32px) contrast(1.4)',
-                scale: 0.92,
-              }
-        }
-        transition={{
-          duration: 1.5,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-      >
-        {/* Main Name Words — pl-[0.38em] counteracts trailing letter-spacing for dead-center balance */}
-        <div className="relative flex items-center justify-center flex-wrap gap-x-5 sm:gap-x-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-[0.34em] sm:tracking-[0.42em] uppercase pl-[0.34em] sm:pl-[0.42em] overflow-hidden py-2">
-          {/* Word 1: KAMI (Crisp White in Dark, Deep Obsidian Carbon in Light) */}
-          <div
-            className={`flex items-center transition-colors duration-300 ${
-              isDark
-                ? 'text-white drop-shadow-[0_4px_30px_rgba(255,255,255,0.25)]'
-                : 'text-zinc-950 font-normal drop-shadow-[0_2px_14px_rgba(0,0,0,0.12)]'
-            }`}
-          >
-            {firstName.map((char, i) => (
-              <motion.span
-                key={`k-${i}`}
-                className="inline-block transform-gpu"
-                initial={{ opacity: 0, y: 35, filter: 'blur(16px)' }}
-                animate={
-                  focusStage >= 1
-                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                    : { opacity: 0, y: 35, filter: 'blur(16px)' }
-                }
-                transition={{
-                  duration: 0.9,
-                  delay: 0.25 + i * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                {char}
-              </motion.span>
-            ))}
-          </div>
+      {/* ── 2. Precision Executive Title Assembly ── */}
+      <div className="relative flex flex-col items-center justify-center z-10 w-full">
+        {/* Masked Typographic Horizon: overflow-hidden creates a razor-sharp clipping plane */}
+        <div className="relative overflow-hidden py-1 px-2">
+          {/* Main Name Words — pl-[0.34em] counteracts trailing letter-spacing for dead-center balance */}
+          <div className="relative flex items-center justify-center flex-wrap gap-x-5 sm:gap-x-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-[0.34em] sm:tracking-[0.42em] uppercase pl-[0.34em] sm:pl-[0.42em]">
+            
+            {/* Word 1: KAMI (Luminous Crisp Off-White in Dark, Deep Obsidian Carbon in Bright) */}
+            <div
+              className={`flex items-center transition-colors duration-300 ${
+                isDark
+                  ? 'text-[#F6F5EE] drop-shadow-[0_2px_20px_rgba(255,255,255,0.2)]'
+                  : 'text-[#09090B] font-normal drop-shadow-[0_2px_12px_rgba(0,0,0,0.1)]'
+              }`}
+            >
+              {firstName.map((char, i) => (
+                <div key={`k-wrap-${i}`} className="overflow-hidden inline-block py-1">
+                  <motion.span
+                    className="inline-block transform-gpu"
+                    initial={{ y: '120%', opacity: 0 }}
+                    animate={
+                      stage >= 1
+                        ? { y: '0%', opacity: 1 }
+                        : { y: '120%', opacity: 0 }
+                    }
+                    transition={{
+                      duration: 0.9,
+                      delay: 0.08 + i * 0.05,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                </div>
+              ))}
+            </div>
 
-          {/* Word 2: LIKHITH (Rich Amber-Gold in Dark, Warm Cognac Amber in Light) */}
-          <div
-            className={`flex items-center bg-clip-text text-transparent transition-all duration-300 ${
-              isDark
-                ? 'font-light bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 drop-shadow-[0_4px_32px_rgba(245,158,11,0.45)]'
-                : 'font-normal bg-gradient-to-r from-amber-600 via-amber-700 to-orange-700 drop-shadow-[0_2px_16px_rgba(217,119,6,0.3)]'
-            }`}
-          >
-            {lastName.map((char, i) => (
-              <motion.span
-                key={`l-${i}`}
-                className="inline-block transform-gpu"
-                initial={{ opacity: 0, y: 35, filter: 'blur(16px)' }}
-                animate={
-                  focusStage >= 1
-                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                    : { opacity: 0, y: 35, filter: 'blur(16px)' }
-                }
-                transition={{
-                  duration: 0.9,
-                  delay: 0.55 + i * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                {char}
-              </motion.span>
-            ))}
-          </div>
+            {/* Word 2: LIKHITH (Rich Warm Cognac Gold in Dark, Warm Architectural Bronze in Bright) */}
+            <div
+              className={`flex items-center bg-clip-text text-transparent transition-all duration-300 ${
+                isDark
+                  ? 'font-light bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400 drop-shadow-[0_2px_24px_rgba(245,158,11,0.35)]'
+                  : 'font-normal bg-gradient-to-r from-amber-700 via-amber-800 to-amber-950 drop-shadow-[0_2px_14px_rgba(180,83,9,0.25)]'
+              }`}
+            >
+              {lastName.map((char, i) => (
+                <div key={`l-wrap-${i}`} className="overflow-hidden inline-block py-1">
+                  <motion.span
+                    className="inline-block transform-gpu"
+                    initial={{ y: '120%', opacity: 0 }}
+                    animate={
+                      stage >= 1
+                        ? { y: '0%', opacity: 1 }
+                        : { y: '120%', opacity: 0 }
+                    }
+                    transition={{
+                      duration: 0.9,
+                      delay: 0.28 + i * 0.05,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                </div>
+              ))}
+            </div>
 
-          {/* Liquid Light Sheen Sweep Across the Assembled Name */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            initial={{ x: '-100%', opacity: 0 }}
-            animate={
-              focusStage >= 2
-                ? { x: '200%', opacity: [0, 0.85, 0] }
-                : { x: '-100%', opacity: 0 }
-            }
-            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-            style={{
-              background: isDark
-                ? 'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.6) 45%, rgba(251, 191, 36, 0.8) 50%, transparent 75%)'
-                : 'linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.8) 45%, rgba(245, 158, 11, 0.4) 50%, transparent 75%)',
-              mixBlendMode: isDark ? 'overlay' : 'soft-light',
-            }}
-          />
+            {/* Brushed Titanium / Sapphire Specular Light Sheen */}
+            <motion.div
+              className="absolute inset-0 pointer-events-none"
+              initial={{ x: '-120%', opacity: 0 }}
+              animate={
+                stage >= 2
+                  ? { x: '220%', opacity: [0, 0.75, 0] }
+                  : { x: '-120%', opacity: 0 }
+              }
+              transition={{ duration: 1.0, ease: [0.25, 0.1, 0.25, 1] }}
+              style={{
+                background: isDark
+                  ? 'linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.6) 48%, rgba(251, 191, 36, 0.7) 52%, transparent 75%)'
+                  : 'linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.8) 48%, rgba(217, 119, 6, 0.45) 52%, transparent 75%)',
+                mixBlendMode: isDark ? 'overlay' : 'soft-light',
+              }}
+            />
+          </div>
         </div>
 
-        {/* ── 3. Expanding Horizon Laser Beam with Radiant Core ── */}
-        <div className="relative w-64 sm:w-80 md:w-96 h-[1.5px] my-5 sm:my-6 overflow-visible flex items-center justify-center">
-          {/* Main Laser Line */}
+        {/* ── 3. Architectural $1px Baseline Horizon with Precision Anchor ── */}
+        <div className="relative w-64 sm:w-80 md:w-96 h-[1.5px] mt-4 sm:mt-5 overflow-visible flex items-center justify-center">
+          {/* Symmetrical Expanding Hairline */}
           <motion.div
             className={`w-full h-full ${
               isDark
-                ? 'bg-gradient-to-r from-transparent via-amber-400 to-transparent shadow-[0_0_8px_#F59E0B]'
-                : 'bg-gradient-to-r from-transparent via-amber-600/70 to-transparent shadow-[0_0_6px_rgba(217,119,6,0.3)]'
+                ? 'bg-gradient-to-r from-transparent via-amber-400/80 to-transparent shadow-[0_0_8px_rgba(245,158,11,0.5)]'
+                : 'bg-gradient-to-r from-transparent via-amber-700/60 to-transparent shadow-[0_0_4px_rgba(180,83,9,0.2)]'
             }`}
             initial={{ scaleX: 0, opacity: 0 }}
             animate={
-              focusStage >= 2
+              stage >= 1
                 ? { scaleX: 1, opacity: 0.9 }
                 : { scaleX: 0, opacity: 0 }
             }
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           />
 
-          {/* Central Pulsing Diamond Bead */}
+          {/* Precision Architectural Diamond Anchor */}
           <motion.div
-            className={`absolute w-2 h-2 rotate-45 ${
+            className={`absolute w-1.5 h-1.5 rotate-45 ${
               isDark
-                ? 'bg-white shadow-[0_0_16px_#F59E0B,0_0_4px_#FFF]'
-                : 'bg-zinc-900 shadow-[0_0_12px_rgba(217,119,6,0.45),0_0_2px_#000]'
+                ? 'bg-amber-300 shadow-[0_0_10px_#F59E0B,0_0_2px_#FFF]'
+                : 'bg-zinc-950 shadow-[0_0_8px_rgba(217,119,6,0.35)]'
             }`}
             initial={{ scale: 0, opacity: 0 }}
             animate={
-              focusStage >= 2
-                ? { scale: [0, 1.4, 1], opacity: 1 }
+              stage >= 1
+                ? { scale: [0, 1.3, 1], opacity: 1 }
                 : { scale: 0, opacity: 0 }
             }
-            transition={{ duration: 0.5, delay: 0.5, type: 'spring' }}
+            transition={{ duration: 0.45, delay: 0.35, ease: 'easeOut' }}
           />
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
