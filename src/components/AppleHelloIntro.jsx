@@ -40,11 +40,11 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     }, 500);
   }, [isExiting, isDone, onComplete]);
 
-  // Multilingual greetings cycling in bottom-left corner (750ms x 6 languages = 4500ms)
+  // Multilingual greetings cycling in bottom-left corner (580ms x 6 languages = 3480ms)
   useEffect(() => {
     const greetingTimer = setInterval(() => {
       setGreetingIndex((prev) => (prev + 1) % GREETINGS.length);
-    }, 750);
+    }, 580);
     return () => clearInterval(greetingTimer);
   }, []);
 
@@ -60,10 +60,10 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     completedRef.current = true;
     setCounter(100);
 
-    // Hold finished intro for 1.5s so total active duration is 3.0s + 1.5s = 4.5s
+    // Hold finished intro for 1.1s so total active duration is 2.4s + 1.1s = 3.5s
     setTimeout(() => {
       finishIntro();
-    }, 1500);
+    }, 1100);
   }, [finishIntro]);
 
   // Keyboard shortcut (Space, Enter, Escape) to skip instantly
@@ -78,11 +78,11 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [finishIntro]);
 
-  // Safety fallback timeout: locked to exactly 5.0 seconds
+  // Safety fallback timeout: locked to exactly 4.0 seconds
   useEffect(() => {
     const safetyTimer = setTimeout(() => {
       finishIntro();
-    }, 5000);
+    }, 4000);
     return () => clearTimeout(safetyTimer);
   }, [finishIntro]);
 
@@ -141,7 +141,7 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
             <div className="w-full max-w-5xl flex items-center justify-center">
               <AppleNameEffect
                 isDark={isDark}
-                duration={3.0}
+                duration={2.4}
                 className="w-full"
                 onProgress={handleProgress}
                 onAnimationComplete={handleAnimationComplete}

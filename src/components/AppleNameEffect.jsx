@@ -5,7 +5,7 @@ import { sound } from '@/utils/sound';
 
 export function AppleNameEffect({
   isDark = true,
-  duration = 3.0,
+  duration = 2.4,
   className = '',
   onProgress,
   onAnimationComplete,
