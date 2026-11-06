@@ -5,7 +5,7 @@ import { sound } from '@/utils/sound';
 
 export function AppleNameEffect({
   isDark = true,
-  duration = 2.6,
+  duration = 3.0,
   className = '',
   onProgress,
   onAnimationComplete,
@@ -32,13 +32,13 @@ export function AppleNameEffect({
         onProgress(eased);
       }
 
-      if (progress >= 0.15 && focusStage < 1) {
+      if (progress >= 0.10 && focusStage < 1) {
         setFocusStage(1);
       }
-      if (progress >= 0.65 && focusStage < 2) {
+      if (progress >= 0.75 && focusStage < 2) {
         setFocusStage(2);
       }
-      if (progress >= 0.85 && focusStage < 3) {
+      if (progress >= 0.95 && focusStage < 3) {
         setFocusStage(3);
       }
 

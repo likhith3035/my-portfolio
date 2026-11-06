@@ -37,14 +37,14 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     setTimeout(() => {
       setIsDone(true);
       if (onComplete) onComplete();
-    }, 550);
+    }, 500);
   }, [isExiting, isDone, onComplete]);
 
-  // Multilingual greetings cycling in bottom-left corner
+  // Multilingual greetings cycling in bottom-left corner (750ms x 6 languages = 4500ms)
   useEffect(() => {
     const greetingTimer = setInterval(() => {
       setGreetingIndex((prev) => (prev + 1) % GREETINGS.length);
-    }, 600);
+    }, 750);
     return () => clearInterval(greetingTimer);
   }, []);
 
@@ -60,10 +60,10 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     completedRef.current = true;
     setCounter(100);
 
-    // Hold finished intro for 1.1s so visitor can appreciate it, then transition
+    // Hold finished intro for 1.5s so total active duration is 3.0s + 1.5s = 4.5s
     setTimeout(() => {
       finishIntro();
-    }, 1100);
+    }, 1500);
   }, [finishIntro]);
 
   // Keyboard shortcut (Space, Enter, Escape) to skip instantly
@@ -78,11 +78,11 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [finishIntro]);
 
-  // Safety fallback timeout
+  // Safety fallback timeout: locked to exactly 5.0 seconds
   useEffect(() => {
     const safetyTimer = setTimeout(() => {
       finishIntro();
-    }, 5500);
+    }, 5000);
     return () => clearTimeout(safetyTimer);
   }, [finishIntro]);
 
@@ -100,7 +100,7 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
               : { opacity: 1, scale: 1, filter: 'blur(0px)' }
           }
           exit={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           onClick={finishIntro}
           className={`fixed inset-0 z-[99999] overflow-hidden cursor-pointer select-none transition-colors duration-500 ${
             isDark ? 'bg-[#070709] text-[#F6F5EE]' : 'bg-[#FAF9F6] text-zinc-950'
@@ -141,7 +141,7 @@ export default function AppleHelloIntro({ theme = 'light', onComplete }) {
             <div className="w-full max-w-5xl flex items-center justify-center">
               <AppleNameEffect
                 isDark={isDark}
-                duration={2.5}
+                duration={3.0}
                 className="w-full"
                 onProgress={handleProgress}
                 onAnimationComplete={handleAnimationComplete}
