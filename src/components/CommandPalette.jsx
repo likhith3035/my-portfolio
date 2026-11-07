@@ -606,22 +606,6 @@ export default function CommandPalette({
       },
     },
     {
-      id: 'signature-studio',
-      group: 'Developer Tools',
-      category: 'Easter Egg',
-      categoryColor: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
-      title: 'Fountain Pen Signature & Guestbook',
-      desc: 'Watch the 18K fountain pen write the signature or draw your own in the guestbook',
-      keywords: ['signature', 'pen', 'fountain', 'handwriting', 'calligraphy', 'guestbook', 'sign', 'draw'],
-      icon: <FaPenNib className="text-amber-500" />,
-      shortcut: 'S',
-      action: () => {
-        sound.pop();
-        onClose();
-        window.__openSignatureModal?.();
-      },
-    },
-    {
       id: 'joke',
       group: 'Developer Tools',
       category: 'Easter Egg',
