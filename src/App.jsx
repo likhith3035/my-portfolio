@@ -99,7 +99,6 @@ export default function App() {
   useEffect(() => {
     window.__openContactModal = () => setContactOpen(true);
     window.__openResumeModal = () => setResumeOpen(true);
-    window.__openSignatureModal = () => setSignatureOpen(true);
     window.__openCredentialModal = (cred) => setActiveCredential(cred);
     window.__openCommandPalette = () => setCommandPaletteOpen(true);
     window.__triggerMatrix = () => setMatrixActive(true);
@@ -107,7 +106,6 @@ export default function App() {
     return () => {
       delete window.__openContactModal;
       delete window.__openResumeModal;
-      delete window.__openSignatureModal;
       delete window.__openCredentialModal;
       delete window.__openCommandPalette;
       delete window.__triggerMatrix;
