@@ -19,7 +19,6 @@ import {
   FaCode,
   FaShieldAlt,
   FaTimes,
-  FaPenNib,
 } from 'react-icons/fa';
 import { sound } from '../utils/sound';
 
