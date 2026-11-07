@@ -21,7 +21,6 @@ const CustomCursor = lazy(() => import('./components/CustomCursor'));
 const ResumeModal = lazy(() => import('./components/ResumeModal'));
 const CredentialModal = lazy(() => import('./components/CredentialModal'));
 const FloatingHeartsOverlay = lazy(() => import('./components/FloatingHeartsOverlay'));
-const FountainPenSignature = lazy(() => import('./components/FountainPenSignature'));
 
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
