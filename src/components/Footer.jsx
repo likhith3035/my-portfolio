@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaHeart, FaCopy, FaCheck, FaPenNib } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaPhone, FaHeart, FaCopy, FaCheck } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import { sound } from '../utils/sound';
 
