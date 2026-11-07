@@ -149,17 +149,7 @@ export default function Footer() {
               <span className="text-zinc-700">·</span>
               Built with <FaHeart className="text-[var(--accent)]" size={10} />
             </p>
-            <button
-              onClick={() => {
-                sound.pop();
-                window.__openSignatureModal?.();
-              }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-[var(--accent)] hover:border-[var(--accent)]/40 text-[10px] font-mono font-bold tracking-tight transition-all active:scale-95 shadow-xs cursor-pointer"
-              title="Open Fountain Pen Calligraphy Studio & Visitor Guestbook"
-            >
-              <FaPenNib size={9} className="text-[var(--accent)]" />
-              <span>Sign Guestbook</span>
-            </button>
+
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[10px] font-mono font-bold tracking-tight shadow-xs">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#10b981]" />
               <span>Srikalahasti, AP</span>
