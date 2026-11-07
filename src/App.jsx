@@ -26,7 +26,6 @@ const FountainPenSignature = lazy(() => import('./components/FountainPenSignatur
 export default function App() {
   const [contactOpen, setContactOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
-  const [signatureOpen, setSignatureOpen] = useState(false);
   const [activeCredential, setActiveCredential] = useState(null);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [matrixActive, setMatrixActive] = useState(false);
@@ -142,7 +141,6 @@ export default function App() {
         <CustomCursor />
         {contactOpen && <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />}
         {resumeOpen && <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />}
-        {signatureOpen && <FountainPenSignature isOpen={signatureOpen} onClose={() => setSignatureOpen(false)} />}
         {activeCredential && (
           <CredentialModal
             isOpen={!!activeCredential}
