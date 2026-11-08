@@ -31,8 +31,10 @@
 
   <p align="center">
     <a href="#-interactive-features--easter-eggs">Explore Features</a> •
+    <a href="#-cinematic-executive-name-intro">Executive Intro</a> •
     <a href="#-keyboard-shortcuts">Keyboard Shortcuts</a> •
     <a href="#-tech-stack">Tech Stack</a> •
+    <a href="#-project-directory-structure">Architecture</a> •
     <a href="#-featured-projects">Featured Projects</a> •
     <a href="#-local-development">Local Setup</a> •
     <a href="#-connect-with-me">Connect</a>
