@@ -86,6 +86,7 @@ It serves as both an interactive personal brand showcase and an engineering play
 | Shortcut | Action | Scope |
 | :--- | :--- | :--- |
 | <kbd>Ctrl</kbd> + <kbd>K</kbd> / <kbd>Cmd</kbd> + <kbd>K</kbd> | Open Spotlight Command Palette | Global |
+| <kbd>Esc</kbd> / <kbd>Space</kbd> / <kbd>Enter</kbd> | Skip intro preloader animation immediately | Intro Screen |
 | <kbd>Esc</kbd> | Dismiss any open modal (Contact, Resume, Palette, Screenshots) | Global |
 | <kbd>Click</kbd> *(in Love Theme)* | Spawn floating heart / sparkle particle stream | Global |
 
