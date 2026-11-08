@@ -96,11 +96,11 @@ It serves as both an interactive personal brand showcase and an engineering play
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│                          VIBE CODER ARCHITECTURE                       │
+│                      KAMI LIKHITH PORTFOLIO STACK                      │
 ├──────────────────┬───────────────────┬──────────────────┬──────────────┤
-│ Frontend Core    │ Styling & UI      │ Motion & Effects │ Integrations │
+│ Frontend Core    │ Styling & UI      │ Motion & Optics  │ Integrations │
 │ • React 19       │ • Tailwind CSS    │ • Framer Motion  │ • Web3Forms  │
-│ • Vite 8         │ • Glassmorphism   │ • SVG Strokes    │ • FormSubmit │
+│ • Vite 8 (Rolld) │ • Glassmorphism   │ • Masked Horizon │ • Vercel Web │
 │ • ESNext JS      │ • React Icons     │ • Canvas Matrix  │ • Analytics  │
 └──────────────────┴───────────────────┴──────────────────┴──────────────┘
 ```
