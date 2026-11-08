@@ -124,7 +124,7 @@ portfolio/
 │   ├── components/             # 28+ Modular React UI components & modals
 │   │   ├── About.jsx               # Bio, timeline, education & interactive tech pills
 │   │   ├── AppleHelloIntro.jsx     # Cinematic preloader with regional Indian greetings
-│   │   ├── AppleNameEffect.jsx     # Optical rack-focus lens blur reveal for Kami Likhith
+│   │   ├── AppleNameEffect.jsx     # Executive masked typographic reveal & brushed sheen
 │   │   ├── ChatBot.jsx             # AI recruiter chatbot assistant
 │   │   ├── CommandPalette.jsx      # Cmd+K Spotlight search & action launcher
 │   │   ├── ConfettiOverlay.jsx     # Canvas confetti celebration trigger
@@ -142,9 +142,9 @@ portfolio/
 │   │   ├── ResumeModal.jsx         # Interactive in-browser resume viewer
 │   │   └── SpotlightCursor.jsx     # Radial gradient cursor follower
 │   ├── data/                   # Decoupled project, education & experience datasets
-│   │   ├── education.js            # Academic degrees, coursework & certifications
-│   │   ├── experience.js           # Internships, hackathon awards & achievements
-│   │   └── projects.js             # Detailed project specs, features & workflows
+│   │   ├── education.jsx           # Academic degrees, coursework & certifications
+│   │   ├── experience.jsx          # Internships, hackathon awards & achievements
+│   │   └── projects.jsx            # Detailed project specs, features & workflows
 │   ├── utils/                  # Helper utilities and motion transitions
 │   ├── App.jsx                 # Root layout with lazy-loaded Suspense boundaries
 │   ├── index.css               # Tailwind directives, theme variables & animations
