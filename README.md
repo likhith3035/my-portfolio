@@ -21,6 +21,9 @@
     <a href="https://motion.dev/" target="_blank">
       <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
     </a>
+    <a href="https://github.com/likhith3035/my-portfolio/blob/main/LICENSE" target="_blank">
+      <img src="https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="MIT License" />
+    </a>
     <a href="https://vercel.com/analytics" target="_blank">
       <img src="https://img.shields.io/badge/Vercel_Analytics-black?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Analytics" />
     </a>
