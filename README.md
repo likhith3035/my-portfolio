@@ -193,7 +193,11 @@ npm install
 ### 4. Configure Environment Variables
 Create a local `.env` file from the provided `.env.example`:
 ```bash
+# macOS / Linux / Git Bash
 cp .env.example .env
+
+# Windows PowerShell
+Copy-Item .env.example .env
 ```
 
 Open `.env` and set your Web3Forms access key:
