@@ -53,9 +53,10 @@ It serves as both an interactive personal brand showcase and an engineering play
 
 ## ⚡ Interactive Features & Easter Eggs
 
-### 🍎 1. Apple-Style Handwriting Intro
-- Features an SVG cursive stroke-drawing animation on initial site entry (`AppleHelloIntro.jsx` and `AppleNameEffect.jsx`).
-- Uses dynamic stroke-dashoffset interpolation and vector cursive math to draw *"Hello"* and *"Kami Likhith"* naturally.
+### 🍎 1. Executive Masked Name Reveal & Regional Greetings
+- Features an Apple Keynote-grade typographic masked reveal on initial visit (`AppleHelloIntro.jsx` and `AppleNameEffect.jsx`).
+- Uses precision horizontal clipping plane rises, an expanding architectural baseline with diamond anchor, and a brushed titanium light sheen.
+- Cycles through 6 regional Indian languages (English, Telugu, Hindi, Tamil, Kannada, Malayalam) in a synchronized 4.0s cadence.
 
 ### ⌨️ 2. Spotlight Command Palette (`Ctrl + K` / `Cmd + K`)
 - Instant keyboard-first navigation modal (`CommandPalette.jsx`).
