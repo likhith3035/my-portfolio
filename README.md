@@ -227,9 +227,6 @@ Visit `http://localhost:5173` in your browser.
 
 ---
 
-
----
-
 ## 🎬 Cinematic Executive Name Intro
 
 The portfolio launches with an **Apple Keynote / Linear-grade executive typographic reveal** centered on **`KAMI LIKHITH`**:
@@ -272,5 +269,5 @@ The portfolio launches with an **Apple Keynote / Linear-grade executive typograp
 <br />
 
 <div align="center">
-  <sub>Built with ❤️ and continuous caffeine by <b>Kami Likhith</b>. Licensed under the <a href="./LICENSE">MIT License</a>.</sub>
+  <sub>Engineered with precision, ❤️, and continuous caffeine by <b>Kami Likhith</b>. Licensed under the <a href="./LICENSE">MIT License</a>.</sub>
 </div>
