@@ -159,14 +159,14 @@ portfolio/
 
 ## 🏆 Featured Projects
 
-| Project | Category | Recognition / Highlight | Live Links |
+| Project | Focus Domain | Architecture & Highlights | Links |
 | :--- | :--- | :--- | :--- |
-| **CampusIQ** | AI / Data Science | **KPMG in India Hackathon** · Early warning student analytics with multi-factor risk scoring, $k$-Means clustering, and automated WhatsApp counselor alerts. | [Live Demo](https://learnonva.vercel.app/) · [GitHub](https://github.com/likhith3035/smart-campus) |
-| **StudentHub** | Web / PWA / AI | **National Finalist @ HackPrix S3** · 36-hour sprint campus collaboration PWA integrating Sarvam AI voice assistant, notes sharing, and smart links. | [Live Demo](https://gensync-78.vercel.app/) · [GitHub](https://github.com/likhith3035/StudentHub) |
-| **SV Care Diagnostics** | Healthcare / Web | **ISO 9001:2015 Client Platform** · 100+ blood test diagnostic lab catalogue with WhatsApp prescription quoting, doorstep booking, and bilingual Telugu/English localization. | [Live Demo](https://svcarehealthdiagnostics.vercel.app/) · [GitHub](https://github.com/likhith3035/svcare) |
-| **Secure Vault** | Cybersecurity / GUI | **Desktop Security** · AES-256-CBC folder encryption suite with randomized filename obfuscation and Gmail API automated OTP delivery. | [GitHub](https://github.com/likhith3035/secure-vault-folder-encryption) |
-| **Incog Talkk** | Real-Time / WebRTC | **Privacy-Focused** · P2P anonymous real-time chat with WebSocket signaling, zero persistent storage, and low-latency sync. | [Live Demo](https://incogtalkk.netlify.app/) · [GitHub](https://github.com/likhith3035/livetalkbylikki) |
-| **Hostel Portal** | Full-Stack | **Real-Time Accommodation System** · Room allocation, mess menu management, and ticket tracking built on React and Firebase Firestore. | [Live Demo](https://nbkristhostelportal.netlify.app/) · [GitHub](https://github.com/likhith3035/hostel-portal-2) |
+| **CampusIQ** | AI · Data Science | **KPMG in India Hackathon** · Early warning student analytics with multi-factor risk scoring ($S^3$), $k$-Means clustering, SHAP explainability, and WhatsApp alerts. | [Live Demo](https://learnonva.vercel.app/) · [GitHub](https://github.com/likhith3035/smart-campus) |
+| **StudentHub** | Full Stack · PWA | **National Finalist @ HackPrix S3** · 36-hour sprint campus collaboration PWA integrating Sarvam AI voice assistant, notes sharing, and smart pipelines. | [Live Demo](https://gensync-78.vercel.app/) · [GitHub](https://github.com/likhith3035/StudentHub) |
+| **SV Care Diagnostics** | Healthcare · Web | **ISO 9001:2015 Production Platform** · 100+ test clinical catalogue, WhatsApp photo prescription quotes, home booking, and Telugu/English localization. | [Live Demo](https://svcarehealthdiagnostics.vercel.app/) · [GitHub](https://github.com/likhith3035/svcare) |
+| **Secure Vault** | Cybersecurity · Python | **Desktop Cryptography** · AES-256-CBC folder encryption suite with randomized filename obfuscation and Gmail API automated OTP authentication. | [GitHub](https://github.com/likhith3035/secure-vault-folder-encryption) |
+| **Incog Talkk** | WebSockets · WebRTC | **Privacy First** · Zero-registration anonymous P2P real-time chat with room signaling, zero persistent logs, and sub-100ms sync. | [Live Demo](https://incogtalkk.netlify.app/) · [GitHub](https://github.com/likhith3035/livetalkbylikki) |
+| **Hostel Portal** | Cloud · React | **Campus Living Portal** · Room allocations, automated mess menu schedules, and issue ticketing built on React and Firebase Firestore. | [Live Demo](https://nbkristhostelportal.netlify.app/) · [GitHub](https://github.com/likhith3035/hostel-portal-2) |
 
 ---
 
