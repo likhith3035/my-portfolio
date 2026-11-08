@@ -230,17 +230,18 @@ Visit `http://localhost:5173` in your browser.
 
 ---
 
-## 🎬 Cinematic Rack-Focus Name Intro
+## 🎬 Cinematic Executive Name Intro
 
-The portfolio launches with a film-grade **optical rack-focus title card** centered on **`KAMI LIKHITH`**:
+The portfolio launches with an **Apple Keynote / Linear-grade executive typographic reveal** centered on **`KAMI LIKHITH`**:
 
-- **Optical Camera Focus Pull:** Smoothly resolves from high-aperture optical lens blur ($32\text{px}$) to sub-pixel clarity at exact screen dead center ($X=50\%, Y=50\%$).
-- **Sub-Pixel Optical Centering:** Letter-spacing compensation (`pl-[0.34em] sm:pl-[0.42em]`) counteracts CSS tracking bias for mathematical horizontal and vertical symmetry.
-- **Metallic Liquid Sheen:** A diagonal light sweep reflects across the assembled typography once focus resolves.
-- **Expanding Laser Horizon:** An ultra-thin anamorphic horizon line with radiant diamond core bead.
-- **Regional Indian Greetings:** Bottom-left rolling ticker cycling through **English (`Hello`), Telugu (`నమస్కారం`), Hindi (`नमस्ते`), Tamil (`வணக்கம்`), Kannada (`ನಮಸ್ಕಾರ`), and Malayalam/Kerala (`നമസ്കാരം`)**.
-- **Dual-Tone Luxury Contrast:** Deep `#070709` OLED obsidian in Dark Mode; crisp `#09090B` Obsidian Carbon on `#FAF9F6` luxury linen in Bright Mode.
-- **Instant Skip Controls:** Tap anywhere, or press `ESC`, `Space`, or `Enter` to seamlessly transition to the main interface.
+- **Masked Typographic Horizon Rise:** Letters emerge crisply from an invisible horizontal clipping plane using Apple quintic easing (`1 - (1 - t)^5`) with $35\text{ms}$ individual glyph staggering.
+- **Sub-Pixel Optical Centering:** Symmetrical letter-spacing compensation (`pl-[0.34em] sm:pl-[0.42em]`) counteracts CSS tracking bias for mathematical dead-center alignment ($X=50\%, Y=50\%$).
+- **Architectural $1\text{px}$ Baseline:** An expanding hairline horizon rule anchored by a centered $45^\circ$ precision diamond bead.
+- **Brushed Titanium / Sapphire Sheen:** A restrained $25^\circ$ diagonal light reflection sweep glides across the typography once locked onto the baseline.
+- **Synchronized 4.0-Second Cadence:** Precisely calibrated active duration ($2.4\text{s}$ reveal + $1.1\text{s}$ hold + $0.5\text{s}$ crossfade exit) timed with bottom-left regional Indian greetings.
+- **Regional Indian Greetings:** Bottom-left rolling ticker rotating through **English (`Hello`), Telugu (`నమస్కారం`), Hindi (`नमस्ते`), Tamil (`வணக்கம்`), Kannada (`ನಮಸ್ಕಾರ`), and Malayalam/Kerala (`നമസ്കാരം`)** at $580\text{ms}$ intervals.
+- **Dual-Tone Luxury Contrast:** Deep `#070709` OLED obsidian with warm amber in Dark Mode; crisp `#09090B` Obsidian Carbon on `#FAF9F6` luxury linen in Bright Mode.
+- **Instant Skip Controls:** Tap anywhere, or press <kbd>ESC</kbd>, <kbd>Space</kbd>, or <kbd>Enter</kbd> to seamlessly transition to the main interface.
 
 ## ⚡ Performance & Mobile Optimizations
 
