@@ -9,13 +9,6 @@ const SOCIALS = [
   { href: 'https://www.instagram.com/lucky__likhith',                    icon: <FaInstagram />, label: 'Instagram' },
 ];
 
-const NAV = [
-  { href: '#home',       label: 'Home'       },
-  { href: '#about',      label: 'About'      },
-  { href: '#experience', label: 'Experience' },
-  { href: '#projects',   label: 'Projects'   },
-];
-
 export default function Footer() {
   const [copied, setCopied] = useState(false);
   const [istTime, setIstTime] = useState('');
@@ -45,12 +38,6 @@ export default function Footer() {
     sound.success();
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  const scrollTo = (e, href) => {
-    e.preventDefault();
-    sound.click();
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
@@ -158,21 +145,8 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Right: nav + contact */}
+          {/* Right: contact */}
           <div className="flex items-center gap-6 flex-wrap justify-center">
-            <nav className="flex gap-4">
-              {NAV.map(link => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={e => scrollTo(e, link.href)}
-                  className="hover:text-white transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-
             <a href="tel:+918885426155" className="flex items-center gap-1.5 hover:text-white transition-colors">
               <FaPhone size={10} className="text-[var(--accent)]" />
               +91 88854 26155
