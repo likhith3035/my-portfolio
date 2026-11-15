@@ -145,12 +145,29 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Right: contact */}
-          <div className="flex items-center gap-6 flex-wrap justify-center">
-            <a href="tel:+918885426155" className="flex items-center gap-1.5 hover:text-white transition-colors">
+          {/* Right: phone contact & back to top */}
+          <div className="flex items-center gap-4 flex-wrap justify-center">
+            <a
+              href="tel:+918885426155"
+              aria-label="Call Kami Likhith at +91 88854 26155"
+              className="flex items-center gap-1.5 hover:text-white transition-colors"
+            >
               <FaPhone size={10} className="text-[var(--accent)]" />
               +91 88854 26155
             </a>
+            <span className="text-zinc-800 hidden sm:inline" aria-hidden="true">·</span>
+            <button
+              type="button"
+              onClick={() => {
+                sound.click();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="hidden sm:inline-flex items-center gap-1 text-zinc-500 hover:text-white transition-colors cursor-pointer"
+              aria-label="Scroll back to top of page"
+            >
+              <span>Back to top</span>
+              <span className="text-[var(--accent)] text-[11px]" aria-hidden="true">↑</span>
+            </button>
           </div>
         </div>
       </div>
